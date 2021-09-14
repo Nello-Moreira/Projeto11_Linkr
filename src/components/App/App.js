@@ -1,5 +1,6 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import routes from '../../routes/routes';
+import Timeline from '../Timeline/Timeline';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         </Route>
 
         <Route exact path={routes.timeline}>
-          timeline
+          <Timeline />
         </Route>
 
         <Route exact path={routes.myPosts}>
