@@ -1,8 +1,11 @@
 import axiosBase from './axiosBase';
 
-/* criar funcoes das endpoints aqui */
 function signUp({ email, password, username, pictureUrl }) {
     return axiosBase.post('/sign-up', { email, password, username, pictureUrl })
 }
 
-export { signUp };
+function login({ email, password }) {
+    return axiosBase.post('/sign-in', { email, password })
+}
+
+export { signUp, login };
