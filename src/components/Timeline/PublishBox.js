@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getPosts, post } from "../../API/requests";
 
+import ProfileImage from "../_shared/ProfileImage";
+
 export default function PublishteBox() {
 
     const userTest = {
@@ -16,10 +18,10 @@ export default function PublishteBox() {
 
     function updateTimeline() {
         getPosts(userTest)
-        .then((resp)=> console.log(resp.data));
+            .then((resp) => console.log(resp.data));
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         updateTimeline();
     }, []);
 
@@ -27,7 +29,7 @@ export default function PublishteBox() {
 
     const [loading, setLoading] = useState(false);
 
-    function clearedForm(){
+    function clearedForm() {
         return {
             link: "",
             text: ""
@@ -51,19 +53,22 @@ export default function PublishteBox() {
 
     return (
         <BoxContainer>
-            <Profile>
-                Profile
-            </Profile>
+            <ProfileImage padding={18}/>
             <PostForm onSubmit={publishPost}>
-                <Input type="text" name="link"
+                <Label>O que você tem pra favoritar hoje?</Label>
+                
+                <input type="url" name="link"
                     placeholder="http://..." required disabled={loading} value={newPost.link}
                     onChange={(e) => setNewPost({ ...newPost, link: `${e.target.value}` })} />
 
-                <Input type="text" name="linkComment" disabled={loading} value={newPost.text}
+                <textarea type="text" name="linkComment" disabled={loading} value={newPost.text}
                     placeholder="O que você achou desse link?"
-                    onChange={(e) => setNewPost({ ...newPost, text: `${e.target.value}` })} />
+                    onChange={(e) => {
+                        e.preventDefault();
+                        setNewPost({ ...newPost, text: `${e.target.value}` })}} />
 
-                <Input type="submit" name="publish" value="Publicar" disabled={loading} />
+                <button type="submit" name="publish" disabled={loading} >Publicar </button>
+
             </PostForm>
         </BoxContainer>
     );
@@ -71,17 +76,46 @@ export default function PublishteBox() {
 
 const BoxContainer = styled.div`
     display: flex;
-    background-color: white;
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
     width: 611px;
+    height: 209px;
 `
-const Profile = styled.div`
-    width: 86px;
-`
+
 
 const PostForm = styled.form`
     display: flex;
     flex-direction: column;
     width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+
+    input, textarea {
+        width: 503px;
+        background: #EFEFEF;
+        border-radius: 5px;
+        border: none;
+        margin: 2px 0;
+        padding: 5px 13px;
+        font-family: inherit;
+
+        &::placeholder {
+            color: #949494;
+            font-size: 15px;
+        }
+
+        &[type=url] {
+        height: 30px;
+        }
+
+        &[type=text]{
+            height: 66px;            
+        }
+    }
 `
-const Input = styled.input`
+const Label = styled.label`
+    color: #707070;
+    font-size: 20px;
+    padding: 20px 0;
 `
