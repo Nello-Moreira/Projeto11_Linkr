@@ -1,4 +1,4 @@
-export const routes = {
+const routes = {
     login: '/',
     signUp: '/cadastro',
     timeline: '/timeline',
@@ -7,3 +7,5 @@ export const routes = {
     likes: '/my-likes',
     trending: '/hashtag/:hashtag'
 }
+
+export default routes;
