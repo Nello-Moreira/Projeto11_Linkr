@@ -3,6 +3,7 @@ import Cover from '../_shared/Cover';
 import ContentContainer from '../_shared/ContentContainer';
 import { CustomForm, CustomInput } from '../_shared/Inputs';
 import BlueButton from '../_shared/buttons/BlueButton';
+import CustomLink from '../_shared/CustomLink';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { signUp } from '../../API/requests';
@@ -58,6 +59,7 @@ export default function SignUp(params) {
     return (
         <HomeContainer>
             <Cover />
+
             <ContentContainer>
                 <CustomForm onSubmit={signUpSubmit}>
                     {inputsValues.map((input, index) =>
@@ -76,6 +78,10 @@ export default function SignUp(params) {
                         Sign Up
                     </BlueButton>
                 </CustomForm>
+
+                <CustomLink onClick={loading ? null : () => history.push(routes.login)}>
+                    Switch back to log in
+                </CustomLink>
 
             </ContentContainer>
         </HomeContainer >

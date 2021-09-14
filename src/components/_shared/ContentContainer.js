@@ -12,7 +12,7 @@ const ContentContainer = styled.div`
 
     @media (max-width: 700px) {
         width: 100vw;
-        padding: 40px 10px 0;
+        padding: 40px 20px 0;
         justify-content: flex-start;
     }
 `;
