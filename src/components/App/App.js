@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import routes from '../../routes/routes';
 import Timeline from '../Timeline/Timeline';
 import SignUp from '../SignUp/SignUp';
+import MyPosts from "../MyPosts/MyPosts";
 import '../App/App.css'
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
         </Route>
 
         <Route exact path={routes.myPosts}>
-          meus posts
+          <MyPosts />
         </Route>
 
         <Route exact path={routes.user}>
