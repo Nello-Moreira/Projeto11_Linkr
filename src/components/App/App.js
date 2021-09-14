@@ -1,6 +1,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import routes from '../../routes/routes';
 import Timeline from '../Timeline/Timeline';
+import '../App/App.css'
 
 function App() {
   return (
