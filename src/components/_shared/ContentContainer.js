@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
-const FormContainer = styled.div`
+const ContentContainer = styled.div`
+    box-sizing: border-box;
     height: 100%;
     width: 535px;
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,9 +12,9 @@ const FormContainer = styled.div`
 
     @media (max-width: 700px) {
         width: 100vw;
-        padding: 40px;
+        padding: 40px 10px 0;
         justify-content: flex-start;
     }
 `;
 
-export default FormContainer;
+export default ContentContainer;

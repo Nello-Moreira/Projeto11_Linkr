@@ -22,6 +22,7 @@ const Container = styled.div`
     width: 100%;
     padding-left: 100px;
     background-color: rgba(21, 21, 21, 1);
+    box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,13 +36,13 @@ const Container = styled.div`
 `;
 
 const CoverTitle = styled.h2`
-    font-family: "Passion One";
+    font-family: 'Passion One', cursive;
     font-size: 70px;
     font-weight: 700;
 `;
 
 const CoverSubTitle = styled.h3`
-    font-family: "Oswald";
+    font-family: "Oswald", sans-serif;
     font-size: 23px;
     font-weight: 700;
 `;
