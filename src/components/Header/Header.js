@@ -5,7 +5,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 export default function Header() {
     return (
         <FixedContainer>
-            <Logo>Linkr</Logo>
+            <Logo>linkr</Logo>
             <MenuContainer>
                 <MdKeyboardArrowDown color="white" fontSize="60px"/>
                 <ProfileImage />
@@ -25,6 +25,9 @@ const FixedContainer = styled.div`
     padding: 10px 28px;
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: 700px){
+    }
 `
 const Logo = styled.div`
     font-family: 'Passion One', cursive;
