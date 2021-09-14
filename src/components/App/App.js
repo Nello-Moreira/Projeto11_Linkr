@@ -1,5 +1,5 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import {routes} from '../../routes/routes';
+import routes from '../../routes/routes';
 
 function App() {
   return (
