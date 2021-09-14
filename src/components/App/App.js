@@ -1,6 +1,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import routes from '../../routes/routes';
 import Timeline from '../Timeline/Timeline';
+import SignUp from '../SignUp/SignUp';
 import '../App/App.css'
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
         </Route>
 
         <Route exact path={routes.signUp}>
-          cadastro 2
+          <SignUp />
         </Route>
 
         <Route exact path={routes.timeline}>
