@@ -26,6 +26,10 @@ const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    position: ${({ customStyle }) => customStyle.position ? customStyle.position : "initial"};
+    bottom: ${({ customStyle }) => customStyle.bottom ? customStyle.bottom : "" };
+    margin: ${({ customStyle }) => customStyle.margin ? customStyle.margin : ""};
+    right: ${({ customStyle }) => customStyle.right ? customStyle.right : ""};
 
     :hover{
         background-color: ${({ customStyle }) => customStyle.loading ? 'rgba(24, 119, 242, 1)' : 'rgb(82, 182, 255)'};;

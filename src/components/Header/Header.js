@@ -1,9 +1,15 @@
 import styled from "styled-components";
+import ProfileImage from "../_shared/ProfileImage";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 export default function Header() {
-    return(
+    return (
         <FixedContainer>
             <Logo>Linkr</Logo>
+            <MenuContainer>
+                <MdKeyboardArrowDown color="white" fontSize="60px"/>
+                <ProfileImage />
+            </MenuContainer>
         </FixedContainer>
     );
 }
@@ -17,10 +23,15 @@ const FixedContainer = styled.div`
     height: 72px;
     background-color: black;
     padding: 10px 28px;
+    display: flex;
+    justify-content: space-between;
 `
 const Logo = styled.div`
     font-family: 'Passion One', cursive;
     font-size: 49px;
     font-weight: 700;
     color: white;
+`
+const MenuContainer = styled.div`
+    display: flex;
 `

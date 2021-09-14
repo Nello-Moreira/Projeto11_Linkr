@@ -43,7 +43,10 @@ export default function Login(params) {
                 if (err.response.status === statusCode.wrongUserOrPassword) {
                     setLoading(false);
                     alert(err.response.data.message);
+                    return;
                 }
+                setLoading(false);
+                alert('An error has occurred. Please, try again.');
             });
     }
 

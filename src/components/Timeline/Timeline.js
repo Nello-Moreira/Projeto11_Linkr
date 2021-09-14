@@ -1,6 +1,7 @@
 import { Container } from "../_shared/PageContainer";
 import { PageTitle } from "../_shared/PageTitle";
 import Header from "../Header/Header";
+import PublishBox from "./PublishBox";
 
 export default function Timeline() {
     return (
@@ -9,6 +10,7 @@ export default function Timeline() {
             <PageTitle>
                 timeline
             </PageTitle>
+            <PublishBox />
         </Container>
     );
 }

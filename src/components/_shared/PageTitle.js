@@ -5,6 +5,6 @@ const PageTitle = styled.h1`
     font-weight: bold;
     font-size: 43px;
     color: white;
-    margin-top: 63px;
+    margin: 63px 0;
 `
 export { PageTitle };

@@ -1,6 +1,6 @@
 const statusCode = {
     invalidField: 400,
-    wrongUserOrPassword: 401,
+    wrongUserOrPassword: 403,
     alreadyExists: 403,
 };
 

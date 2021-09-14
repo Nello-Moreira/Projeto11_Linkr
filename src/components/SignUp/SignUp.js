@@ -43,11 +43,15 @@ export default function SignUp(params) {
                 if (err.response.status === statusCode.invalidField) {
                     setLoading(false);
                     alert(err.response.data.message);
+                    return;
                 }
                 if (err.response.status === statusCode.alreadyExists) {
                     setLoading(false);
                     alert(err.response.data.message);
+                    return;
                 }
+                setLoading(false);
+                alert('An error has occurred. Please, try again.');
             });
     }
 
