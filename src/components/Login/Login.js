@@ -1,10 +1,11 @@
 import HomeContainer from '../_shared/HomeContainer';
+import CircleLoader from '../loaders/CircleLoader'
 import Cover from '../_shared/Cover';
 import ContentContainer from '../_shared/ContentContainer';
 import { CustomForm, CustomInput } from '../_shared/Inputs';
 import BlueButton from '../_shared/buttons/BlueButton';
 import CustomLink from '../_shared/CustomLink';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../contexts/UserContext';
 import { useHistory } from 'react-router-dom';
 import { login } from '../../API/requests';
@@ -15,11 +16,29 @@ export default function Login(params) {
     const history = useHistory();
     const { setUser } = useContext(UserContext);
 
+    const [firstLoad, setFirsLoading] = useState(true);
     const [loading, setLoading] = useState(false);
     const [inputsValues, setInputsValues] = useState([
         { field: 'email', value: '', type: 'email', placeholder: 'e-mail' },
         { field: 'password', value: '', type: 'password', placeholder: 'Password' }
     ]);
+
+    useEffect(() => {
+        const localStorageUser = getUserFromLocalStorage();
+
+        if (!localStorageUser) return setFirsLoading(false);
+
+        setUser(localStorageUser);
+        history.push(routes.timeline);
+    }, [])
+
+    function getUserFromLocalStorage() {
+        return JSON.parse(localStorage.getItem('linkrUser'));
+    }
+
+    function setLocalStorage(value) {
+        localStorage.setItem('linkrUser', JSON.stringify(value));
+    }
 
     function getInputValue(field) {
         const input = inputsValues.filter(input => input.field === field)[0];
@@ -28,6 +47,7 @@ export default function Login(params) {
 
     function loginSubmit(event) {
         event.preventDefault();
+
         setLoading(true);
 
         login({
@@ -37,6 +57,7 @@ export default function Login(params) {
             .then(response => {
                 setLoading(false);
                 setUser(response.data);
+                setLocalStorage(response.data);
                 history.push(routes.timeline);
             })
             .catch(err => {
@@ -57,31 +78,37 @@ export default function Login(params) {
 
     return (
         <HomeContainer>
-            <Cover />
+            {firstLoad ?
+                <CircleLoader customStyle={{ height: '100%' }} />
+                :
+                <>
+                    <Cover />
 
-            <ContentContainer>
-                <CustomForm onSubmit={loginSubmit}>
-                    {inputsValues.map((input, index) =>
-                        <CustomInput
-                            value={input.value}
-                            onChange={loading ? null : (event) => inputValueRecorder(index, input, event.target.value)}
-                            placeholder={input.placeholder}
-                            type={input.type}
-                            customStyle={{ loading }}
-                            required
-                            key={index}
-                        />
-                    )}
+                    <ContentContainer>
+                        <CustomForm onSubmit={loginSubmit}>
+                            {inputsValues.map((input, index) =>
+                                <CustomInput
+                                    value={input.value}
+                                    onChange={loading ? null : (event) => inputValueRecorder(index, input, event.target.value)}
+                                    placeholder={input.placeholder}
+                                    type={input.type}
+                                    customStyle={{ loading }}
+                                    required
+                                    key={index}
+                                />
+                            )}
 
-                    <BlueButton customStyle={{ loading }} type='submit'>
-                        Log In
-                    </BlueButton>
-                </CustomForm>
+                            <BlueButton customStyle={{ loading }} type='submit'>
+                                Log In
+                            </BlueButton>
+                        </CustomForm>
 
-                <CustomLink onClick={loading ? null : () => history.push(routes.signUp)}>
-                    First time? Create an account!
-                </CustomLink>
-            </ContentContainer>
+                        <CustomLink onClick={loading ? null : () => history.push(routes.signUp)}>
+                            First time? Create an account!
+                        </CustomLink>
+                    </ContentContainer>
+                </>
+            }
         </HomeContainer >
     )
 };
