@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { getPosts, post } from "../../API/requests";
 
 import ProfileImage from "../_shared/ProfileImage";
+import BlueButton from "../_shared/buttons/BlueButton";
 
 export default function PublishteBox() {
 
@@ -67,7 +68,10 @@ export default function PublishteBox() {
                         e.preventDefault();
                         setNewPost({ ...newPost, text: `${e.target.value}` })}} />
 
-                <button type="submit" name="publish" disabled={loading} >Publicar </button>
+                <BlueButton customStyle={{fontFamily: "'Lato', sans-serif",
+                width: "112px", height: "31px", fontSize: "14px", position: "absolute",
+                bottom: "0", margin: "10px 20px", right: "0"}} 
+                type="submit" name="publish" disabled={loading} >Publicar </BlueButton>
 
             </PostForm>
         </BoxContainer>
@@ -81,6 +85,7 @@ const BoxContainer = styled.div`
     border-radius: 16px;
     width: 611px;
     height: 209px;
+    position: relative;
 `
 
 
