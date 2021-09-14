@@ -10,7 +10,7 @@ function App() {
         </Route>
 
         <Route exact path={routes.signUp}>
-          cadastro
+          cadastro 2
         </Route>
 
         <Route exact path={routes.timeline}>
