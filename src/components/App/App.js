@@ -1,7 +1,8 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import routes from '../../routes/routes';
-import Timeline from '../Timeline/Timeline';
-import '../App/App.css'
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import routes from "../../routes/routes";
+import Timeline from "../Timeline/Timeline";
+import "../App/App.css";
+import MyPosts from "../MyPosts/MyPosts";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         </Route>
 
         <Route exact path={routes.myPosts}>
-          meus posts
+          <MyPosts />
         </Route>
 
         <Route exact path={routes.user}>
