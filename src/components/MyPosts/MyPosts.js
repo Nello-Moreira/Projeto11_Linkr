@@ -8,18 +8,12 @@ import { PageTitle } from "../_shared/PageTitle";
 import Post from "../_shared/Post";
 
 export default function MyPosts() {
-  //const { user } = useContext(UserContext);
-  const storedUser = getUserFromLocalStorage();
-  const { user, token } = storedUser;
+  const { user } = useContext(UserContext);
 
   const [postList, setPostList] = useState([]);
 
-  function getUserFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("linkrUser"));
-  }
-
   useEffect(() => {
-    getUserPosts({ id: user.id, token: token })
+    getUserPosts({ id: user.user.id, token: user.token })
       .then((response) => setPostList(response.data.posts))
       .catch(() => "Ops, algo deu errado.");
   }, []);
