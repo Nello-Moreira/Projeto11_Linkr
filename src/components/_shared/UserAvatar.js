@@ -17,7 +17,7 @@ const Profile = styled.div`
 	display: flex;
 	align-items: center;
 
-	@media (max-width: 700px){
+	@media (max-width: 611px){
 		display: ${({ customStyle }) => customStyle.mobileDisplay ? customStyle.mobileDisplay : "initial"};
 	}
 

@@ -116,12 +116,8 @@ const PostForm = styled.form`
 		}
 	}
 
-
-
-	@media (max-width: 611px){
-		input, textarea {
-			width: 100%;
-		}
+	@media (max-width: 611px) {
+		width: 100%;
 	}
 `
 const Label = styled.label`
@@ -129,7 +125,7 @@ const Label = styled.label`
 	font-size: 20px;
 	padding: 20px 0;
 
-	@media (max-width: 700px){
+	@media (max-width: 611px){
 		text-align: center;
 	}
 `
