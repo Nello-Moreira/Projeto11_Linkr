@@ -26,4 +26,10 @@ function getUserPosts({ id, token }) {
   });
 }
 
-export { login, signUp, post, getPosts, getUserPosts };
+function getUserData({ id, token }) {
+  return axiosBase.get(`/users/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export { login, signUp, post, getPosts, getUserPosts, getUserData };
