@@ -1,13 +1,15 @@
+import styled from "styled-components";
 import { Container } from "../_shared/PageContainer";
 import Post from "../_shared/Post";
+
 export default function MyPosts() {
   return (
-    <Container>
+    <ContainerPosts>
       <Post postData={postData} />
       <Post postData={postData} />
       <Post postData={postData} />
       <Post postData={postData} />
-    </Container>
+    </ContainerPosts>
   );
 }
 
@@ -26,3 +28,7 @@ const postData = {
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/1/avatar",
   },
 };
+
+const ContainerPosts = styled(Container)`
+  width: 100%;
+`;
