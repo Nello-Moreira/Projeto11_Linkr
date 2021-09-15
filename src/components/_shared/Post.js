@@ -4,6 +4,8 @@ import { AiOutlineHeart } from "react-icons/ai";
 export default function Post({ postData }) {
   const { text, link, linkTitle, linkDescription, linkImage, user } = postData;
 
+  console.log("oi")
+
   return (
     <PostContainer>
       <LeftContainer>
@@ -41,6 +43,7 @@ const PostContainer = styled.div`
 
   @media (max-width: 600px) {
     margin: 0 5px 15px;
+    width: 100%;
   }
 `;
 
@@ -88,7 +91,7 @@ const Heart = styled(AiOutlineHeart)`
 `;
 const RightContainer = styled.div`
   height: 100%;
-  width: 100%;
+  width: 200px;
 
   h2 {
     font-size: 19px;
