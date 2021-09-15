@@ -20,6 +20,7 @@ export default function Timeline() {
                 if (resp.data.posts.length === 0)
                     alert("Nenhum post encontrado");
                 setTimelinePosts(resp.data.posts);
+                console.log(resp.data.posts)
             })
             .catch(() => alert("Houve uma falha ao obter os posts, por favor atualize a página"));
     }
