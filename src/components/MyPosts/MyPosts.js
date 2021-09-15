@@ -8,7 +8,7 @@ import { PageTitle } from "../_shared/PageTitle";
 import Post from "../_shared/Post";
 
 export default function MyPosts() {
-  //const { user } = useContext(UserContext);
+  //const { loggedUser } = useContext(UserContext);
   const storedUser = getUserFromLocalStorage();
   const { user, token } = storedUser;
 

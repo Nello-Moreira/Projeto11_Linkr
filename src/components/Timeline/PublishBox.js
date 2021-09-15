@@ -8,10 +8,10 @@ import UserContext from "../../contexts/UserContext";
 
 export default function PublishteBox() {
 
-	const { user } = useContext(UserContext);
+	const { loggedUser } = useContext(UserContext);
 
 	function updateTimeline() {
-		getPosts(user)
+		getPosts(loggedUser.token)
 			.then((resp) => console.log(resp.data)) //Simulando preenchimento da array de posts da timeline
 			.catch(() => updateTimeline());
 	}
@@ -32,7 +32,7 @@ export default function PublishteBox() {
 	function publishPost(event) {
 		event.preventDefault();
 		setLoading(true);
-		post(user, newPost)
+		post(loggedUser.token, newPost)
 			.then(() => {
 				setNewPost(clearedForm);
 				setLoading(false);
