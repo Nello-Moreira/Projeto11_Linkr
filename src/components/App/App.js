@@ -22,7 +22,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ user, setUser }}>
+      <UserContext.Provider value={{ loggedUser, setLoggedUser }}>
         <Switch>
           <Route exact path={routes.login}>
             <Login />

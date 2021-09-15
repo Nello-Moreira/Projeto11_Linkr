@@ -7,10 +7,6 @@ import { PageContainer } from "../_shared/PageContainer";
 import { PageTitle } from "../_shared/PageTitle";
 import Post from "../_shared/Post";
 
-function getUserFromLocalStorage() {
-  return JSON.parse(localStorage.getItem("linkrUser"));
-}
-
 export default function MyPosts() {
   const { loggedUser } = useContext(UserContext);
   const { user, token } = loggedUser;
@@ -34,4 +30,6 @@ export default function MyPosts() {
   );
 }
 
-const ContainerPosts = styled(PageContainer)``;
+const ContainerPosts = styled(PageContainer)`
+  width: 100%;
+`;

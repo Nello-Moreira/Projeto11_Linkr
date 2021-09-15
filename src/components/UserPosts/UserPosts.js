@@ -38,6 +38,9 @@ export default function UserPosts() {
   );
 }
 
-const ContainerPosts = styled(PageContainer)`
-  width: 100%;
+const ContainerPosts = styled.div`
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;

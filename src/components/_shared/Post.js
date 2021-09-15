@@ -24,7 +24,14 @@ export default function Post({ postData }) {
               <a href={link}>{link}</a>
             </div>
           </DetailsContainer>
-          <PostImage src={linkImage} />
+          {linkImage ? (
+            <PostImage src={linkImage} />
+          ) : (
+            <LogoContainer>
+              {" "}
+              <Logo>linkr</Logo>
+            </LogoContainer>
+          )}
         </PreviewContainer>
       </RightContainer>
     </PostContainer>
@@ -40,7 +47,7 @@ const PostContainer = styled.div`
   margin-bottom: 15px;
 
   @media (max-width: 700px) {
-    width: calc(100vw - 10px);
+    width: 100vw;
     margin: 0 5px 15px;
   }
 `;
@@ -105,6 +112,8 @@ const RightContainer = styled.div`
   }
 
   @media (max-width: 700px) {
+    width: calc(100% - 30px);
+
     h2 {
       font-size: 17px;
       margin-left: 5px;
@@ -120,6 +129,7 @@ const RightContainer = styled.div`
 const PreviewContainer = styled.div`
   max-width: 503px;
   display: flex;
+  justify-content: space-between;
 `;
 
 const PostImage = styled.img`
@@ -134,7 +144,6 @@ const PostImage = styled.img`
 `;
 
 const DetailsContainer = styled.div`
-  width: calc(100% - 155px);
   border: 1px solid #c4c4c4;
   border-right: none;
   border-radius: 11px 0 0 11px;
@@ -142,6 +151,8 @@ const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1 1 auto;
+  overflow-y: hidden;
 
   h1 {
     font-size: 16px;
@@ -156,9 +167,8 @@ const DetailsContainer = styled.div`
   }
 
   .link-container {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    width: 100%;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #cecece;
@@ -172,7 +182,7 @@ const DetailsContainer = styled.div`
   }
 
   @media (max-width: 700px) {
-    width: calc(100%);
+    width: calc(100% - 115px);
     height: 115px;
     padding: 10px;
     h1 {
@@ -183,12 +193,30 @@ const DetailsContainer = styled.div`
       font-size: 9px;
     }
 
-    .link-container {
-      -webkit-line-clamp: 1;
-    }
-
     a {
       font-size: 9px;
     }
   }
+`;
+
+const LogoContainer = styled.div`
+  height: 155px;
+  width: 153px;
+  border-radius: 0 11px 11px 0;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 700px) {
+    height: 115px;
+    width: 95px;
+  }
+`;
+
+const Logo = styled.div`
+  font-family: "Passion One", cursive;
+  font-size: 35px;
+  font-weight: 700;
+  color: #000;
 `;
