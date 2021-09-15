@@ -20,7 +20,9 @@ export default function Post({ postData }) {
               <h1>{linkTitle} </h1>
               <p>{linkDescription}</p>
             </div>
-            <a href={link}>{link}</a>
+            <div className="link-container">
+              <a href={link}>{link}</a>
+            </div>
           </DetailsContainer>
           <PostImage src={linkImage} />
         </PreviewContainer>
@@ -31,12 +33,15 @@ export default function Post({ postData }) {
 
 const PostContainer = styled.div`
   max-width: 611px;
-  height: 276px;
   background-color: #171717;
   border-radius: 16px;
   padding: 20px 20px 20px 0;
   display: flex;
   margin-bottom: 15px;
+
+  @media (max-width: 600px) {
+    margin: 0 5px 15px;
+  }
 `;
 
 const LeftContainer = styled.div`
@@ -50,6 +55,12 @@ const LeftContainer = styled.div`
     font-size: 11px;
     color: #fff;
   }
+
+  @media (max-width: 600px) {
+    p {
+      font-size: 9px;
+    }
+  }
 `;
 
 const ProfilePicture = styled.img`
@@ -57,6 +68,11 @@ const ProfilePicture = styled.img`
   height: 50px;
   border-radius: 50%;
   margin-bottom: 15px;
+
+  @media (max-width: 600px) {
+    height: 40px;
+    width: 40px;
+  }
 `;
 
 const Heart = styled(AiOutlineHeart)`
@@ -64,6 +80,11 @@ const Heart = styled(AiOutlineHeart)`
   height: 23px;
   color: #fff;
   margin-bottom: 3px;
+
+  @media (max-width: 600px) {
+    width: 17px;
+    height: 17px;
+  }
 `;
 const RightContainer = styled.div`
   height: 100%;
@@ -81,11 +102,22 @@ const RightContainer = styled.div`
     line-height: 18px;
     margin-bottom: 15px;
   }
+
+  @media (max-width: 600px) {
+    h2 {
+      font-size: 17px;
+      margin-left: 5px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-left: 5px;
+    }
+  }
 `;
 
 const PreviewContainer = styled.div`
   max-width: 503px;
-  height: 155px;
   display: flex;
 `;
 
@@ -93,6 +125,11 @@ const PostImage = styled.img`
   height: 155px;
   width: 153px;
   border-radius: 0 11px 11px 0;
+
+  @media (max-width: 600px) {
+    height: 115px;
+    width: 95px;
+  }
 `;
 
 const DetailsContainer = styled.div`
@@ -108,18 +145,48 @@ const DetailsContainer = styled.div`
   h1 {
     font-size: 16px;
     color: #cecece;
-    line-height: 20px;
     margin-bottom: 8px;
   }
 
   p {
     font-size: 11px;
     color: #aaaaaa;
+    margin: 10px 0;
+  }
+
+  .link-container {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #cecece;
+    font-size: 9px;
   }
 
   a {
     text-decoration: none;
     font-size: 11px;
     color: #cecece;
+  }
+
+  @media (max-width: 600px) {
+    height: 115px;
+    padding: 10px;
+    h1 {
+      font-size: 11px;
+    }
+
+    p {
+      font-size: 9px;
+    }
+
+    .link-container {
+      -webkit-line-clamp: 1;
+    }
+
+    a {
+      font-size: 9px;
+    }
   }
 `;
