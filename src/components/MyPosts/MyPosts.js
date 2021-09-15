@@ -15,7 +15,7 @@ export default function MyPosts() {
   useEffect(() => {
     getUserPosts({ id: LoggedUser.user.id, token: LoggedUser.token })
       .then((response) => setPostList(response.data.posts))
-      .catch((error) => "Ops, algo deu errado.");
+      .catch(() => "Ops, algo deu errado.");
   }, []);
 
   return (
