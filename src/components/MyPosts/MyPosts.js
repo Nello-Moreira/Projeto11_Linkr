@@ -8,15 +8,10 @@ import { PageTitle } from "../_shared/PageTitle";
 import Post from "../_shared/Post";
 
 export default function MyPosts() {
-  //const { loggedUser } = useContext(UserContext);
-  const storedUser = getUserFromLocalStorage();
-  const { user, token } = storedUser;
+  const { loggedUser } = useContext(UserContext);
+  const { user, token } = loggedUser;
 
   const [postList, setPostList] = useState([]);
-
-  function getUserFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("linkrUser"));
-  }
 
   useEffect(() => {
     getUserPosts({ id: user.id, token: token })
