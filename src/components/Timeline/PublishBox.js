@@ -24,7 +24,7 @@ export default function PublishteBox({ updateTimeline }) {
 	function publishPost(event) {
 		event.preventDefault();
 		setLoading(true);
-		post(loggedUser.token, newPost)
+		post(loggedUser, newPost)
 			.then(() => {
 				setNewPost(clearedForm);
 				setLoading(false);
