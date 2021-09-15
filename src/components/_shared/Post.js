@@ -146,6 +146,7 @@ const PostImage = styled.img`
 `;
 
 const DetailsContainer = styled.div`
+  height: 155px;
   border: 1px solid #c4c4c4;
   border-right: none;
   border-radius: 11px 0 0 11px;
