@@ -54,10 +54,10 @@ export default function PublishteBox() {
 
     return (
         <BoxContainer>
-            <ProfileImage padding={18}/>
+            <ProfileImage customStyle={{padding:"18px", mobileDisplay: "none"}} />
             <PostForm onSubmit={publishPost}>
                 <Label>O que você tem pra favoritar hoje?</Label>
-                
+
                 <input type="url" name="link"
                     placeholder="http://..." required disabled={loading} value={newPost.link}
                     onChange={(e) => setNewPost({ ...newPost, link: `${e.target.value}` })} />
@@ -66,12 +66,15 @@ export default function PublishteBox() {
                     placeholder="O que você achou desse link?"
                     onChange={(e) => {
                         e.preventDefault();
-                        setNewPost({ ...newPost, text: `${e.target.value}` })}} />
+                        setNewPost({ ...newPost, text: `${e.target.value}` })
+                    }} />
 
-                <BlueButton customStyle={{fontFamily: "'Lato', sans-serif",
-                width: "112px", height: "31px", fontSize: "14px", position: "absolute",
-                bottom: "0", margin: "10px 20px", right: "0"}} 
-                type="submit" name="publish" disabled={loading} >Publicar </BlueButton>
+                <BlueButton customStyle={{
+                    fontFamily: "'Lato', sans-serif",
+                    width: "112px", height: "31px", fontSize: "14px", position: "absolute",
+                    bottom: "0", margin: "10px 20px", right: "0"
+                }}
+                    type="submit" name="publish" disabled={loading} >Publicar </BlueButton>
 
             </PostForm>
         </BoxContainer>
@@ -86,8 +89,13 @@ const BoxContainer = styled.div`
     width: 611px;
     height: 209px;
     position: relative;
-`
 
+    @media (max-width: 700px){
+        width: 100%;
+        border-radius: 0;
+        padding: 0 15px;
+    }
+`
 
 const PostForm = styled.form`
     display: flex;
@@ -117,10 +125,24 @@ const PostForm = styled.form`
         &[type=text]{
             height: 66px;            
         }
+
+        @media (max-width: 700px){
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 700px){
+        input, textarea {
+            width: 100%;
+        }
     }
 `
 const Label = styled.label`
     color: #707070;
     font-size: 20px;
     padding: 20px 0;
+
+    @media (max-width: 700px){
+        text-align: center;
+    }
 `

@@ -1,44 +1,59 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import routes from '../../routes/routes';
-import Timeline from '../Timeline/Timeline';
+import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
-import MyPosts from "../MyPosts/MyPosts";
+import Timeline from '../Timeline/Timeline';
+import MyPosts from '../MyPosts/MyPosts';
+import UserContext from '../../contexts/UserContext';
+import { useState } from 'react';
 import '../App/App.css'
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path={routes.login}>
-          Login
-        </Route>
+    const [user, setUser] = useState({
+        token: '',
+        user: {
+            id: '',
+            email: '',
+            username: '',
+            avatar: ''
+        }
+    })
 
-        <Route exact path={routes.signUp}>
-          <SignUp />
-        </Route>
+    return (
+        <BrowserRouter>
+            <UserContext.Provider value={{ user, setUser }}>
+                <Switch>
+                    <Route exact path={routes.login}>
+                        <Login />
+                    </Route>
 
-        <Route exact path={routes.timeline}>
-          <Timeline />
-        </Route>
+                    <Route exact path={routes.signUp}>
+                        <SignUp />
+                    </Route>
 
-        <Route exact path={routes.myPosts}>
-          <MyPosts />
-        </Route>
+                    <Route exact path={routes.timeline}>
+                        <Timeline />
+                    </Route>
 
-        <Route exact path={routes.user}>
-          posts de outro usuário
-        </Route>
+                    <Route exact path={routes.myPosts}>
+                        <MyPosts />
+                    </Route>
 
-        <Route exact path={routes.likes}>
-          meus likes
-        </Route>
+                    <Route exact path={routes.user}>
+                        posts de outro usuário
+                    </Route>
 
-        <Route exact path={routes.trending}>
-          trendings
-        </Route>
-      </Switch>
-    </BrowserRouter>
-  );
+                    <Route exact path={routes.likes}>
+                        meus likes
+                    </Route>
+
+                    <Route exact path={routes.trending}>
+                        trendings
+                    </Route>
+                </Switch>
+            </UserContext.Provider>
+        </BrowserRouter>
+    );
 }
 
 export default App;
