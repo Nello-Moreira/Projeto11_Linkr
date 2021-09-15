@@ -3,7 +3,6 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 export default function Post({ postData }) {
-<<<<<<< HEAD
 	const { text, link, linkTitle, linkDescription, linkImage, user } = postData;
 
 	return (
@@ -28,47 +27,18 @@ export default function Post({ postData }) {
 							<a href={link}>{link}</a>
 						</div>
 					</DetailsContainer>
-					<PostImage src={linkImage} />
+					{linkImage ? (
+						<PostImage src={linkImage} />
+					) : (
+						<LogoContainer>
+							{" "}
+							<Logo>linkr</Logo>
+						</LogoContainer>
+					)}
 				</PreviewContainer>
 			</RightContainer>
 		</PostContainer>
 	);
-=======
-  const { text, link, linkTitle, linkDescription, linkImage, user } = postData;
-
-  return (
-    <PostContainer>
-      <LeftContainer>
-        <ProfilePicture src={user.avatar} alt="profile" />
-        <Heart />
-        <p>14 likes</p>
-      </LeftContainer>
-      <RightContainer>
-        <h2>{user.username}</h2>
-        <p>{text}</p>
-        <PreviewContainer>
-          <DetailsContainer>
-            <div>
-              <h1>{linkTitle} </h1>
-              <p>{linkDescription}</p>
-            </div>
-            <div className="link-container">
-              <a href={link}>{link}</a>
-            </div>
-          </DetailsContainer>
-          {linkImage ? (
-            <PostImage src={linkImage} />
-          ) : (
-            <LogoContainer>
-              {" "}
-              <Logo>linkr</Logo>
-            </LogoContainer>
-          )}
-        </PreviewContainer>
-      </RightContainer>
-    </PostContainer>
-  );
->>>>>>> cf65b663f2134acf01789b1019061a78701bbb72
 }
 
 const PostContainer = styled.div`
@@ -79,15 +49,9 @@ const PostContainer = styled.div`
   display: flex;
   margin-bottom: 15px;
 
-<<<<<<< HEAD
-  @media (max-width: 600px) {
-	margin: 0 5px 15px;
-	width: 100%;
-=======
   @media (max-width: 700px) {
     width: 100vw;
     margin: 0 5px 15px;
->>>>>>> cf65b663f2134acf01789b1019061a78701bbb72
   }
 `;
 
@@ -103,17 +67,10 @@ const LeftContainer = styled.div`
 	color: #fff;
   }
 
-<<<<<<< HEAD
-  @media (max-width: 600px) {
-	p {
-	  font-size: 9px;
-	}
-=======
   @media (max-width: 700px) {
     p {
       font-size: 9px;
     }
->>>>>>> cf65b663f2134acf01789b1019061a78701bbb72
   }
 `;
 
@@ -123,15 +80,9 @@ const ProfilePicture = styled.img`
   border-radius: 50%;
   margin-bottom: 15px;
 
-<<<<<<< HEAD
-  @media (max-width: 600px) {
-	height: 40px;
-	width: 40px;
-=======
   @media (max-width: 700px) {
     height: 40px;
     width: 40px;
->>>>>>> cf65b663f2134acf01789b1019061a78701bbb72
   }
 `;
 
@@ -141,15 +92,9 @@ const Heart = styled(AiOutlineHeart)`
   color: #fff;
   margin-bottom: 3px;
 
-<<<<<<< HEAD
-  @media (max-width: 600px) {
-	width: 17px;
-	height: 17px;
-=======
   @media (max-width: 700px) {
     width: 17px;
     height: 17px;
->>>>>>> cf65b663f2134acf01789b1019061a78701bbb72
   }
 `;
 const RightContainer = styled.div`
@@ -169,18 +114,6 @@ const RightContainer = styled.div`
 	margin-bottom: 15px;
   }
 
-<<<<<<< HEAD
-  @media (max-width: 600px) {
-	h2 {
-	  font-size: 17px;
-	  margin-left: 5px;
-	}
-
-	p {
-	  font-size: 15px;
-	  margin-left: 5px;
-	}
-=======
   @media (max-width: 700px) {
     width: calc(100% - 30px);
 
@@ -193,7 +126,6 @@ const RightContainer = styled.div`
       font-size: 15px;
       margin-left: 5px;
     }
->>>>>>> cf65b663f2134acf01789b1019061a78701bbb72
   }
 `;
 
@@ -208,15 +140,9 @@ const PostImage = styled.img`
   width: 153px;
   border-radius: 0 11px 11px 0;
 
-<<<<<<< HEAD
-  @media (max-width: 600px) {
-	height: 115px;
-	width: 95px;
-=======
   @media (max-width: 700px) {
     height: 115px;
     width: 95px;
->>>>>>> cf65b663f2134acf01789b1019061a78701bbb72
   }
 `;
 
@@ -244,22 +170,12 @@ const DetailsContainer = styled.div`
   }
 
   .link-container {
-<<<<<<< HEAD
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	color: #cecece;
-	font-size: 9px;
-=======
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #cecece;
     font-size: 9px;
->>>>>>> cf65b663f2134acf01789b1019061a78701bbb72
   }
 
   a {
@@ -268,26 +184,6 @@ const DetailsContainer = styled.div`
 	color: #cecece;
   }
 
-<<<<<<< HEAD
-  @media (max-width: 600px) {
-	height: 115px;
-	padding: 10px;
-	h1 {
-	  font-size: 11px;
-	}
-
-	p {
-	  font-size: 9px;
-	}
-
-	.link-container {
-	  -webkit-line-clamp: 1;
-	}
-
-	a {
-	  font-size: 9px;
-	}
-=======
   @media (max-width: 700px) {
     width: calc(100% - 115px);
     height: 115px;
@@ -303,7 +199,6 @@ const DetailsContainer = styled.div`
     a {
       font-size: 9px;
     }
->>>>>>> cf65b663f2134acf01789b1019061a78701bbb72
   }
 `;
 
