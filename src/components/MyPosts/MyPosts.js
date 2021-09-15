@@ -30,6 +30,4 @@ export default function MyPosts() {
   );
 }
 
-const ContainerPosts = styled(PageContainer)`
-  width: 100%;
-`;
+const ContainerPosts = styled(PageContainer)``;
