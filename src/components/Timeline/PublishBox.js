@@ -1,22 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
-import { getPosts, post } from "../../API/requests";
+import { post } from "../../API/requests";
 
 import UserAvatar from "../_shared/UserAvatar";
 import BlueButton from "../_shared/buttons/BlueButton";
 import UserContext from "../../contexts/UserContext";
 
-export default function PublishteBox() {
+export default function PublishteBox({ updateTimeline }) {
 
 	const { user } = useContext(UserContext);
-
-	function updateTimeline() {
-		getPosts(user)
-			.then((resp) => console.log(resp.data)) //Simulando preenchimento da array de posts da timeline
-			.catch(() => updateTimeline());
-	}
-
-	useEffect(() => updateTimeline(), []);
 
 	const [newPost, setNewPost] = useState(clearedForm());
 
@@ -84,6 +76,8 @@ const BoxContainer = styled.div`
 	width: 611px;
 	height: 209px;
 	position: relative;
+	margin-bottom: 30px;
+	align-items: flex-start;
 
 	@media (max-width: 700px){
 		width: 100%;
