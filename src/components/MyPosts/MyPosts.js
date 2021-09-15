@@ -1,27 +1,14 @@
-<<<<<<< HEAD
-import styled from "styled-components";
-import { Container } from "../_shared/PageContainer";
-=======
 import { PageContainer } from "../_shared/PageContainer";
->>>>>>> staging
 import Post from "../_shared/Post";
 
 export default function MyPosts() {
   return (
-<<<<<<< HEAD
     <ContainerPosts>
-=======
-    <PageContainer>
->>>>>>> staging
       <Post postData={postData} />
       <Post postData={postData} />
       <Post postData={postData} />
       <Post postData={postData} />
-<<<<<<< HEAD
     </ContainerPosts>
-=======
-    </PageContainer>
->>>>>>> staging
   );
 }
 
@@ -41,6 +28,6 @@ const postData = {
   },
 };
 
-const ContainerPosts = styled(Container)`
+const ContainerPosts = styled(PageContainer)`
   width: 100%;
 `;
