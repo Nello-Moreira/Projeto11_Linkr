@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ProfileImage from "../_shared/ProfileImage";
+import UserAvatar from "../_shared/UserAvatar";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 export default function Header() {
@@ -8,7 +8,7 @@ export default function Header() {
             <Logo>linkr</Logo>
             <MenuContainer>
                 <MdKeyboardArrowDown color="white" fontSize="60px"/>
-                <ProfileImage />
+                <UserAvatar />
             </MenuContainer>
         </FixedContainer>
     );

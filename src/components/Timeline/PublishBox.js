@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { getPosts, post } from "../../API/requests";
 
-import ProfileImage from "../_shared/ProfileImage";
+import UserAvatar from "../_shared/UserAvatar";
 import BlueButton from "../_shared/buttons/BlueButton";
 import UserContext from "../../contexts/UserContext";
 
@@ -46,7 +46,7 @@ export default function PublishteBox() {
 
 	return (
 		<BoxContainer>
-			<ProfileImage customStyle={{ padding: "18px", mobileDisplay: "none" }} />
+			<UserAvatar customStyle={{ padding: "18px", mobileDisplay: "none" }} />
 			<PostForm onSubmit={publishPost}>
 				<Label>O que você tem pra favoritar hoje?</Label>
 
