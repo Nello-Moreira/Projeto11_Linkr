@@ -1,12 +1,16 @@
+import { useContext } from "react";
+import styled from "styled-components";
+import UserContext from "../../contexts/UserContext";
 import { PageContainer } from "../_shared/PageContainer";
 import Post from "../_shared/Post";
 
 export default function MyPosts() {
+  const { user } = useContext(UserContext);
+
+  console.log(user);
+
   return (
     <ContainerPosts>
-      <Post postData={postData} />
-      <Post postData={postData} />
-      <Post postData={postData} />
       <Post postData={postData} />
     </ContainerPosts>
   );
