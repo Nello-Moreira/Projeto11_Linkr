@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router";
 import styled from "styled-components";
 import { getUserPosts } from "../../API/requests";
 import UserContext from "../../contexts/UserContext";
@@ -11,23 +12,25 @@ function getUserFromLocalStorage() {
   return JSON.parse(localStorage.getItem("linkrUser"));
 }
 
-export default function MyPosts() {
+export default function UserPosts() {
   //const { user } = useContext(UserContext);
+  const { id } = useParams();
   const storedUser = getUserFromLocalStorage();
-  const { user, token } = storedUser;
-
+  const { token } = storedUser;
   const [postList, setPostList] = useState([]);
 
   useEffect(() => {
-    getUserPosts({ id: user.id, token: token })
+    getUserPosts({ id, token: token })
       .then((response) => setPostList(response.data.posts))
       .catch(() => "Ops, algo deu errado.");
   }, []);
 
+  console.log(postList);
+
   return (
     <ContainerPosts>
       <Header />
-      <PageTitle>my posts</PageTitle>
+      <PageTitle></PageTitle>
       {postList.map((postData, index) => (
         <Post postData={postData} key={index} />
       ))}
