@@ -1,40 +1,58 @@
 import styled from "styled-components";
 import UserAvatar from "../_shared/UserAvatar";
+import MenuOptions from './MenuOptions';
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { useState } from 'react';
 
 export default function Header() {
+    const [menuOpened, setMenuOpened] = useState(false);
+
     return (
-        <FixedContainer>
-            <Logo>linkr</Logo>
-            <MenuContainer>
-                <MdKeyboardArrowDown color="white" fontSize="60px"/>
-                <UserAvatar />
-            </MenuContainer>
-        </FixedContainer>
+        <MenuContainer>
+            <ContentContainer>
+                <Logo>linkr</Logo>
+
+                <InteractiveContainer>
+                    <MdKeyboardArrowDown color="white" fontSize="60px" onClick={() => setMenuOpened(!menuOpened)} />
+                    <UserAvatar />
+                </InteractiveContainer>
+            </ContentContainer>
+
+            <MenuOptions menuOpened={menuOpened} />
+        </MenuContainer>
     );
 }
 
-const FixedContainer = styled.div`
+const MenuContainer = styled.div`
+    box-sizing: border-box;
+    height: 70px;
+    width: 100vw;
     position: fixed;
-    z-index: 1;
     top: 0;
     left: 0;
+    z-index: 2;
     width: 100vw;
-    height: 72px;
-    background-color: black;
-    padding: 10px 28px;
-    display: flex;
-    justify-content: space-between;
+`;
 
-    @media (max-width: 700px){
-    }
-`
+const ContentContainer = styled.div`
+    height: 100%;
+    width: 100%;
+    padding: 0 10px;
+    background-color: rgba(21, 21, 21, 1);
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
 const Logo = styled.div`
     font-family: 'Passion One', cursive;
     font-size: 49px;
     font-weight: 700;
     color: white;
-`
-const MenuContainer = styled.div`
+`;
+
+const InteractiveContainer = styled.div`
     display: flex;
-`
+`;
