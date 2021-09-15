@@ -1,36 +1,37 @@
 import styled from "styled-components";
 import { AiOutlineHeart } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 export default function Post({ postData }) {
-  const { text, link, linkTitle, linkDescription, linkImage, user } = postData;
+	const { text, link, linkTitle, linkDescription, linkImage, user } = postData;
 
-  console.log("oi")
-
-  return (
-    <PostContainer>
-      <LeftContainer>
-        <ProfilePicture src={user.avatar} alt="profile" />
-        <Heart />
-        <p>14 likes</p>
-      </LeftContainer>
-      <RightContainer>
-        <h2>{user.username}</h2>
-        <p>{text}</p>
-        <PreviewContainer>
-          <DetailsContainer>
-            <div>
-              <h1>{linkTitle} </h1>
-              <p>{linkDescription}</p>
-            </div>
-            <div className="link-container">
-              <a href={link}>{link}</a>
-            </div>
-          </DetailsContainer>
-          <PostImage src={linkImage} />
-        </PreviewContainer>
-      </RightContainer>
-    </PostContainer>
-  );
+	return (
+		<PostContainer>
+			<LeftContainer>
+				<Link to={`/user/${user.id}`}>
+					<ProfilePicture src={user.avatar} alt="profile" />
+				</Link>
+				<Heart />
+				<p>14 likes</p>
+			</LeftContainer>
+			<RightContainer>
+				<h2>{user.username}</h2>
+				<p>{text}</p>
+				<PreviewContainer>
+					<DetailsContainer>
+						<div>
+							<h1>{linkTitle} </h1>
+							<p>{linkDescription}</p>
+						</div>
+						<div className="link-container">
+							<a href={link}>{link}</a>
+						</div>
+					</DetailsContainer>
+					<PostImage src={linkImage} />
+				</PreviewContainer>
+			</RightContainer>
+		</PostContainer>
+	);
 }
 
 const PostContainer = styled.div`
@@ -42,8 +43,8 @@ const PostContainer = styled.div`
   margin-bottom: 15px;
 
   @media (max-width: 600px) {
-    margin: 0 5px 15px;
-    width: 100%;
+	margin: 0 5px 15px;
+	width: 100%;
   }
 `;
 
@@ -55,14 +56,14 @@ const LeftContainer = styled.div`
   align-items: center;
 
   p {
-    font-size: 11px;
-    color: #fff;
+	font-size: 11px;
+	color: #fff;
   }
 
   @media (max-width: 600px) {
-    p {
-      font-size: 9px;
-    }
+	p {
+	  font-size: 9px;
+	}
   }
 `;
 
@@ -73,8 +74,8 @@ const ProfilePicture = styled.img`
   margin-bottom: 15px;
 
   @media (max-width: 600px) {
-    height: 40px;
-    width: 40px;
+	height: 40px;
+	width: 40px;
   }
 `;
 
@@ -85,8 +86,8 @@ const Heart = styled(AiOutlineHeart)`
   margin-bottom: 3px;
 
   @media (max-width: 600px) {
-    width: 17px;
-    height: 17px;
+	width: 17px;
+	height: 17px;
   }
 `;
 const RightContainer = styled.div`
@@ -94,28 +95,28 @@ const RightContainer = styled.div`
   width: 200px;
 
   h2 {
-    font-size: 19px;
-    color: #fff;
-    margin-bottom: 12px;
+	font-size: 19px;
+	color: #fff;
+	margin-bottom: 12px;
   }
 
   > p {
-    font-size: 17px;
-    color: #aaaaaa;
-    line-height: 18px;
-    margin-bottom: 15px;
+	font-size: 17px;
+	color: #aaaaaa;
+	line-height: 18px;
+	margin-bottom: 15px;
   }
 
   @media (max-width: 600px) {
-    h2 {
-      font-size: 17px;
-      margin-left: 5px;
-    }
+	h2 {
+	  font-size: 17px;
+	  margin-left: 5px;
+	}
 
-    p {
-      font-size: 15px;
-      margin-left: 5px;
-    }
+	p {
+	  font-size: 15px;
+	  margin-left: 5px;
+	}
   }
 `;
 
@@ -130,8 +131,8 @@ const PostImage = styled.img`
   border-radius: 0 11px 11px 0;
 
   @media (max-width: 600px) {
-    height: 115px;
-    width: 95px;
+	height: 115px;
+	width: 95px;
   }
 `;
 
@@ -146,50 +147,50 @@ const DetailsContainer = styled.div`
   justify-content: space-between;
 
   h1 {
-    font-size: 16px;
-    color: #cecece;
-    margin-bottom: 8px;
+	font-size: 16px;
+	color: #cecece;
+	margin-bottom: 8px;
   }
 
   p {
-    font-size: 11px;
-    color: #aaaaaa;
-    margin: 10px 0;
+	font-size: 11px;
+	color: #aaaaaa;
+	margin: 10px 0;
   }
 
   .link-container {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #cecece;
-    font-size: 9px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #cecece;
+	font-size: 9px;
   }
 
   a {
-    text-decoration: none;
-    font-size: 11px;
-    color: #cecece;
+	text-decoration: none;
+	font-size: 11px;
+	color: #cecece;
   }
 
   @media (max-width: 600px) {
-    height: 115px;
-    padding: 10px;
-    h1 {
-      font-size: 11px;
-    }
+	height: 115px;
+	padding: 10px;
+	h1 {
+	  font-size: 11px;
+	}
 
-    p {
-      font-size: 9px;
-    }
+	p {
+	  font-size: 9px;
+	}
 
-    .link-container {
-      -webkit-line-clamp: 1;
-    }
+	.link-container {
+	  -webkit-line-clamp: 1;
+	}
 
-    a {
-      font-size: 9px;
-    }
+	a {
+	  font-size: 9px;
+	}
   }
 `;
