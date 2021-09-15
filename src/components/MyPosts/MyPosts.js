@@ -12,9 +12,8 @@ function getUserFromLocalStorage() {
 }
 
 export default function MyPosts() {
-  //const { user } = useContext(UserContext);
-  const storedUser = getUserFromLocalStorage();
-  const { user, token } = storedUser;
+  const { loggedUser } = useContext(UserContext);
+  const { user, token } = loggedUser;
 
   const [postList, setPostList] = useState([]);
 
@@ -35,6 +34,4 @@ export default function MyPosts() {
   );
 }
 
-const ContainerPosts = styled(PageContainer)`
-  width: 100%;
-`;
+const ContainerPosts = styled(PageContainer)``;

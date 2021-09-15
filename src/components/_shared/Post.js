@@ -39,7 +39,8 @@ const PostContainer = styled.div`
   display: flex;
   margin-bottom: 15px;
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
+    width: calc(100vw - 10px);
     margin: 0 5px 15px;
   }
 `;
@@ -56,7 +57,7 @@ const LeftContainer = styled.div`
     color: #fff;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     p {
       font-size: 9px;
     }
@@ -69,7 +70,7 @@ const ProfilePicture = styled.img`
   border-radius: 50%;
   margin-bottom: 15px;
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     height: 40px;
     width: 40px;
   }
@@ -81,7 +82,7 @@ const Heart = styled(AiOutlineHeart)`
   color: #fff;
   margin-bottom: 3px;
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     width: 17px;
     height: 17px;
   }
@@ -103,7 +104,7 @@ const RightContainer = styled.div`
     margin-bottom: 15px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     h2 {
       font-size: 17px;
       margin-left: 5px;
@@ -126,14 +127,14 @@ const PostImage = styled.img`
   width: 153px;
   border-radius: 0 11px 11px 0;
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     height: 115px;
     width: 95px;
   }
 `;
 
 const DetailsContainer = styled.div`
-  width: 100%;
+  width: calc(100% - 155px);
   border: 1px solid #c4c4c4;
   border-right: none;
   border-radius: 11px 0 0 11px;
@@ -170,7 +171,8 @@ const DetailsContainer = styled.div`
     color: #cecece;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
+    width: calc(100%);
     height: 115px;
     padding: 10px;
     h1 {

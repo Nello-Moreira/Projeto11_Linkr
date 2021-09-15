@@ -3,11 +3,11 @@ import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
 
 export default function UserAvatar({ customStyle = {} }) {
-	const { user } = useContext(UserContext);
+	const { loggedUser } = useContext(UserContext);
 
 	return (
 		<Profile customStyle={customStyle}>
-			<img src={user.user.avatar} alt="userAvatar" />
+			<img src={loggedUser.user.avatar} alt="userAvatar" />
 		</Profile>
 	);
 }
