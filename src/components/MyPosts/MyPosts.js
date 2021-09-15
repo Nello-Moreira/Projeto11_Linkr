@@ -8,12 +8,13 @@ import { PageTitle } from "../_shared/PageTitle";
 import Post from "../_shared/Post";
 
 export default function MyPosts() {
-  const { user } = useContext(UserContext);
+  const { loggedUser } = useContext(UserContext);
+  const { user, token } = loggedUser;
 
   const [postList, setPostList] = useState([]);
 
   useEffect(() => {
-    getUserPosts({ id: user.user.id, token: user.token })
+    getUserPosts({ id: user.id, token: token })
       .then((response) => setPostList(response.data.posts))
       .catch(() => "Ops, algo deu errado.");
   }, []);

@@ -9,7 +9,7 @@ import { useState } from 'react';
 import '../App/App.css'
 
 function App() {
-    const [user, setUser] = useState({
+    const [loggedUser, setLoggedUser] = useState({
         token: '',
         user: {
             id: '',
@@ -21,7 +21,7 @@ function App() {
 
     return (
         <BrowserRouter>
-            <UserContext.Provider value={{ user, setUser }}>
+            <UserContext.Provider value={{ loggedUser, setLoggedUser }}>
                 <Switch>
                     <Route exact path={routes.login}>
                         <Login />

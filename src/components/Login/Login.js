@@ -14,7 +14,7 @@ import routes from '../../routes/routes';
 
 export default function Login(params) {
     const history = useHistory();
-    const { setUser } = useContext(UserContext);
+    const { setLoggedUser } = useContext(UserContext);
 
     const [firstLoad, setFirsLoading] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function Login(params) {
 
         if (!localStorageUser) return setFirsLoading(false);
 
-        setUser(localStorageUser);
+        setLoggedUser(localStorageUser);
         history.push(routes.timeline);
     }, [])
 
@@ -56,7 +56,7 @@ export default function Login(params) {
         })
             .then(response => {
                 setLoading(false);
-                setUser(response.data);
+                setLoggedUser(response.data);
                 setLocalStorage(response.data);
                 history.push(routes.timeline);
             })
