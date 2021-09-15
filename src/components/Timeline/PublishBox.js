@@ -56,12 +56,13 @@ export default function PublishteBox({ updateTimeline }) {
 						setNewPost({ ...newPost, text: `${e.target.value}` })
 					}} />
 
-				<BlueButton customStyle={{
-					fontFamily: "'Lato', sans-serif",
-					width: "112px", height: "31px", fontSize: "14px", position: "absolute",
-					bottom: "0", margin: "10px 20px", right: "0"
-				}}
-					type="submit" name="publish" disabled={loading} >Publicar </BlueButton>
+				<ButtonContainer>
+					<BlueButton customStyle={{
+						fontFamily: "'Lato', sans-serif",
+						width: "112px", height: "31px", fontSize: "14px"
+					}}
+						type="submit" name="publish" disabled={loading} >Publicar </BlueButton>
+				</ButtonContainer>
 
 			</PostForm>
 		</BoxContainer>
@@ -73,13 +74,11 @@ const BoxContainer = styled.div`
 	background-color: #FFFFFF;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	border-radius: 16px;
-	width: 611px;
-	height: 209px;
-	position: relative;
+	width: 100%;
 	margin-bottom: 30px;
 	align-items: flex-start;
 
-	@media (max-width: 700px){
+	@media (max-width: 611px){
 		width: 100%;
 		border-radius: 0;
 		padding: 0 15px;
@@ -89,18 +88,19 @@ const BoxContainer = styled.div`
 const PostForm = styled.form`
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	width: 82%;
 	font-family: 'Lato', sans-serif;
 	font-weight: 300;
 
 	input, textarea {
-		width: 503px;
+		width: 100%;
 		background: #EFEFEF;
 		border-radius: 5px;
 		border: none;
 		margin: 2px 0;
 		padding: 5px 13px;
 		font-family: inherit;
+		resize: vertical;
 
 		&::placeholder {
 			color: #949494;
@@ -114,13 +114,11 @@ const PostForm = styled.form`
 		&[type=text]{
 			height: 66px;
 		}
-
-		@media (max-width: 700px){
-			width: 100%;
-		}
 	}
 
-	@media (max-width: 700px){
+
+
+	@media (max-width: 611px){
 		input, textarea {
 			width: 100%;
 		}
@@ -135,3 +133,11 @@ const Label = styled.label`
 		text-align: center;
 	}
 `
+
+const ButtonContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin: 5px 0 10px;
+`;

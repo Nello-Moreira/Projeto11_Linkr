@@ -41,17 +41,16 @@ export default function Post({ postData }) {
 }
 
 const PostContainer = styled.div`
-  max-width: 611px;
-  background-color: #171717;
-  border-radius: 16px;
-  padding: 20px 20px 20px 0;
-  display: flex;
-  margin-bottom: 15px;
+	width: 100%;
+	background-color: #171717;
+	border-radius: 16px;
+	padding: 20px 20px 20px 0;
+	display: flex;
+	margin-bottom: 15px;
 
-  @media (max-width: 700px) {
-    width: 100vw;
-    margin: 0 5px 15px;
-    width: 100%;
+	@media (max-width: 611px) {
+		border-radius: 0px;
+
   }
 `;
 
@@ -67,7 +66,7 @@ const LeftContainer = styled.div`
     color: #fff;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 611px) {
     p {
       font-size: 9px;
     }
@@ -80,7 +79,7 @@ const ProfilePicture = styled.img`
   border-radius: 50%;
   margin-bottom: 15px;
 
-  @media (max-width: 700px) {
+  @media (max-width: 611px) {
     height: 40px;
     width: 40px;
   }
@@ -92,14 +91,14 @@ const Heart = styled(AiOutlineHeart)`
   color: #fff;
   margin-bottom: 3px;
 
-  @media (max-width: 700px) {
+  @media (max-width: 611px) {
     width: 17px;
     height: 17px;
   }
 `;
 const RightContainer = styled.div`
   height: 100%;
-  width: 200px;
+  width: 83%;
 
   h2 {
     font-size: 19px;
@@ -114,7 +113,7 @@ const RightContainer = styled.div`
     margin-bottom: 15px;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 611px) {
     width: calc(100% - 30px);
 
     h2 {
@@ -140,7 +139,7 @@ const PostImage = styled.img`
   width: 153px;
   border-radius: 0 11px 11px 0;
 
-  @media (max-width: 700px) {
+  @media (max-width: 611px) {
     height: 115px;
     width: 95px;
   }
@@ -184,7 +183,7 @@ const DetailsContainer = styled.div`
     color: #cecece;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 611px) {
     width: calc(100% - 115px);
     height: 115px;
     padding: 10px;
@@ -211,7 +210,7 @@ const LogoContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 700px) {
+  @media (max-width: 611px) {
     height: 115px;
     width: 95px;
   }
