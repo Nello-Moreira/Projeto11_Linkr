@@ -1,13 +1,13 @@
-import { Container } from "../_shared/PageContainer";
+import { PageContainer } from "../_shared/PageContainer";
 import Post from "../_shared/Post";
 export default function MyPosts() {
   return (
-    <Container>
+    <PageContainer>
       <Post postData={postData} />
       <Post postData={postData} />
       <Post postData={postData} />
       <Post postData={postData} />
-    </Container>
+    </PageContainer>
   );
 }
 
