@@ -20,16 +20,12 @@ export default function MyPosts() {
   }, []);
 
   return (
-    <ContainerPosts>
+    <PageContainer>
       <Header />
       <PageTitle>my posts</PageTitle>
       {postList.map((postData, index) => (
         <Post postData={postData} key={index} />
       ))}
-    </ContainerPosts>
+    </PageContainer>
   );
 }
-
-const ContainerPosts = styled(PageContainer)`
-  width: 100%;
-`;
