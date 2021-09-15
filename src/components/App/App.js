@@ -10,7 +10,7 @@ import "../App/App.css";
 import UserPosts from "../UserPosts/UserPosts";
 
 function App() {
-  const [user, setUser] = useState({
+  const [loggedUser, setLoggedUser] = useState({
     token: "",
     user: {
       id: "",
