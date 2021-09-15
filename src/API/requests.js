@@ -26,4 +26,10 @@ function getUserPosts({ id, token }) {
   });
 }
 
-export { login, signUp, post, getPosts, getUserPosts };
+function getTrendingTopics({ token }) {
+  return axiosBase.get("/hashtags/trending", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export { login, signUp, post, getPosts, getUserPosts, getTrendingTopics };

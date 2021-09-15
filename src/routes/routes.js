@@ -5,7 +5,7 @@ const routes = {
     myPosts: '/my-posts',
     user: '/user/:id',
     likes: '/my-likes',
-    trending: '/hashtag/:hashtag'
+    trending: '/hashtags/:HASHTAG/posts'
 }
 
 export default routes;

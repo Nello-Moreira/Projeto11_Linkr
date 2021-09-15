@@ -1,6 +1,24 @@
-import styled from "styled-components";
+import Hashtag from './Hashtag';
+import CircleLoader from '../../loaders/CircleLoader';
+import styled from 'styled-components';
+import { getTrendingTopics } from '../../../API/requests';
+import UserContext from '../../../contexts/UserContext';
+import { useContext, useState, useEffect } from 'react';
+
 
 export default function HashtagBox() {
+    const { loggedUser } = useContext(UserContext);
+    const [hashtags, setHashtags] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        getTrendingTopics(loggedUser)
+            .then(response => {
+                setLoading(false);
+                setHashtags(response.data.hashtags.sort((a, b) => (a - b)));
+            })
+    }, []);
+
     return (
         <Container>
             <TitleContainer>
@@ -8,16 +26,13 @@ export default function HashtagBox() {
             </TitleContainer>
 
             <ContentContainer>
-                <span># teste</span>
-                <span># teste</span>
-                <span># teste</span>
-                <span># teste</span>
-                <span># teste</span>
-                <span># teste</span>
-                <span># teste</span>
-                <span># teste</span>
-                <span># teste</span>
-                <span># teste</span>
+                {loading ?
+                    <CircleLoader customStyle={{ color: 'rgba(255,255,255)', height: '250px' }} />
+                    :
+                    hashtags.map(
+                        hashtagObject => <Hashtag hashtagObject={hashtagObject} />
+                    )
+                }
             </ContentContainer>
         </Container>
     )
@@ -55,15 +70,11 @@ const ContentContainer = styled.div`
     font-family: 'Lato', sans-serif;
     font-size: 19px;
     font-weight: 700;
-    color: rgba(255, 255, 255, 1);
+    color: rgba(200, 200, 200, 1);
     padding: 0 15px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-
-    span {
-        margin-bottom: 10px;
-    }
 `;

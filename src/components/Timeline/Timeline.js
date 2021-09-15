@@ -6,7 +6,7 @@ import { PageTitle } from "../_shared/PageTitle";
 import Post from "../_shared/Post";
 import Header from "../Header/Header";
 import PublishBox from "./PublishBox";
-import HashtagBox from "../_shared/HashtagBox";
+import HashtagBox from "../_shared/hashtagBox/HashtagBox";
 import UserContext from "../../contexts/UserContext";
 
 export default function Timeline() {
