@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import routes from '../../../routes/routes';
+import routes from '../../routes/routes';
 
 export default function Hashtags({ hashtagObject }) {
     return (

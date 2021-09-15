@@ -1,10 +1,9 @@
 import Hashtag from './Hashtag';
-import CircleLoader from '../../loaders/CircleLoader';
+import CircleLoader from '../loaders/CircleLoader';
 import styled from 'styled-components';
-import { getTrendingTopics } from '../../../API/requests';
-import UserContext from '../../../contexts/UserContext';
+import { getTrendingTopics } from '../../API/requests';
+import UserContext from '../../contexts/UserContext';
 import { useContext, useState, useEffect } from 'react';
-
 
 export default function HashtagBox() {
     const { loggedUser } = useContext(UserContext);

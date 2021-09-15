@@ -4,7 +4,7 @@ import UserContext from "../../contexts/UserContext";
 import Header from "../Header/Header";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import { PageTitle } from "../_shared/PageTitle";
-import HashtagBox from "../_shared/hashtagBox/HashtagBox";
+import HashtagBox from "../HashtagBox/HashtagBox";
 import Post from "../_shared/Post";
 
 export default function MyPosts() {
