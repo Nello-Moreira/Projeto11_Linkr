@@ -9,11 +9,17 @@ import Post from "../_shared/Post";
 
 export default function MyPosts() {
   //const { user } = useContext(UserContext);
+  const storedUser = getUserFromLocalStorage();
+  const { user, token } = storedUser;
 
   const [postList, setPostList] = useState([]);
 
+  function getUserFromLocalStorage() {
+    return JSON.parse(localStorage.getItem("linkrUser"));
+  }
+
   useEffect(() => {
-    getUserPosts({ id: LoggedUser.user.id, token: LoggedUser.token })
+    getUserPosts({ id: user.id, token: token })
       .then((response) => setPostList(response.data.posts))
       .catch(() => "Ops, algo deu errado.");
   }, []);
@@ -32,14 +38,3 @@ export default function MyPosts() {
 const ContainerPosts = styled(PageContainer)`
   width: 100%;
 `;
-
-const LoggedUser = {
-  token: "e100f937-26c8-4a1d-9fa1-2ffa0d7ee6e7",
-  user: {
-    id: 473,
-    email: "testonaldo@teste.com",
-    username: "testonaldo1",
-    avatar:
-      "https://mock-api.bootcamp.respondeai.com.br/api/v2/linkr/users/473/avatar",
-  },
-};
