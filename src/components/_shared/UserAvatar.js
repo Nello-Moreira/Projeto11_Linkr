@@ -14,6 +14,8 @@ export default function UserAvatar({ customStyle = {} }) {
 
 const Profile = styled.div`
 	padding: ${({ customStyle }) => customStyle.padding ? customStyle.padding : "inherit"};
+	display: flex;
+	align-items: center;
 
 	@media (max-width: 700px){
 		display: ${({ customStyle }) => customStyle.mobileDisplay ? customStyle.mobileDisplay : "initial"};
