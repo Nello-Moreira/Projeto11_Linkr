@@ -54,7 +54,7 @@ export default function PublishteBox() {
 
     return (
         <BoxContainer>
-            <ProfileImage padding={18} />
+            <ProfileImage customStyle={{padding:"18px", mobileDisplay: "none"}} />
             <PostForm onSubmit={publishPost}>
                 <Label>O que você tem pra favoritar hoje?</Label>
 
