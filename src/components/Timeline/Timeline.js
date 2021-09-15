@@ -10,20 +10,21 @@ import UserContext from "../../contexts/UserContext";
 
 export default function Timeline() {
 
-	const { user } = useContext(UserContext);
+    const { loggedUser } = useContext(UserContext);
 
-    const [ timelinePosts, setTimelinePosts ] = useState([]);
+    const [timelinePosts, setTimelinePosts] = useState(null);
 
     function updateTimeline() {
-		getPosts(user)
-			.then((resp) => {
-                console.log(resp.data)
-                setTimelinePosts(resp.data.posts)
-            }) //Simulando preenchimento da array de posts da timeline
-			.catch(() => updateTimeline());
-	}
+        getPosts(loggedUser)
+            .then((resp) => {
+                if (resp.data.posts.length === 0)
+                    alert("Nenhum post encontrado");
+                setTimelinePosts(resp.data.posts);
+            })
+            .catch(() => alert("Houve uma falha ao obter os posts, por favor atualize a página"));
+    }
 
-	useEffect(() => updateTimeline(), []);
+    useEffect(() => updateTimeline(), []);
 
     return (
         <PageContainer>
@@ -31,10 +32,10 @@ export default function Timeline() {
             <PageTitle>
                 timeline
             </PageTitle>
-            <PublishBox updateTimeline = {updateTimeline}/>
-            { timelinePosts.length > 0 ?  timelinePosts.map((post) =>
-                <Post postData = {post}/>
-            ) : ""}
+            <PublishBox updateTimeline={updateTimeline} />
+            {timelinePosts ? timelinePosts.map((post) =>
+                <Post postData={post} />
+            ) : "Loading..."}
         </PageContainer>
     );
 }

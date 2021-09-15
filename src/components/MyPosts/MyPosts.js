@@ -8,7 +8,7 @@ import { PageTitle } from "../_shared/PageTitle";
 import Post from "../_shared/Post";
 
 export default function MyPosts() {
-  //const { user } = useContext(UserContext);
+  //const { loggedUser } = useContext(UserContext);
   const storedUser = getUserFromLocalStorage();
   const { user, token } = storedUser;
 
@@ -25,16 +25,12 @@ export default function MyPosts() {
   }, []);
 
   return (
-    <ContainerPosts>
+    <PageContainer>
       <Header />
       <PageTitle>my posts</PageTitle>
       {postList.map((postData, index) => (
         <Post postData={postData} key={index} />
       ))}
-    </ContainerPosts>
+    </PageContainer>
   );
 }
-
-const ContainerPosts = styled(PageContainer)`
-  width: 100%;
-`;
