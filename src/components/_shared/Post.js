@@ -1,11 +1,23 @@
 import styled from "styled-components";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { MdEdit, MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import routes from "../../routes/routes";
+import { useContext, useState } from "react";
+import UserContext from "../../contexts/UserContext";
 
 export default function Post({ postData }) {
   const { text, link, linkTitle, linkDescription, linkImage, user } = postData;
+<<<<<<< HEAD
+=======
+  const [like, setLike] = useState(false);
+  const { loggedUser } = useContext(UserContext);
+
+  function likePost() {
+    setLike(!like);
+  }
+>>>>>>> 8f53d04d677b2e2a37cfe771698f84cdbf736388
 
   return (
     <PostContainer>
@@ -13,6 +25,7 @@ export default function Post({ postData }) {
         <Link to={routes.user.replace(":id", user.id)}>
           <ProfilePicture src={user.avatar} alt="profile" />
         </Link>
+<<<<<<< HEAD
         <Heart />
         <p>14 likes</p>
       </LeftContainer>
@@ -21,6 +34,25 @@ export default function Post({ postData }) {
           <h2>{user.username}</h2>
         </Link>
 
+=======
+        {like ? (
+          <LikedHeart onClick={likePost} />
+        ) : (
+          <Heart onClick={likePost} />
+        )}
+        <p>14 likes</p>
+      </LeftContainer>
+      <RightContainer>
+        <UserContainer>
+          <h2>{user.username}</h2>{" "}
+          {loggedUser.user.id === user.id && (
+            <div>
+              <MdEdit style={{ cursor: "pointer" }} />
+              <MdDelete style={{ cursor: "pointer", marginLeft: "5px" }} />{" "}
+            </div>
+          )}
+        </UserContainer>
+>>>>>>> 8f53d04d677b2e2a37cfe771698f84cdbf736388
         <p>
           <ReactHashtag
             renderHashtag={(hashtagValue) => (
@@ -34,6 +66,7 @@ export default function Post({ postData }) {
             {text}
           </ReactHashtag>
         </p>
+<<<<<<< HEAD
         <PreviewContainer>
           <DetailsContainer>
             <div>
@@ -55,6 +88,31 @@ export default function Post({ postData }) {
             </LogoContainer>
           )}
         </PreviewContainer>
+=======
+        <a href={link} rel="noreferrer" target="_blank">
+          <PreviewContainer>
+            <DetailsContainer>
+              <div>
+                <h1>{linkTitle} </h1>
+                <p>{linkDescription}</p>
+              </div>
+              <div className="link-container">
+                <a href={link} target="_blank" rel="noreferrer">
+                  {link}
+                </a>
+              </div>
+            </DetailsContainer>
+            {linkImage ? (
+              <PostImage src={linkImage} />
+            ) : (
+              <LogoContainer>
+                {" "}
+                <Logo>linkr</Logo>
+              </LogoContainer>
+            )}
+          </PreviewContainer>
+        </a>
+>>>>>>> 8f53d04d677b2e2a37cfe771698f84cdbf736388
       </RightContainer>
     </PostContainer>
   );
@@ -109,11 +167,36 @@ const Heart = styled(AiOutlineHeart)`
   height: 23px;
   color: #fff;
   margin-bottom: 3px;
+<<<<<<< HEAD
+=======
+  cursor: pointer;
+>>>>>>> 8f53d04d677b2e2a37cfe771698f84cdbf736388
 
   @media (max-width: 611px) {
     width: 17px;
     height: 17px;
   }
+<<<<<<< HEAD
+=======
+`;
+
+const LikedHeart = styled(AiFillHeart)`
+  width: 23px;
+  height: 23px;
+  color: #ac0000;
+  margin-bottom: 3px;
+  cursor: pointer;
+
+  @media (max-width: 611px) {
+    width: 17px;
+    height: 17px;
+  }
+`;
+
+const UserContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+>>>>>>> 8f53d04d677b2e2a37cfe771698f84cdbf736388
 `;
 
 const RightContainer = styled.div`
