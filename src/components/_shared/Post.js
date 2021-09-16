@@ -168,6 +168,7 @@ const PostImage = styled.img`
 `;
 
 const DetailsContainer = styled.div`
+	height: 155px;
 	border: 1px solid #c4c4c4;
 	border-right: none;
 	border-radius: 11px 0 0 11px;
@@ -197,7 +198,13 @@ const DetailsContainer = styled.div`
 		text-overflow: ellipsis;
 		color: #cecece;
 		font-size: 9px;
-	}	
+	}
+
+	a {
+		text-decoration: none;
+		font-size: 11px;
+		color: #cecece;
+	}
 
   	@media (max-width: 700px) {
 		width: calc(100% - 115px);
@@ -205,17 +212,17 @@ const DetailsContainer = styled.div`
 		padding: 10px;
 
 		h1 {
-		font-size: 11px;
+			font-size: 11px;
 		}
 
 		p {
-		font-size: 9px;
+			font-size: 9px;
 		}
 
 		a {
-		font-size: 9px;
+			font-size: 9px;
 		}
-  }
+	}
 `;
 
 const LogoContainer = styled.div`
@@ -230,7 +237,7 @@ const LogoContainer = styled.div`
   	@media (max-width: 700px) {
 		height: 115px;
 		width: 95px;
-  }
+  	}
 `;
 
 const Logo = styled.div`
