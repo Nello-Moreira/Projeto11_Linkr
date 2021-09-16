@@ -9,15 +9,12 @@ import UserContext from "../../contexts/UserContext";
 
 export default function Post({ postData }) {
   const { text, link, linkTitle, linkDescription, linkImage, user } = postData;
-<<<<<<< HEAD
-=======
   const [like, setLike] = useState(false);
   const { loggedUser } = useContext(UserContext);
 
   function likePost() {
     setLike(!like);
   }
->>>>>>> 8f53d04d677b2e2a37cfe771698f84cdbf736388
 
   return (
     <PostContainer>
@@ -25,16 +22,6 @@ export default function Post({ postData }) {
         <Link to={routes.user.replace(":id", user.id)}>
           <ProfilePicture src={user.avatar} alt="profile" />
         </Link>
-<<<<<<< HEAD
-        <Heart />
-        <p>14 likes</p>
-      </LeftContainer>
-      <RightContainer>
-        <Link to={routes.user.replace(":id", user.id)}>
-          <h2>{user.username}</h2>
-        </Link>
-
-=======
         {like ? (
           <LikedHeart onClick={likePost} />
         ) : (
@@ -52,7 +39,6 @@ export default function Post({ postData }) {
             </div>
           )}
         </UserContainer>
->>>>>>> 8f53d04d677b2e2a37cfe771698f84cdbf736388
         <p>
           <ReactHashtag
             renderHashtag={(hashtagValue) => (
@@ -66,29 +52,6 @@ export default function Post({ postData }) {
             {text}
           </ReactHashtag>
         </p>
-<<<<<<< HEAD
-        <PreviewContainer>
-          <DetailsContainer>
-            <div>
-              <h1>{linkTitle} </h1>
-              <p>{linkDescription}</p>
-            </div>
-            <div className="link-container">
-              <a href={link} target="_blank" rel="noreferrer">
-                {link}
-              </a>
-            </div>
-          </DetailsContainer>
-          {linkImage ? (
-            <PostImage src={linkImage} />
-          ) : (
-            <LogoContainer>
-              {" "}
-              <Logo>linkr</Logo>
-            </LogoContainer>
-          )}
-        </PreviewContainer>
-=======
         <a href={link} rel="noreferrer" target="_blank">
           <PreviewContainer>
             <DetailsContainer>
@@ -112,7 +75,6 @@ export default function Post({ postData }) {
             )}
           </PreviewContainer>
         </a>
->>>>>>> 8f53d04d677b2e2a37cfe771698f84cdbf736388
       </RightContainer>
     </PostContainer>
   );
@@ -167,17 +129,12 @@ const Heart = styled(AiOutlineHeart)`
   height: 23px;
   color: #fff;
   margin-bottom: 3px;
-<<<<<<< HEAD
-=======
   cursor: pointer;
->>>>>>> 8f53d04d677b2e2a37cfe771698f84cdbf736388
 
   @media (max-width: 611px) {
     width: 17px;
     height: 17px;
   }
-<<<<<<< HEAD
-=======
 `;
 
 const LikedHeart = styled(AiFillHeart)`
@@ -196,7 +153,6 @@ const LikedHeart = styled(AiFillHeart)`
 const UserContainer = styled.div`
   display: flex;
   justify-content: space-between;
->>>>>>> 8f53d04d677b2e2a37cfe771698f84cdbf736388
 `;
 
 const RightContainer = styled.div`
