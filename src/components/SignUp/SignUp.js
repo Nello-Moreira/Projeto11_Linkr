@@ -42,16 +42,16 @@ export default function SignUp(params) {
             .catch(err => {
                 if (err.response.status === statusCode.invalidField) {
                     setLoading(false);
-                    alert(err.response.data.message);
+                    alert("Por favor, preencha todos os campos corretamente.");
                     return;
                 }
                 if (err.response.status === statusCode.alreadyExists) {
                     setLoading(false);
-                    alert(err.response.data.message);
+                    alert("Este usuário já existe.");
                     return;
                 }
                 setLoading(false);
-                alert('An error has occurred. Please, try again.');
+                alert('Houve um erro ao fazer login. Por favor, tente novamente.');
             });
     }
 

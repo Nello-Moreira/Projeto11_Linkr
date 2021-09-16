@@ -19,14 +19,15 @@ export default function TrendingPage() {
     const [trendingPosts, setTrendingPosts] = useState([]);
 
     useEffect(() => {
+		if (!loggedUser.token) return history.push(routes.login);
+
         getTrendingPosts({ topic: HASHTAG, token: loggedUser.token })
             .then((response) => {
                 setTrendingPosts(response.data.posts)
                 setLoading(false);
             })
-            .catch((error) => {
-                if (error.response.status === statusCode.noToken) return history.push(routes.login);
-                alert(error.response.data.message);
+            .catch(() => {
+                alert("Houve um erro ao carregar essa página. Por favor, atualize a página.");
                 setLoading(false);
             });
     }, [HASHTAG]);

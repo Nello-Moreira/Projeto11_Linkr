@@ -63,11 +63,11 @@ export default function Login(params) {
             .catch(err => {
                 if (err.response.status === statusCode.wrongUserOrPassword) {
                     setLoading(false);
-                    alert(err.response.data.message);
+                    alert("Email e/ou senha inválidos.");
                     return;
                 }
                 setLoading(false);
-                alert('An error has occurred. Please, try again.');
+                alert('Houve um erro ao fazer login. Por favor, tente novamente.');
             });
     }
 

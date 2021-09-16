@@ -14,7 +14,9 @@ export default function Post({ postData }) {
 
 	const [isLiked, setIsLiked] = useState(false);
 
-	const likesText = likes.length ? likes.length : ""
+	const [ likesNumber, setLikesNumber ] = useState(likes.length);
+
+	const likesText = likesNumber > 0 ? (likesNumber > 1 ? `${likesNumber} likes` : `${likesNumber} like`) : ""
 
 	useEffect(() => {
 		likes.forEach(like => {
@@ -26,14 +28,16 @@ export default function Post({ postData }) {
 	function clickHeart() {
 		if (!isLiked) {
 			setIsLiked(true);
+			setLikesNumber(likesNumber + 1);
 			likePost({likedPost: id, token: loggedUser.token})
 				.then((resp)=>console.log(resp.data))
 				.catch((err)=>console.log(err.response))
 			console.log("likei")
+			setLikesNumber(likesNumber + 1);
 		}
 		else {
 			setIsLiked(false)
-			console.log("unlikei")
+			setLikesNumber(likesNumber - 1);
 			dislikePost({likedPost: id, token: loggedUser.token})
 				.then((resp)=>console.log(resp.data))
 				.catch((err)=>console.log(err.response))
@@ -48,7 +52,7 @@ export default function Post({ postData }) {
 				<button onClick={clickHeart}>
 					{isLiked ? <HeartFilled /> : <HeartOutline />}
 				</button>
-				<p>{}</p>
+				<p>{likesText}</p>
 			</LeftContainer>
 			<RightContainer>
 				<Link to={routes.user.replace(":id", user.id)}>
