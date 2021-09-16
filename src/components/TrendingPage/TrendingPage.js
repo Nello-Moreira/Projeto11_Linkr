@@ -28,7 +28,7 @@ export default function TrendingPage() {
                 setTrendingPosts(response.data.posts)
             })
             .catch((error) => console.log(error.response));
-    }, []);
+    }, [HASHTAG]);
 
     return (
         <PageContainer>
