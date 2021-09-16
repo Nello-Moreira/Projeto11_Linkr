@@ -1,12 +1,13 @@
-import { useContext, useEffect, useState } from "react";
-import UserContext from "../../contexts/UserContext";
-import { useParams } from "react-router";
 import styled from "styled-components";
-import { getUserData, getUserPosts } from "../../API/requests";
-import Header from "../Header/Header";
-import BlueButton from "../_shared/buttons/BlueButton";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
+import Header from "../Header/Header";
 import Post from "../_shared/Post";
+import BlueButton from "../_shared/buttons/BlueButton";
+import HashtagBox from "../HashtagBox/HashtagBox";
+import UserContext from "../../contexts/UserContext";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { getUserData, getUserPosts } from "../../API/requests";
 
 export default function UserPosts() {
 	const { loggedUser } = useContext(UserContext);
@@ -58,6 +59,8 @@ export default function UserPosts() {
 				))}
 
 			</ContentContainer>
+
+			<HashtagBox />
 		</PageContainer>
 	);
 }

@@ -1,7 +1,7 @@
 import { PageContainer, ContentContainer } from '../_shared/PageContainer';
 import Header from '../Header/Header';
 import { PageTitle } from '../_shared/PageTitle';
-import HashtagBox from "../HashtagBox/HashtagBox";
+import HashtagBox from '../HashtagBox/HashtagBox';
 import Post from '../_shared/Post';
 import CircleLoader from '../loaders/CircleLoader';
 import { useState, useEffect, useContext } from 'react';
