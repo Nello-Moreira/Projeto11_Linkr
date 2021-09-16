@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import ButtonsContainer from "../_shared/buttons/ButtonsContainer";
+import TrashButton from "../_shared/buttons/TrashButton";
+import EditButton from "../_shared/buttons/EditButton";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -22,23 +25,29 @@ export default function Post({ postData }) {
         <Link to={routes.user.replace(":id", user.id)}>
           <ProfilePicture src={user.avatar} alt="profile" />
         </Link>
+
         {like ? (
           <LikedHeart onClick={likePost} />
         ) : (
           <Heart onClick={likePost} />
         )}
+
         <p>14 likes</p>
       </LeftContainer>
+
       <RightContainer>
         <UserContainer>
           <h2>{user.username}</h2>{" "}
-          {loggedUser.user.id === user.id && (
-            <div>
-              <MdEdit style={{ cursor: "pointer" }} />
-              <MdDelete style={{ cursor: "pointer", marginLeft: "5px" }} />{" "}
-            </div>
-          )}
+
+          {loggedUser.user.id !== user.id ?
+            null :
+            <ButtonsContainer customStyle={{ separationMargin: '0 0 0 5px' }}>
+              <EditButton onClick={() => alert('Edit button')} />
+              <TrashButton onClick={() => alert('Delete button')} />
+            </ButtonsContainer>
+          }
         </UserContainer>
+
         <p>
           <ReactHashtag
             renderHashtag={(hashtagValue) => (
@@ -52,6 +61,7 @@ export default function Post({ postData }) {
             {text}
           </ReactHashtag>
         </p>
+
         <a href={link} rel="noreferrer" target="_blank">
           <PreviewContainer>
             <DetailsContainer>
@@ -151,6 +161,9 @@ const LikedHeart = styled(AiFillHeart)`
 `;
 
 const UserContainer = styled.div`
+  font-size: 19px;
+  color: rgb(255,255,255);
+  margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
 `;
@@ -173,7 +186,6 @@ const RightContainer = styled.div`
   h2 {
     font-size: 19px;
     color: #fff;
-    margin-bottom: 12px;
   }
 
   > p {
