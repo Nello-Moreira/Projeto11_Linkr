@@ -10,7 +10,6 @@ import Post from "../_shared/Post";
 export default function MyPosts() {
 	const { loggedUser } = useContext(UserContext);
 	const { user, token } = loggedUser;
-
 	const [postList, setPostList] = useState([]);
 
 	useEffect(() => {
