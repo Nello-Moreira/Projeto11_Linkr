@@ -16,11 +16,14 @@ export default function Header() {
 				</Link>
 
 				<InteractiveContainer>
-					<MdKeyboardArrowDown
-						color="white"
-						fontSize="60px"
-						onClick={() => setMenuOpened(!menuOpened)}
-					/>
+					<ArrowContainer menuOpened={menuOpened}>
+						<MdKeyboardArrowDown
+							color="white"
+							fontSize="50px"
+							onClick={() => setMenuOpened(!menuOpened)}
+						/>
+					</ArrowContainer>
+
 					<UserAvatar />
 				</InteractiveContainer>
 			</ContentContainer>
@@ -66,4 +69,9 @@ const Logo = styled.div`
 
 const InteractiveContainer = styled.div`
 	display: flex;
+`;
+
+const ArrowContainer = styled.div`
+	transform: ${({ menuOpened }) => menuOpened ? 'rotate(180deg)' : 'rotate(0deg)'};
+    transition: transform 0.5s ease;
 `;
