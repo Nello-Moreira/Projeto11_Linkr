@@ -35,11 +35,11 @@ export default function Timeline() {
 				<PageTitle>
 					timeline
 				</PageTitle>
-				
+
 				<PublishBox updateTimeline={updateTimeline} />
 
-				{timelinePosts ? timelinePosts.map((post) =>
-					<Post postData={post} />
+				{timelinePosts ? timelinePosts.map(post =>
+					<Post postData={post} key={post.id} />
 				) : "Loading..."}
 			</ContentContainer>
 

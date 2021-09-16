@@ -29,7 +29,7 @@ export default function HashtagBox() {
                     <CircleLoader customStyle={{ color: 'rgba(255,255,255)', height: '250px' }} />
                     :
                     hashtags.map(
-                        hashtagObject => <Hashtag hashtagObject={hashtagObject} />
+                        hashtagObject => <Hashtag hashtagObject={hashtagObject} key={hashtagObject.id} />
                     )
                 }
             </ContentContainer>
