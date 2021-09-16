@@ -1,21 +1,27 @@
 import styled from 'styled-components';
 import routes from '../../routes/routes';
+import { Link } from 'react-router-dom';
 
 export default function Hashtags({ hashtagObject }) {
     return (
-        <Container href={`${routes.trending.replace(':HASHTAG', hashtagObject.name)}`}>
-            {`# ${hashtagObject.name}`}
+        <Container>
+            <Link to={`${routes.trending.replace(':HASHTAG', hashtagObject.name)}`}>
+                {`# ${hashtagObject.name}`}
+            </Link>
         </Container>
     )
 };
 
-const Container = styled.a`
-    color: inherit;
-    text-decoration: none;
+const Container = styled.div`
     margin-bottom: 10px;
-    cursor: pointer;
-
-    :hover{
-        color: rgb(255,255,255);
+    
+    a {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+    
+        :hover{
+            color: rgb(255,255,255);
+        }
     }
 `;
