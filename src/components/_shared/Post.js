@@ -34,7 +34,7 @@ export default function Post({ postData }) {
 							<p>{linkDescription}</p>
 						</div>
 						<div className="link-container">
-							<a href={link}>{link}</a>
+							<a href={link} target="_blank" rel="noreferrer">{link}</a>
 						</div>
 					</DetailsContainer>
 					{linkImage ? (
