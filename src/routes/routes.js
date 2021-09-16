@@ -1,11 +1,11 @@
 const routes = {
     login: '/',
-    signUp: '/cadastro',
+    signUp: '/sign-up',
     timeline: '/timeline',
     myPosts: '/my-posts',
     user: '/user/:id',
     likes: '/my-likes',
-    trending: '/hashtag/:hashtag'
+    trending: '/hashtags/:HASHTAG'
 }
 
 export default routes;

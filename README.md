@@ -5,7 +5,7 @@ To achieve this goal, it was developed as a single page application using [React
 
 This is the 11th project made to 
 "[bootcamp de desenvolvimento web full stack - Responde aí/Driven](https://driven.com.br/)" 
-(full-stack web development) and was made in collaboration with [Gabriel](https://github.com/Nello-Moreira), [Gian](https://github.com/giancarvalho) and [Yasmin](https://github.com/yasmimc).
+(full-stack web development) and was made in collaboration with [Gabriel](https://github.com/Nello-Moreira), [Gian](https://github.com/giancarvalho) and [Yasmim](https://github.com/yasmimc).
 
 # Technologies
 * HTML 
