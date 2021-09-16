@@ -6,14 +6,21 @@ import ReactHashtag from "react-hashtag";
 import routes from "../../routes/routes";
 import { useContext, useState } from "react";
 import UserContext from "../../contexts/UserContext";
+import { useRef } from "react";
 
 export default function Post({ postData }) {
   const { text, link, linkTitle, linkDescription, linkImage, user } = postData;
   const [like, setLike] = useState(false);
   const { loggedUser } = useContext(UserContext);
+  const [edit, setEdit] = useState(true);
+  const inputRef = useRef(text);
 
   function likePost() {
     setLike(!like);
+  }
+
+  function editPost() {
+    console.log("img here");
   }
 
   return (
@@ -34,7 +41,7 @@ export default function Post({ postData }) {
           <h2>{user.username}</h2>{" "}
           {loggedUser.user.id === user.id && (
             <div>
-              <MdEdit style={{ cursor: "pointer" }} />
+              <MdEdit style={{ cursor: "pointer" }} onClick={editPost} />
               <MdDelete style={{ cursor: "pointer", marginLeft: "5px" }} />{" "}
             </div>
           )}
@@ -49,7 +56,7 @@ export default function Post({ postData }) {
               </Link>
             )}
           >
-            {text}
+            {edit ? "no" : text}
           </ReactHashtag>
         </p>
         <a href={link} rel="noreferrer" target="_blank">
