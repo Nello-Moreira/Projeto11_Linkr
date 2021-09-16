@@ -4,6 +4,7 @@ import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import Timeline from "../Timeline/Timeline";
 import MyPosts from "../MyPosts/MyPosts";
+import TrendingPage from "../TrendingPage/TrendingPage";
 import UserContext from "../../contexts/UserContext";
 import { useState } from "react";
 import "../App/App.css";
@@ -49,7 +50,7 @@ function App() {
           </Route>
 
           <Route exact path={routes.trending}>
-            trendings
+            <TrendingPage />
           </Route>
         </Switch>
       </UserContext.Provider>

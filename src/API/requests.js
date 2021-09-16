@@ -36,4 +36,8 @@ function getUserData({ id, token }) {
   return axiosBase.get(`/users/${id}`, createBearerAuthorization(token));
 }
 
-export { login, signUp, post, getPosts, getUserPosts, getTrendingTopics, getUserData };
+function getTrendingPosts({ topic, token }) {
+  return axiosBase.get(`/hashtags/${topic}/posts`, createBearerAuthorization(token));
+}
+
+export { login, signUp, post, getPosts, getUserPosts, getTrendingTopics, getUserData, getTrendingPosts };

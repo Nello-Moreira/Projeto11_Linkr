@@ -6,7 +6,7 @@ export default function CircleLoader({ customStyle = {} }) {
         <Container customStyle={customStyle}>
             <Loader
                 type="Oval"
-                color={customStyle.color ? customStyle.color : "rgb(18, 107, 165)"}
+                color={customStyle.color ? customStyle.color : "rgba(255,255,255)"}
                 height={80}
                 width={80}
             />
