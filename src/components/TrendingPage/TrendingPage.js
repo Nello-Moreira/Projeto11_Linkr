@@ -3,21 +3,18 @@ import Header from '../Header/Header';
 import { PageTitle } from '../_shared/PageTitle';
 import HashtagBox from "../HashtagBox/HashtagBox";
 import Post from '../_shared/Post';
-
 import CircleLoader from '../loaders/CircleLoader';
-
-
 import { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import UserContext from '../../contexts/UserContext';
-
 import { getTrendingPosts } from '../../API/requests';
-
-
+import statusCode from '../../API/statusCode';
+import routes from '../../routes/routes';
 
 export default function TrendingPage() {
     const { HASHTAG } = useParams();
     const { loggedUser } = useContext(UserContext);
+    const history = useHistory();
     const [loading, setLoading] = useState(true);
     const [trendingPosts, setTrendingPosts] = useState([]);
 
@@ -27,7 +24,10 @@ export default function TrendingPage() {
                 setLoading(false);
                 setTrendingPosts(response.data.posts)
             })
-            .catch((error) => console.log(error.response));
+            .catch((error) => {
+                if (error.response.status === statusCode.noToken) return history.push(routes.login);
+                alert(error.response.data.message);
+            });
     }, [HASHTAG]);
 
     return (
