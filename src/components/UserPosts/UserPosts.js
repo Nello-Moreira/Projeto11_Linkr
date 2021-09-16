@@ -1,23 +1,17 @@
 import { useContext, useEffect, useState } from "react";
+import UserContext from "../../contexts/UserContext";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import { getUserData, getUserPosts } from "../../API/requests";
-import UserContext from "../../contexts/UserContext";
 import Header from "../Header/Header";
 import BlueButton from "../_shared/buttons/BlueButton";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
-import { PageTitle } from "../_shared/PageTitle";
 import Post from "../_shared/Post";
 
-function getUserFromLocalStorage() {
-	return JSON.parse(localStorage.getItem("linkrUser"));
-}
-
 export default function UserPosts() {
-	//const { loggedUser } = useContext(UserContext);
+	const { loggedUser } = useContext(UserContext);
 	const { id } = useParams();
-	const storedUser = getUserFromLocalStorage();
-	const { token } = storedUser;
+	const { token } = loggedUser;
 	const [userProfile, setUserProfile] = useState({});
 	const [selected, setSelected] = useState(false);
 	const [postList, setPostList] = useState([]);
