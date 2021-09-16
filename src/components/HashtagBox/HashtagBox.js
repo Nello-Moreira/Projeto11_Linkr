@@ -16,7 +16,7 @@ export default function HashtagBox() {
                 setLoading(false);
                 setHashtags(response.data.hashtags.sort((a, b) => (a - b)));
             })
-    }, []);
+    }, [loggedUser]);
 
     return (
         <Container>

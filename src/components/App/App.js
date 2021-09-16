@@ -25,10 +25,6 @@ function App() {
     <BrowserRouter>
       <UserContext.Provider value={{ loggedUser, setLoggedUser }}>
         <Switch>
-          <Route exact path={routes.login}>
-            <Login />
-          </Route>
-
           <Route exact path={routes.signUp}>
             <SignUp />
           </Route>
@@ -52,6 +48,11 @@ function App() {
           <Route exact path={routes.trending}>
             <TrendingPage />
           </Route>
+
+          <Route path={routes.login}>
+            <Login />
+          </Route>
+
         </Switch>
       </UserContext.Provider>
     </BrowserRouter>
