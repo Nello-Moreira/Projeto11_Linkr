@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
+import routes from "../../routes/routes";
 
 export default function Post({ postData }) {
 	const { text, link, linkTitle, linkDescription, linkImage, user } = postData;
@@ -9,7 +10,7 @@ export default function Post({ postData }) {
 	return (
 		<PostContainer>
 			<LeftContainer>
-				<Link to={`/user/${user.id}`}>
+				<Link to={routes.user.replace(':id', user.id)}>
 					<ProfilePicture src={user.avatar} alt="profile" />
 				</Link>
 				<Heart />
@@ -20,7 +21,7 @@ export default function Post({ postData }) {
 				<p>
 					<ReactHashtag
 						renderHashtag={(hashtagValue) => (
-							<Link to={`/hashtags/${hashtagValue}/posts`}>
+							<Link to={routes.trending.replace(':HASHTAG', hashtagValue.slice(1))}>
 								{hashtagValue}
 							</Link>
 						)}>
