@@ -1,27 +1,55 @@
 import styled from "styled-components";
+import ButtonsContainer from "../_shared/buttons/ButtonsContainer";
+import TrashButton from "../_shared/buttons/TrashButton";
+import EditButton from "../_shared/buttons/EditButton";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import routes from "../../routes/routes";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import { useRef } from "react";
+import { CustomInput } from "./Inputs";
+import { edit } from "../../API/requests";
 
 export default function Post({ postData }) {
-  const { text, link, linkTitle, linkDescription, linkImage, user } = postData;
+  const { text, link, linkTitle, linkDescription, linkImage, user, id } =
+    postData;
   const [like, setLike] = useState(false);
   const { loggedUser } = useContext(UserContext);
-  const [edit, setEdit] = useState(true);
+  const [isEditing, setEdit] = useState(false);
   const inputRef = useRef(text);
+  const [postText, setPostText] = useState(text);
 
   function likePost() {
     setLike(!like);
   }
 
   function editPost() {
-    console.log("img here");
+    setEdit(!isEditing);
+    setPostText(text);
   }
+
+  function submitEdit(e, id) {
+    if (e.key === "Enter") {
+      edit({ text: postText, id, token: loggedUser.token })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    }
+
+    if (e.key === "Escape") {
+      editPost();
+    }
+  }
+
+  useEffect(() => {
+    if (isEditing) {
+      inputRef.current.focus();
+    }
+  }, [isEditing]);
 
   return (
     <PostContainer>
@@ -29,36 +57,54 @@ export default function Post({ postData }) {
         <Link to={routes.user.replace(":id", user.id)}>
           <ProfilePicture src={user.avatar} alt="profile" />
         </Link>
+
         {like ? (
           <LikedHeart onClick={likePost} />
         ) : (
           <Heart onClick={likePost} />
         )}
+
         <p>14 likes</p>
       </LeftContainer>
+
       <RightContainer>
         <UserContainer>
           <h2>{user.username}</h2>{" "}
-          {loggedUser.user.id === user.id && (
-            <div>
-              <MdEdit style={{ cursor: "pointer" }} onClick={editPost} />
-              <MdDelete style={{ cursor: "pointer", marginLeft: "5px" }} />{" "}
-            </div>
+          {loggedUser.user.id !== user.id ? null : (
+            <ButtonsContainer customStyle={{ separationMargin: "0 0 0 5px" }}>
+              <EditButton onClick={() => editPost()} />
+              <TrashButton onClick={() => alert("Delete button")} />
+            </ButtonsContainer>
           )}
         </UserContainer>
-        <p>
-          <ReactHashtag
-            renderHashtag={(hashtagValue) => (
-              <Link
-                to={routes.trending.replace(":HASHTAG", hashtagValue.slice(1))}
-              >
-                {hashtagValue}
-              </Link>
-            )}
-          >
-            {edit ? "no" : text}
-          </ReactHashtag>
-        </p>
+
+        {isEditing ? (
+          <input
+            value={postText}
+            ref={inputRef}
+            onChange={(e) => setPostText(e.target.value)}
+            onKeyUp={(e) => submitEdit(e, id)}
+            type="text"
+          />
+        ) : (
+          <p>
+            <ReactHashtag
+              renderHashtag={(hashtagValue) => (
+                <Link
+                  to={routes.trending.replace(
+                    ":HASHTAG",
+                    hashtagValue.slice(1)
+                  )}
+                >
+                  {hashtagValue}
+                </Link>
+              )}
+            >
+              {text}
+            </ReactHashtag>
+          </p>
+        )}
+
         <a href={link} rel="noreferrer" target="_blank">
           <PreviewContainer>
             <DetailsContainer>
@@ -158,6 +204,9 @@ const LikedHeart = styled(AiFillHeart)`
 `;
 
 const UserContainer = styled.div`
+  font-size: 19px;
+  color: rgb(255, 255, 255);
+  margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
 `;
@@ -180,7 +229,6 @@ const RightContainer = styled.div`
   h2 {
     font-size: 19px;
     color: #fff;
-    margin-bottom: 12px;
   }
 
   > p {

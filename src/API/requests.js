@@ -3,7 +3,7 @@ import axiosBase from "./axiosBase";
 function createBearerAuthorization(token) {
   return {
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
   };
 }
@@ -18,6 +18,14 @@ function signUp({ email, password, username, pictureUrl }) {
 
 function post({ token }, data) {
   return axiosBase.post("/posts", data, createBearerAuthorization(token));
+}
+
+function edit({ id, text, token }) {
+  return axiosBase.put(
+    `/posts/${id}`,
+    { text: text },
+    createBearerAuthorization(token)
+  );
 }
 
 function getPosts({ token }) {
@@ -37,7 +45,20 @@ function getUserData({ id, token }) {
 }
 
 function getTrendingPosts({ topic, token }) {
-  return axiosBase.get(`/hashtags/${topic}/posts`, createBearerAuthorization(token));
+  return axiosBase.get(
+    `/hashtags/${topic}/posts`,
+    createBearerAuthorization(token)
+  );
 }
 
-export { login, signUp, post, getPosts, getUserPosts, getTrendingTopics, getUserData, getTrendingPosts };
+export {
+  login,
+  signUp,
+  post,
+  getPosts,
+  getUserPosts,
+  getTrendingTopics,
+  getUserData,
+  getTrendingPosts,
+  edit,
+};
