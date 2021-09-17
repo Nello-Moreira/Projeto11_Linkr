@@ -40,4 +40,8 @@ function getTrendingPosts({ topic, token }) {
   return axiosBase.get(`/hashtags/${topic}/posts`, createBearerAuthorization(token));
 }
 
-export { login, signUp, post, getPosts, getUserPosts, getTrendingTopics, getUserData, getTrendingPosts };
+function deletePost({ postId, token }){
+  return axiosBase.delete(`/posts/${postId}`, createBearerAuthorization(token));
+}
+
+export { login, signUp, post, getPosts, getUserPosts, getTrendingTopics, getUserData, getTrendingPosts, deletePost };

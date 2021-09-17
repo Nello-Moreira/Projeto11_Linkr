@@ -5,8 +5,8 @@ import { PageTitle } from '../_shared/PageTitle';
 import HashtagBox from '../HashtagBox/HashtagBox';
 import Post from '../_shared/Post';
 import { getTrendingPosts } from '../../API/requests';
-import statusCode from '../../API/statusCode';
 import routes from '../../routes/routes';
+import PagePostsContext from '../../contexts/PagePostsContext';
 import UserContext from '../../contexts/UserContext';
 import { useState, useEffect, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
@@ -14,16 +14,19 @@ import { useParams, useHistory } from 'react-router-dom';
 export default function TrendingPage() {
     const { HASHTAG } = useParams();
     const { loggedUser } = useContext(UserContext);
+    const { pagePosts, setPagePosts } = useContext(PagePostsContext);
     const history = useHistory();
     const [loading, setLoading] = useState(true);
-    const [trendingPosts, setTrendingPosts] = useState([]);
 
     useEffect(() => {
-		if (!loggedUser.token) return history.push(routes.login);
+        if (!loggedUser.token) return history.push(routes.login);
+
+        setPagePosts([]);
 
         getTrendingPosts({ topic: HASHTAG, token: loggedUser.token })
             .then((response) => {
-                setTrendingPosts(response.data.posts)
+                setPagePosts(response.data.posts);
+
                 setLoading(false);
             })
             .catch(() => {
@@ -43,7 +46,7 @@ export default function TrendingPage() {
                     <ContentContainer>
                         <PageTitle>{`# ${HASHTAG}`}</PageTitle>
 
-                        {trendingPosts.map(
+                        {pagePosts.map(
                             post => <Post postData={post} key={post.id} />
                         )}
                     </ContentContainer>
