@@ -3,7 +3,7 @@ import axiosBase from "./axiosBase";
 function createBearerAuthorization(token) {
   return {
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
   };
 }
@@ -24,6 +24,10 @@ function getPosts({ token }) {
   return axiosBase.get("/posts", createBearerAuthorization(token));
 }
 
+function getLikedPosts({ token }) {
+  return axiosBase.get("/posts/liked", createBearerAuthorization(token));
+}
+
 function getUserPosts({ id, token }) {
   return axiosBase.get(`/users/${id}/posts`, createBearerAuthorization(token));
 }
@@ -37,7 +41,38 @@ function getUserData({ id, token }) {
 }
 
 function getTrendingPosts({ topic, token }) {
-  return axiosBase.get(`/hashtags/${topic}/posts`, createBearerAuthorization(token));
+  return axiosBase.get(
+    `/hashtags/${topic}/posts`,
+    createBearerAuthorization(token)
+  );
 }
 
-export { login, signUp, post, getPosts, getUserPosts, getTrendingTopics, getUserData, getTrendingPosts };
+function likePost({ likedPost, token }) {
+  return axiosBase.post(
+    `/posts/${likedPost}/like`,
+    "",
+    createBearerAuthorization(token)
+  );
+}
+
+function dislikePost({ likedPost, token }) {
+  return axiosBase.post(
+    `/posts/${likedPost}/dislike`,
+    "",
+    createBearerAuthorization(token)
+  );
+}
+
+export {
+  login,
+  signUp,
+  post,
+  getPosts,
+  getUserPosts,
+  getTrendingTopics,
+  getUserData,
+  getTrendingPosts,
+  likePost,
+  dislikePost,
+  getLikedPosts,
+};

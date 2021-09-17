@@ -9,6 +9,7 @@ import UserContext from "../../contexts/UserContext";
 import { useState } from "react";
 import "../App/App.css";
 import UserPosts from "../UserPosts/UserPosts";
+import MyLikes from "../MyLikes/MyLikes";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState({
@@ -42,7 +43,7 @@ function App() {
           </Route>
 
           <Route exact path={routes.likes}>
-            meus likes
+            <MyLikes />
           </Route>
 
           <Route exact path={routes.trending}>
@@ -52,7 +53,6 @@ function App() {
           <Route path={routes.login}>
             <Login />
           </Route>
-
         </Switch>
       </UserContext.Provider>
     </BrowserRouter>
