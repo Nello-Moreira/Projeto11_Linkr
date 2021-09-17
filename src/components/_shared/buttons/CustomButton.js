@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ThreeDotsLoader from '../../loaders/ThreeDotsLoader';
 
-export default function BlueButton({ customStyle = {}, children, ...otherProps }) {
+export default function CustomButton({ customStyle = {}, children, ...otherProps }) {
 
     return (
         <Button customStyle={customStyle} {...otherProps}>
@@ -16,11 +16,11 @@ export default function BlueButton({ customStyle = {}, children, ...otherProps }
 
 const Button = styled.button`
     font-family:${({ customStyle }) => customStyle.fontFamily ? customStyle.fontFamily : '"Oswald", sans-serif'};
-    font-size:${({ customStyle }) => customStyle.fontSize ? customStyle.fontSize : '20px'};
-    color: rgb(255, 255, 255);
+    font-size:${({ customStyle }) => customStyle.fontSize ? customStyle.fontSize : '100%'};
+    color: ${({ customStyle }) => customStyle.color ? customStyle.color : 'rgb(255, 255, 255)'};
     width: ${({ customStyle }) => customStyle.width ? customStyle.width : '100%'};
     height: ${({ customStyle }) => customStyle.height ? customStyle.height : '40px'};
-    background-color: rgba(24, 119, 242, 1);
+    background-color: ${({ customStyle }) => customStyle.backgroundColor ? customStyle.backgroundColor : 'rgba(24, 119, 242, 1)'};
     border: none;
     border-radius: 5px;
     display: flex;
@@ -30,9 +30,10 @@ const Button = styled.button`
     bottom: ${({ customStyle }) => customStyle.bottom ? customStyle.bottom : "" };
     margin: ${({ customStyle }) => customStyle.margin ? customStyle.margin : ""};
     right: ${({ customStyle }) => customStyle.right ? customStyle.right : ""};
+    cursor: pointer;
 
     :hover{
-        background-color: ${({ customStyle }) => customStyle.loading ? 'rgba(24, 119, 242, 1)' : 'rgb(82, 182, 255)'};;
+        filter: ${({ customStyle }) => customStyle.loading ? 'brightness(1)' : 'brightness(1.3)'};
     }
 
     >div{

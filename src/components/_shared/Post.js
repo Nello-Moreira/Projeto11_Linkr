@@ -11,11 +11,13 @@ import UserContext from "../../contexts/UserContext";
 import { likePost, dislikePost, edit } from "../../API/requests";
 import ReactTooltip from 'react-tooltip';
 import autosize from "autosize";
+import PagePostsContext from '../../contexts/PagePostsContext';
 
 export default function Post({ postData }) {
 	const { id, text, link, linkTitle, linkDescription, linkImage, user, likes } = postData;
 
 	const { loggedUser } = useContext(UserContext);
+    const { setDeletingPostId } = useContext(PagePostsContext);
 
 	const [isLiked, setIsLiked] = useState(false);
 
@@ -168,7 +170,7 @@ export default function Post({ postData }) {
 					{loggedUser.user.id !== user.id ? null : (
 						<ButtonsContainer customStyle={{ separationMargin: "0 0 0 5px" }}>
 							<EditButton disabled={loading} onClick={() => editPost()} />
-							<TrashButton disabled={loading} onClick={() => alert("Delete button")} />
+							<TrashButton onClick={() => setDeletingPostId(postData.id)} />
 						</ButtonsContainer>
 					)}
 				</UserContainer>
@@ -221,7 +223,9 @@ export default function Post({ postData }) {
 							</LogoContainer>
 						)}
 					</PreviewContainer>
+				
 			</RightContainer>
+
 		</PostContainer>
 	);
 }
@@ -312,42 +316,41 @@ const RightContainer = styled.div`
   width: 83%;
 
   a {
-    color: rgb(234, 232, 232);
-    text-decoration: none;
-    margin-bottom: 10px;
-    cursor: pointer;
+	color: rgb(234, 232, 232);
+	text-decoration: none;
+	margin-bottom: 10px;
+	cursor: pointer;
 
-    :hover {
-		color: rgb(210, 220, 220);
-    }
+	:hover {
+	  color: rgb(255, 255, 255);
+	}
   }
 
   h2 {
-    font-size: 19px;
-    color: #fff;
-	margin-bottom: 12px;
+	font-size: 19px;
+	color: #fff;
   }
 
   > p {
-    font-size: 17px;
-    color: #aaaaaa;
-    line-height: 18px;
-    margin-bottom: 15px;
+	font-size: 17px;
+	color: #aaaaaa;
+	line-height: 18px;
+	margin-bottom: 15px;
 	word-wrap: break-word;
   }
 
   @media (max-width: 611px) {
-    width: calc(100% - 30px);
+	width: calc(100% - 30px);
 
-    h2 {
-      font-size: 17px;
-      margin-left: 5px;
-    }
+	h2 {
+	  font-size: 17px;
+	  margin-left: 5px;
+	}
 
-    p {
-      font-size: 15px;
-      margin-left: 5px;
-    }
+	p {
+	  font-size: 15px;
+	  margin-left: 5px;
+	}
   }
 `;
 

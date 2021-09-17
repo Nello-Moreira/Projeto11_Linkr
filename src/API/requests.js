@@ -44,19 +44,12 @@ function getUserData({ id, token }) {
   return axiosBase.get(`/users/${id}`, createBearerAuthorization(token));
 }
 
-function getTrendingPosts({ topic, token }) {
-  return axiosBase.get(
-    `/hashtags/${topic}/posts`,
-    createBearerAuthorization(token)
-  );
+function getTrendingPosts({ topic, token }) { 
+	return axiosBase.get(`/hashtags/${topic}/posts`, createBearerAuthorization(token));
 }
 
-function likePost({ likedPost, token }) {
-  return axiosBase.post(
-    `/posts/${likedPost}/like`,
-    "",
-    createBearerAuthorization(token)
-  );
+function likePost({ likedPost, token }) {  
+	return axiosBase.post(`/posts/${likedPost}/like`, "", createBearerAuthorization(token));
 }
 
 function dislikePost({ likedPost, token }) {
@@ -66,6 +59,11 @@ function dislikePost({ likedPost, token }) {
 function getFollows({ token }) {
 	return axiosBase.get(`/users/follows`, createBearerAuthorization(token));
 }
+
+function deletePost({ postId, token }){
+	return axiosBase.delete(`/posts/${postId}`, createBearerAuthorization(token));
+  }
+  
 
 export {
 	login,
@@ -80,5 +78,6 @@ export {
 	likePost,
 	dislikePost,
 	getFollows,
-	edit
+	edit, 
+	deletePost
 }

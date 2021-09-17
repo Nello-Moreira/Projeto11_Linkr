@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { post } from "../../API/requests";
 
 import UserAvatar from "../_shared/UserAvatar";
-import BlueButton from "../_shared/buttons/BlueButton";
+import CustomButton from "../_shared/buttons/CustomButton";
 import UserContext from "../../contexts/UserContext";
 
 export default function PublishteBox({ updateTimeline }) {
@@ -57,11 +57,11 @@ export default function PublishteBox({ updateTimeline }) {
 					}} />
 
 				<ButtonContainer>
-					<BlueButton customStyle={{
+					<CustomButton customStyle={{
 						fontFamily: "'Lato', sans-serif",
 						width: "112px", height: "31px", fontSize: "14px"
 					}}
-						type="submit" name="publish" disabled={loading} >Publicar </BlueButton>
+						type="submit" name="publish" disabled={loading} >Publicar </CustomButton>
 				</ButtonContainer>
 
 			</PostForm>

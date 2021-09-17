@@ -6,6 +6,7 @@ import HashtagBox from "../HashtagBox/HashtagBox";
 import Post from "../_shared/Post";
 import { getUserPosts } from "../../API/requests";
 import routes from "../../routes/routes";
+import PagePostsContext from '../../contexts/PagePostsContext';
 import UserContext from "../../contexts/UserContext";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -13,17 +14,20 @@ import { useHistory } from "react-router-dom";
 
 export default function MyPosts() {
 	const { loggedUser } = useContext(UserContext);
+    const { pagePosts, setPagePosts } = useContext(PagePostsContext);
 	const { user, token } = loggedUser;
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
-	const [postList, setPostList] = useState([]);
 
 	useEffect(() => {
 		if (!loggedUser.token) return history.push(routes.login);
 
+		setPagePosts([]);
+
 		getUserPosts({ id: user.id, token: token })
 			.then((response) => {
-				setPostList(response.data.posts);
+                setPagePosts(response.data.posts);
+
 				setLoading(false);
 			})
 			.catch(() => {
@@ -43,7 +47,7 @@ export default function MyPosts() {
 					<ContentContainer>
 						<PageTitle>my posts</PageTitle>
 
-						{postList.map(
+						{pagePosts.map(
 							(postData, index) => <Post postData={postData} key={index} />
 						)}
 					</ContentContainer>
