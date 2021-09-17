@@ -6,6 +6,7 @@ import routes from "../../routes/routes";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import { likePost, dislikePost } from "../../API/requests";
+import ReactTooltip from 'react-tooltip';
 
 export default function Post({ postData }) {
 	const { id, text, link, linkTitle, linkDescription, linkImage, user, likes } = postData;
@@ -14,33 +15,79 @@ export default function Post({ postData }) {
 
 	const [isLiked, setIsLiked] = useState(false);
 
-	const [ likesNumber, setLikesNumber ] = useState(likes.length);
+	const [likesNumber, setLikesNumber] = useState(likes.length);
 
-	const likesText = likesNumber > 0 ? (likesNumber > 1 ? `${likesNumber} likes` : `${likesNumber} like`) : ""
+	const likesText = likesNumber > 0 ? (likesNumber > 1 ? `${likesNumber} likes` : `${likesNumber} like`) : "";
+
+	const [tooltip, setTooltip] = useState("");
 
 	useEffect(() => {
-		likes.forEach(like => {
-			if(like.userId === loggedUser.user.id)
-				setIsLiked(true)
-		});
+		constructTooltip();
+	}, [tooltip, isLiked, likesNumber, likesText])
+
+	useEffect(() => {
+		if (likes.find(like => like.userId === loggedUser.user.id))
+			setIsLiked(true);
 	}, []);
 
+	function constructTooltip() {
+		let tooltipNumber = likesNumber;
+		let tmpTooltip = "";
+
+		if (likesNumber > 0) {
+
+			if (isLiked) {
+				tmpTooltip = "Você ";
+			}
+			else {
+				tmpTooltip = `${likes[0]["user.username"]} `;
+			}
+			tmpTooltip = moreUsersLiked(tmpTooltip, tooltipNumber);
+		}
+		setTooltip(tmpTooltip);
+	}
+
+	function moreUsersLiked(tmpTooltip, tooltipNumber) {
+		let newTooltipNumber = tooltipNumber;
+
+		if (tooltipNumber > 1) {
+			if (tooltipNumber === 2) {
+				tmpTooltip = tmpTooltip + `e ${likes[1]["user.username"]} curtiram`;
+				return tmpTooltip;
+			}
+			else {
+				newTooltipNumber = tooltipNumber - 2;
+				tmpTooltip = `${tmpTooltip}, ${likes[1]["user.username"]} e mais ${newTooltipNumber} `;
+				moreUsersLiked(tmpTooltip, tooltipNumber - 2);
+			}
+		}
+		if (likes.length !== newTooltipNumber) {
+			if (tooltipNumber > 1)
+				tmpTooltip = tmpTooltip + "curtiram";
+			return tmpTooltip;
+		}
+		else {
+			tmpTooltip = tmpTooltip + "curtiu";
+			return tmpTooltip;
+		}
+	}
+
 	function clickHeart() {
+		setTooltip("");
 		if (!isLiked) {
 			setIsLiked(true);
 			setLikesNumber(likesNumber + 1);
-			likePost({likedPost: id, token: loggedUser.token})
-				.then((resp)=>console.log(resp.data))
-				.catch((err)=>console.log(err.response))
-			console.log("likei")
+			likePost({ likedPost: id, token: loggedUser.token })
+				.then((resp) => console.log(resp.data))
+				.catch((err) => console.log(err.response))
 			setLikesNumber(likesNumber + 1);
 		}
 		else {
 			setIsLiked(false)
 			setLikesNumber(likesNumber - 1);
-			dislikePost({likedPost: id, token: loggedUser.token})
-				.then((resp)=>console.log(resp.data))
-				.catch((err)=>console.log(err.response))
+			dislikePost({ likedPost: id, token: loggedUser.token })
+				.then((resp) => console.log(resp.data))
+				.catch((err) => console.log(err.response))
 		}
 	}
 	return (
@@ -52,7 +99,8 @@ export default function Post({ postData }) {
 				<button onClick={clickHeart}>
 					{isLiked ? <HeartFilled /> : <HeartOutline />}
 				</button>
-				<p>{likesText}</p>
+				<p data-tip={tooltip}>{likesText}</p>
+				<ReactTooltip />
 			</LeftContainer>
 			<RightContainer>
 				<Link to={routes.user.replace(":id", user.id)}>

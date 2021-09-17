@@ -48,6 +48,10 @@ function dislikePost({ likedPost, token }) {
 	return axiosBase.post(`/posts/${likedPost}/dislike`, "", createBearerAuthorization(token));
 }
 
+function getFollows({ token }) {
+	return axiosBase.get(`/users/follows`, createBearerAuthorization(token));
+}
+
 export { 
 	login, 
 	signUp, 
@@ -59,4 +63,5 @@ export {
 	getTrendingPosts,
 	likePost,
 	dislikePost,
+	getFollows,
 };
