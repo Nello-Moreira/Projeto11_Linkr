@@ -22,23 +22,50 @@ export default function Post({ postData }) {
   const inputRef = useRef();
   const [postText, setPostText] = useState(text);
   const [editText, setEditText] = useState(text);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isEditing) {
+      inputRef.current.focus();
+    }
+  }, [isEditing]);
 
   function likePost() {
     setLike(!like);
   }
 
   function editPost() {
-    setEdit(!isEditing);
+    if (!isEditing) {
+      setEdit(true);
+      return;
+    }
+
+    setEditText(postText);
+    setEdit(false);
   }
 
-  function submitEdit(e, id) {
+  function submitEdit() {
+    setLoading(true);
+    edit({ text: editText, id, token: loggedUser.token })
+      .then((response) => {
+        setPostText(response.data.post.text);
+        setEdit(false);
+        setLoading(false);
+      })
+      .catch(() => {
+        alert("Não foi possível salvar as alterações.");
+        setLoading(false);
+      });
+  }
+
+  function handleKeys(e) {
     if (e.key === "Enter") {
-      edit({ text: editText, id, token: loggedUser.token })
-        .then((response) => {
-          setPostText(response.data.post.text);
-          editPost();
-        })
-        .catch(() => alert("Não foi possível salvar as alterações."));
+      e.preventDefault();
+
+      if (e.repeat) {
+        return;
+      }
+      submitEdit();
     }
 
     if (e.key === "Escape") {
@@ -46,13 +73,6 @@ export default function Post({ postData }) {
       editPost();
     }
   }
-
-  useEffect(() => {
-    if (isEditing) {
-      inputRef.current.focus();
-      console.log(inputRef.current.value);
-    }
-  }, [isEditing]);
 
   return (
     <PostContainer>
@@ -82,12 +102,13 @@ export default function Post({ postData }) {
         </UserContainer>
 
         {isEditing ? (
-          <input
+          <InputText
             value={editText}
             ref={inputRef}
             onChange={(e) => setEditText(e.target.value)}
-            onKeyUp={(e) => submitEdit(e, id)}
-            type="text"
+            onKeyPress={(e) => handleKeys(e, id)}
+            loading={loading}
+            disabled={loading}
           />
         ) : (
           <p>
@@ -351,4 +372,25 @@ const Logo = styled.div`
   font-size: 35px;
   font-weight: 700;
   color: #000;
+`;
+
+const InputText = styled.textarea`
+  width: 100%;
+  font-size: 17px;
+  font-family: "Lato", sans-serif;
+  background-color: ${({ loading }) =>
+    loading ? "rgb(242, 242, 242)" : "rgb(255,255,255)"};
+  word-wrap: break-word;
+  border-radius: 7px;
+  margin-bottom: 5px;
+  padding: 8px;
+  resize: vertical;
+
+  :focus {
+    outline: none !important;
+  }
+
+  @media (max-width: 611px) {
+    font-size: 15px;
+  }
 `;
