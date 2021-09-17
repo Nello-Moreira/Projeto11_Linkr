@@ -6,14 +6,11 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import routes from "../../routes/routes";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import UserContext from "../../contexts/UserContext";
-import { likePost, dislikePost } from "../../API/requests";
+import { likePost, dislikePost, edit } from "../../API/requests";
 import ReactTooltip from 'react-tooltip';
-import { useRef } from "react";
-import { edit } from "../../API/requests";
 import autosize from "autosize";
-
 
 export default function Post({ postData }) {
 	const { id, text, link, linkTitle, linkDescription, linkImage, user, likes } = postData;
@@ -36,7 +33,6 @@ export default function Post({ postData }) {
 		if (likes.find(like => like.userId === loggedUser.user.id))
 			setIsLiked(true);
 	}, []);
-
 
 
 	function constructTooltip() {
@@ -153,12 +149,6 @@ export default function Post({ postData }) {
 		}
 	}
 
-
-
-
-
-
-
 	return (
 		<PostContainer>
 			<LeftContainer>
@@ -177,8 +167,8 @@ export default function Post({ postData }) {
 					<h2>{user.username}</h2>{" "}
 					{loggedUser.user.id !== user.id ? null : (
 						<ButtonsContainer customStyle={{ separationMargin: "0 0 0 5px" }}>
-							<EditButton onClick={() => editPost()} />
-							<TrashButton onClick={() => alert("Delete button")} />
+							<EditButton disabled={loading} onClick={() => editPost()} />
+							<TrashButton disabled={loading} onClick={() => alert("Delete button")} />
 						</ButtonsContainer>
 					)}
 				</UserContainer>
@@ -211,17 +201,15 @@ export default function Post({ postData }) {
 					</p>
 				)}
 
-				<a href={link} rel="noreferrer" target="_blank">
-					<PreviewContainer>
+				
+					<PreviewContainer href={link} target="_blank" rel="noreferrer">
 						<DetailsContainer>
 							<div>
 								<h1>{linkTitle} </h1>
 								<p>{linkDescription}</p>
 							</div>
 							<div className="link-container">
-								<a href={link} target="_blank" rel="noreferrer">
-									{link}
-								</a>
+								{link}								
 							</div>
 						</DetailsContainer>
 						{linkImage ? (
@@ -233,59 +221,58 @@ export default function Post({ postData }) {
 							</LogoContainer>
 						)}
 					</PreviewContainer>
-				</a>
 			</RightContainer>
 		</PostContainer>
 	);
 }
 
 const PostContainer = styled.div`
-	width: 100%;
-	background-color: #171717;
-	border-radius: 16px;
-	padding: 20px 20px 20px 0;
-	display: flex;
-	margin-bottom: 15px;
+  width: 100%;
+  background-color: #171717;
+  border-radius: 16px;
+  padding: 20px 20px 20px 0;
+  display: flex;
+  margin-bottom: 15px;
 
-	button {
-		background: none;
-		border: none;
-	}
+  button {
+    background: none;
+    border: none;
+  }
 
-	@media (max-width: 611px) {
-		border-radius: 0px;
-	}
+  @media (max-width: 611px) {
+    border-radius: 0px;
+  }
 `;
 
 const LeftContainer = styled.div`
-	height: 100%;
-	width: 15%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  height: 100%;
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-	p {
-		font-size: 11px;
-		color: #fff;
-	}
+  p {
+    font-size: 11px;
+    color: #fff;
+  }
 
-	@media (max-width: 611px) {
-		p {
-			font-size: 9px;
-		}
-	}
+  @media (max-width: 611px) {
+    p {
+      font-size: 9px;
+    }
+  }
 `;
 
 const ProfilePicture = styled.img`
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	margin-bottom: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 15px;
 
-	@media (max-width: 611px) {
-		height: 40px;
-		width: 40px;
-	}
+  @media (max-width: 611px) {
+    height: 40px;
+    width: 40px;
+  }
 `;
 
 const HeartOutline = styled(AiOutlineHeart)`
@@ -364,7 +351,7 @@ const RightContainer = styled.div`
   }
 `;
 
-const PreviewContainer = styled.div`
+const PreviewContainer = styled.a`
 max-width: 503px;
 display: flex;
 justify-content: space-between;
