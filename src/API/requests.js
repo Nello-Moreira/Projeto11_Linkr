@@ -20,6 +20,10 @@ function post({ token }, data) {
 	return axiosBase.post("/posts", data, createBearerAuthorization(token));
 }
 
+function edit({ id, text, token }) {
+	return axiosBase.put(`/posts/${id}`, { text: text }, createBearerAuthorization(token));
+}
+
 function getPosts({ token }) {
 	return axiosBase.get("/posts", createBearerAuthorization(token));
 }
@@ -52,16 +56,17 @@ function getFollows({ token }) {
 	return axiosBase.get(`/users/follows`, createBearerAuthorization(token));
 }
 
-export { 
-	login, 
-	signUp, 
-	post, 
-	getPosts, 
-	getUserPosts, 
-	getTrendingTopics, 
-	getUserData, 
+export {
+	login,
+	signUp,
+	post,
+	getPosts,
+	getUserPosts,
+	getTrendingTopics,
+	getUserData,
 	getTrendingPosts,
 	likePost,
 	dislikePost,
 	getFollows,
-};
+	edit
+}

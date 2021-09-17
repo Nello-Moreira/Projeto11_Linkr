@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import ButtonsContainer from "../_shared/buttons/ButtonsContainer";
+import TrashButton from "../_shared/buttons/TrashButton";
+import EditButton from "../_shared/buttons/EditButton";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
@@ -7,6 +10,10 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import { likePost, dislikePost } from "../../API/requests";
 import ReactTooltip from 'react-tooltip';
+import { useRef } from "react";
+import { edit } from "../../API/requests";
+import autosize from "autosize";
+
 
 export default function Post({ postData }) {
 	const { id, text, link, linkTitle, linkDescription, linkImage, user, likes } = postData;
@@ -29,6 +36,8 @@ export default function Post({ postData }) {
 		if (likes.find(like => like.userId === loggedUser.user.id))
 			setIsLiked(true);
 	}, []);
+
+
 
 	function constructTooltip() {
 		let tooltipNumber = likesNumber;
@@ -90,6 +99,66 @@ export default function Post({ postData }) {
 				.catch((err) => console.log(err.response))
 		}
 	}
+
+	const [isEditing, setEdit] = useState(false);
+	const inputRef = useRef();
+	const [postText, setPostText] = useState(text);
+	const [editText, setEditText] = useState(text);
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		if (isEditing) {
+			inputRef.current.focus();
+			autosize(inputRef.current);
+		}
+	}, [isEditing]);
+
+	function editPost() {
+		if (!isEditing) {
+			setEdit(true);
+			return;
+		}
+
+		setEditText(postText);
+		setEdit(false);
+	}
+
+	function submitEdit() {
+		setLoading(true);
+		edit({ text: editText, id, token: loggedUser.token })
+			.then((response) => {
+				setPostText(response.data.post.text);
+				setEdit(false);
+				setLoading(false);
+			})
+			.catch(() => {
+				alert("Não foi possível salvar as alterações.");
+				setLoading(false);
+			});
+	}
+
+	function handleKeys(e) {
+		if (e.key === "Enter") {
+			e.preventDefault();
+
+			if (e.repeat) {
+				return;
+			}
+			submitEdit();
+		}
+
+		if (e.key === "Escape") {
+			setEditText(postText);
+			editPost();
+		}
+	}
+
+
+
+
+
+
+
 	return (
 		<PostContainer>
 			<LeftContainer>
@@ -102,25 +171,47 @@ export default function Post({ postData }) {
 				<p data-tip={tooltip}>{likesText}</p>
 				<ReactTooltip />
 			</LeftContainer>
-			<RightContainer>
-				<Link to={routes.user.replace(":id", user.id)}>
-					<h2>{user.username}</h2>
-				</Link>
 
-				<p>
-					<ReactHashtag
-						renderHashtag={(hashtagValue) => (
-							<Link
-								to={routes.trending.replace(":HASHTAG", hashtagValue.slice(1))}
-							>
-								{hashtagValue}
-							</Link>
-						)}
-					>
-						{text}
-					</ReactHashtag>
-				</p>
-				<a href={link} target="_blank" rel="noreferrer">
+			<RightContainer>
+				<UserContainer>
+					<h2>{user.username}</h2>{" "}
+					{loggedUser.user.id !== user.id ? null : (
+						<ButtonsContainer customStyle={{ separationMargin: "0 0 0 5px" }}>
+							<EditButton onClick={() => editPost()} />
+							<TrashButton onClick={() => alert("Delete button")} />
+						</ButtonsContainer>
+					)}
+				</UserContainer>
+
+				{isEditing ? (
+					<InputText
+						value={editText}
+						ref={inputRef}
+						onChange={(e) => setEditText(e.target.value)}
+						onKeyPress={(e) => handleKeys(e, id)}
+						loading={loading}
+						disabled={loading}
+					/>
+				) : (
+					<p>
+						<ReactHashtag
+							renderHashtag={(hashtagValue) => (
+								<Link
+									to={routes.trending.replace(
+										":HASHTAG",
+										hashtagValue.slice(1)
+									)}
+								>
+									{hashtagValue}
+								</Link>
+							)}
+						>
+							{postText}
+						</ReactHashtag>
+					</p>
+				)}
+
+				<a href={link} rel="noreferrer" target="_blank">
 					<PreviewContainer>
 						<DetailsContainer>
 							<div>
@@ -128,9 +219,9 @@ export default function Post({ postData }) {
 								<p>{linkDescription}</p>
 							</div>
 							<div className="link-container">
-
-								{link}
-
+								<a href={link} target="_blank" rel="noreferrer">
+									{link}
+								</a>
 							</div>
 						</DetailsContainer>
 						{linkImage ? (
@@ -141,7 +232,8 @@ export default function Post({ postData }) {
 								<Logo>linkr</Logo>
 							</LogoContainer>
 						)}
-					</PreviewContainer></a>
+					</PreviewContainer>
+				</a>
 			</RightContainer>
 		</PostContainer>
 	);
@@ -202,160 +294,191 @@ const HeartOutline = styled(AiOutlineHeart)`
 	color: #fff;
 	margin-bottom: 3px;
 
-	@media (max-width: 611px) {
-		width: 17px;
-		height: 17px;
-	}
+@media(max-width: 611px) {
+	width: 17px;
+	height: 17px;
+}
 `;
 
 const HeartFilled = styled(AiFillHeart)`
-	width: 23px;
-	height: 23px;
-	color: #fff;
-	margin-bottom: 3px;
+width: 23px;
+height: 23px;
+color: #fff;
+margin-bottom: 3px;
 
-	@media (max-width: 611px) {
-		width: 17px;
-		height: 17px;
-	}
+@media(max-width: 611px) {
+	width: 17px;
+	height: 17px;
+}
+`;
+
+const UserContainer = styled.div`
+font-size: 19px;
+color: rgb(255, 255, 255);
+margin-bottom: 12px;
+display: flex;
+justify-content: space-between;
 `;
 
 const RightContainer = styled.div`
-	height: 100%;
-	width: 83%;
+  height: 100%;
+  width: 83%;
 
-	a {
+  a {
+    color: rgb(234, 232, 232);
+    text-decoration: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+
+    :hover {
 		color: rgb(210, 220, 220);
-		text-decoration: none;
-		margin-bottom: 10px;
-		cursor: pointer;
+    }
+  }
 
-		:hover {
-			color: rgb(255, 255, 255);
-		}
-	}
+  h2 {
+    font-size: 19px;
+    color: #fff;
+	margin-bottom: 12px;
+  }
 
-	h2 {
-		font-size: 19px;
-		color: #fff;
-		margin-bottom: 12px;
-	}
+  > p {
+    font-size: 17px;
+    color: #aaaaaa;
+    line-height: 18px;
+    margin-bottom: 15px;
+	word-wrap: break-word;
+  }
 
-	> p {
-		font-size: 17px;
-		color: #aaaaaa;
-		line-height: 18px;
-		margin-bottom: 15px;
-	}
+  @media (max-width: 611px) {
+    width: calc(100% - 30px);
 
-	@media (max-width: 611px) {
-		width: calc(100% - 30px);
+    h2 {
+      font-size: 17px;
+      margin-left: 5px;
+    }
 
-		h2 {
-			font-size: 17px;
-			margin-left: 5px;
-		}
-
-		p {
-			font-size: 15px;
-			margin-left: 5px;
-		}
-	}
+    p {
+      font-size: 15px;
+      margin-left: 5px;
+    }
+  }
 `;
 
 const PreviewContainer = styled.div`
-	max-width: 503px;
-	display: flex;
-	justify-content: space-between;
+max-width: 503px;
+display: flex;
+justify-content: space-between;
 `;
 
 const PostImage = styled.img`
-	height: 155px;
-	width: 153px;
-	border-radius: 0 11px 11px 0;
+height: 155px;
+width: 153px;
+border-radius: 0 11px 11px 0;
 
-	@media (max-width: 611px) {
-		height: 115px;
-		width: 95px;
-	}
+@media(max-width: 611px) {
+	height: 115px;
+	width: 95px;
+}
 `;
 
 const DetailsContainer = styled.div`
-	height: 155px;
-	border: 1px solid #c4c4c4;
-	border-right: none;
-	border-radius: 11px 0 0 11px;
-	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	flex: 1 1 auto;
-	overflow-y: hidden;
+height: 155px;
+border: 1px solid #c4c4c4;
+border-right: none;
+border-radius: 11px 0 0 11px;
+padding: 20px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+flex: 1 1 auto;
+overflow-y: hidden;
 
 	h1 {
-		font-size: 16px;
-		color: #cecece;
-		margin-bottom: 8px;
-	}
+	font-size: 16px;
+	color: #cecece;
+	margin-bottom: 8px;
+}
 
 	p {
-		font-size: 11px;
-		color: #aaaaaa;
-		margin: 10px 0;
-	}
+	font-size: 11px;
+	color: #aaaaaa;
+	margin: 10px 0;
+}
 
 	.link-container {
-		width: 100%;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		color: #cecece;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #cecece;
+	font-size: 9px;
+}
+
+	a {
+	text-decoration: none;
+	font-size: 11px;
+	color: #cecece;
+}
+
+@media(max-width: 611px) {
+	width: calc(100 % - 115px);
+	height: 115px;
+	padding: 10px;
+
+		h1 {
+		font-size: 11px;
+	}
+
+		p {
 		font-size: 9px;
 	}
 
-	a {
-		text-decoration: none;
-		font-size: 11px;
-		color: #cecece;
-	}
-
-	@media (max-width: 611px) {
-		width: calc(100% - 115px);
-		height: 115px;
-		padding: 10px;
-
-		h1 {
-			font-size: 11px;
-		}
-
-		p {
-			font-size: 9px;
-		}
-
 		a {
-			font-size: 9px;
-		}
+		font-size: 9px;
 	}
+}
 `;
 
 const LogoContainer = styled.div`
-	height: 155px;
-	width: 153px;
-	border-radius: 0 11px 11px 0;
-	background-color: #fff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+height: 155px;
+width: 153px;
+border-radius: 0 11px 11px 0;
+background-color: #fff;
+display: flex;
+justify-content: center;
+align-items: center;
 
-	@media (max-width: 611px) {
-		height: 115px;
-		width: 95px;
-	}
+@media(max-width: 611px) {
+	height: 115px;
+	width: 95px;
+}
 `;
 
 const Logo = styled.div`
-	font-family: "Passion One", cursive;
-	font-size: 35px;
-	font-weight: 700;
-	color: #000;
+font-family: "Passion One", cursive;
+font-size: 35px;
+font-weight: 700;
+color: #000;
+`;
+
+const InputText = styled.textarea`
+width: 100%;
+font-size: 17px;
+font-family: "Lato", sans - serif;
+background-color: ${({ loading }) =>
+		loading ? "rgb(242, 242, 242)" : "rgb(255,255,255)"
+	};
+word-wrap: break-word;
+border-radius: 7px;
+margin-bottom: 5px;
+padding: 8px;
+resize: vertical;
+
+  :focus {
+	outline: none!important;
+}
+
+@media(max-width: 611px) {
+	font-size: 15px;
+}
 `;
