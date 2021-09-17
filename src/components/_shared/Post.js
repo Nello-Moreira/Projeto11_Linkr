@@ -19,8 +19,9 @@ export default function Post({ postData }) {
   const [like, setLike] = useState(false);
   const { loggedUser } = useContext(UserContext);
   const [isEditing, setEdit] = useState(false);
-  const inputRef = useRef(text);
+  const inputRef = useRef();
   const [postText, setPostText] = useState(text);
+  const [editText, setEditText] = useState(text);
 
   function likePost() {
     setLike(!like);
@@ -28,19 +29,20 @@ export default function Post({ postData }) {
 
   function editPost() {
     setEdit(!isEditing);
-    setPostText(text);
   }
 
   function submitEdit(e, id) {
     if (e.key === "Enter") {
-      edit({ text: postText, id, token: loggedUser.token })
+      edit({ text: editText, id, token: loggedUser.token })
         .then((response) => {
-          console.log(response.data);
+          setPostText(response.data.post.text);
+          editPost();
         })
-        .catch((error) => console.log(error));
+        .catch(() => alert("Não foi possível salvar as alterações."));
     }
 
     if (e.key === "Escape") {
+      setEditText(postText);
       editPost();
     }
   }
@@ -48,6 +50,7 @@ export default function Post({ postData }) {
   useEffect(() => {
     if (isEditing) {
       inputRef.current.focus();
+      console.log(inputRef.current.value);
     }
   }, [isEditing]);
 
@@ -80,9 +83,9 @@ export default function Post({ postData }) {
 
         {isEditing ? (
           <input
-            value={postText}
+            value={editText}
             ref={inputRef}
-            onChange={(e) => setPostText(e.target.value)}
+            onChange={(e) => setEditText(e.target.value)}
             onKeyUp={(e) => submitEdit(e, id)}
             type="text"
           />
@@ -100,7 +103,7 @@ export default function Post({ postData }) {
                 </Link>
               )}
             >
-              {text}
+              {postText}
             </ReactHashtag>
           </p>
         )}
