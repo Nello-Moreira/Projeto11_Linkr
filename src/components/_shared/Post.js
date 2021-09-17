@@ -1,9 +1,9 @@
+import DeletingPostModal from '../Modal/DeletingPostModal';
 import styled from "styled-components";
 import ButtonsContainer from "../_shared/buttons/ButtonsContainer";
 import TrashButton from "../_shared/buttons/TrashButton";
 import EditButton from "../_shared/buttons/EditButton";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { MdEdit, MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import ReactHashtag from "react-hashtag";
 import routes from "../../routes/routes";
@@ -12,8 +12,9 @@ import UserContext from "../../contexts/UserContext";
 
 export default function Post({ postData }) {
   const { text, link, linkTitle, linkDescription, linkImage, user } = postData;
-  const [like, setLike] = useState(false);
   const { loggedUser } = useContext(UserContext);
+  const [like, setLike] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   function likePost() {
     setLike(!like);
@@ -43,7 +44,7 @@ export default function Post({ postData }) {
             null :
             <ButtonsContainer customStyle={{ separationMargin: '0 0 0 5px' }}>
               <EditButton onClick={() => alert('Edit button')} />
-              <TrashButton onClick={() => alert('Delete button')} />
+              <TrashButton onClick={() => setIsDeleting(true)} />
             </ButtonsContainer>
           }
         </UserContainer>
@@ -86,6 +87,12 @@ export default function Post({ postData }) {
           </PreviewContainer>
         </a>
       </RightContainer>
+
+      <DeletingPostModal postData={postData} isDeleting={isDeleting} setIsDeleting={setIsDeleting} />
+      {/* {isDeleting ?
+        :
+        null
+      } */}
     </PostContainer>
   );
 }
