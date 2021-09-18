@@ -42,7 +42,6 @@ export default function Post({ postData }) {
 		let tmpTooltip = "";
 
 		if (likesNumber > 0) {
-
 			if (isLiked) {
 				tmpTooltip = "Você ";
 			}
@@ -59,6 +58,7 @@ export default function Post({ postData }) {
 
 		if (tooltipNumber > 1) {
 			if (tooltipNumber === 2) {
+				if(isLiked) return `Você e ${likes[0]["user.username"]} curtiram`;
 				tmpTooltip = tmpTooltip + `e ${likes[1]["user.username"]} curtiram`;
 				return tmpTooltip;
 			}
@@ -67,20 +67,21 @@ export default function Post({ postData }) {
 				tmpTooltip = `${tmpTooltip}, ${likes[1]["user.username"]} e mais ${newTooltipNumber} `;
 				moreUsersLiked(tmpTooltip, tooltipNumber - 2);
 			}
+		}		
+		else {
+			tmpTooltip = tmpTooltip + "curtiu";
+			return tmpTooltip;
 		}
 		if (likes.length !== newTooltipNumber) {
 			if (tooltipNumber > 1)
 				tmpTooltip = tmpTooltip + "curtiram";
 			return tmpTooltip;
 		}
-		else {
-			tmpTooltip = tmpTooltip + "curtiu";
-			return tmpTooltip;
-		}
 	}
 
 	function clickHeart() {
 		setTooltip("");
+		constructTooltip();
 		if (!isLiked) {
 			setIsLiked(true);
 			setLikesNumber(likesNumber + 1);
