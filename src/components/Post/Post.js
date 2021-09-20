@@ -1,18 +1,20 @@
+import { useContext, useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import autosize from "autosize";
+
 import ButtonsContainer from "../_shared/buttons/ButtonsContainer";
+import UserAvatar from "../_shared/UserAvatar";
 import TrashButton from "../_shared/buttons/TrashButton";
 import EditButton from "../_shared/buttons/EditButton";
-import { Link } from "react-router-dom";
-import ReactHashtag from "react-hashtag";
 import routes from "../../routes/routes";
-import { useContext, useEffect, useState, useRef } from "react";
-import UserContext from "../../contexts/UserContext";
 import { edit } from "../../API/requests";
-import autosize from "autosize";
+import UserContext from "../../contexts/UserContext";
 import PagePostsContext from "../../contexts/PagePostsContext";
-import Like from "./Like";
+
 import Snippet from "./Sinippet";
-import UserAvatar from "../_shared/UserAvatar";
+import Like from "./Like";
+import PostText from "./PostText";
 
 export default function Post({ postData }) {
 	const { id, text, link, linkTitle, linkDescription, linkImage, user, likes } =
@@ -99,7 +101,7 @@ export default function Post({ postData }) {
 				</UserContainer>
 
 				{isEditing ? (
-					<InputText
+					<InputEditText
 						value={editText}
 						ref={inputRef}
 						onChange={(e) => setEditText(e.target.value)}
@@ -108,22 +110,7 @@ export default function Post({ postData }) {
 						disabled={loading}
 					/>
 				) : (
-					<p>
-						<ReactHashtag
-							renderHashtag={(hashtagValue) => (
-								<Link
-									to={routes.trending.replace(
-										":HASHTAG",
-										hashtagValue.slice(1)
-									)}
-								>
-									{hashtagValue}
-								</Link>
-							)}
-						>
-							{postText}
-						</ReactHashtag>
-					</p>
+					<PostText postText={postText} />
 				)}
 
 				<Snippet
@@ -226,10 +213,10 @@ const RightContainer = styled.div`
 	}
 `;
 
-const InputText = styled.textarea`
+const InputEditText = styled.textarea`
 	width: 100%;
 	font-size: 17px;
-	font-family: "Lato", sans - serif;
+	font-family: "Lato", sans-serif;
 	background-color: ${({ loading }) =>
 		loading ? "rgb(242, 242, 242)" : "rgb(255,255,255)"};
 	word-wrap: break-word;
