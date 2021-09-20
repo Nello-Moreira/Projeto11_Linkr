@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CircleLoader from "../loaders/CircleLoader";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import Header from "../Header/Header";
-import {PageTitleContainer} from "../_shared/PageTitleContainer";
+import { PageTitleContainer } from "../_shared/PageTitleContainer";
 import UserAvatar from "../_shared/UserAvatar";
 import Post from "../Post/Post";
 import FollowButton from "./FollowButton";
@@ -20,7 +20,6 @@ export default function UserPosts() {
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
 	const [userProfile, setUserProfile] = useState({});
-	const [selected, setSelected] = useState(false);
 	const [postList, setPostList] = useState([]);
 
 	useEffect(() => {
@@ -47,10 +46,6 @@ export default function UserPosts() {
 			});
 	}, []);
 
-	function FollowUser() {
-		setSelected(!selected);
-	}
-
 	return (
 		<PageContainer>
 			{loading ?
@@ -64,8 +59,12 @@ export default function UserPosts() {
 								<UserAvatar src={userProfile.avatar} customStyle={{ margin: '0 15px 0 0', resizeOnMobile: true }} />
 								<h1>{userProfile.username}'s posts</h1>
 							</ProfileInformations>
-
-							<FollowButton userId={id} />
+							
+							{loggedUser.user.id != id ?
+								<FollowButton userId={id} />
+								:
+								null
+							}
 						</PageTitleContainer>
 
 						{postList.map((postData, index) => (

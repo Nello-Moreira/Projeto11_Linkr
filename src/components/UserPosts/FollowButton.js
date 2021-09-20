@@ -1,42 +1,60 @@
-import styled from 'styled-components';
 import CustomButton from '../_shared/buttons/CustomButton';
 import UserContext from '../../contexts/UserContext';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { getFollows, followUser, unfollowUser } from '../../API/requests';
 
 export default function FollowButton({ userId }) {
     const { loggedUser } = useContext(UserContext);
-    const [following, setFollowing] = useState(amFollowing(userId));
-    const [loading, setLoading] = useState(false);
+    const [following, setFollowing] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        amFollowing(userId);
+    }, [])
 
     function amFollowing(userId) {
-        return true;           //TEMP
+        getFollows({ token: loggedUser.token })
+            .then(response => {
+                if (response.data.users.filter(user => user.id == userId).length > 0) {
+                    setFollowing(true)
+                }
+                setLoading(false)
+            })
+            .catch(error => alert('Algo deu errado. Por favor, recarregue a página.'));
     }
 
-    function follow() {
+    function followRequest() {
         setLoading(true);
 
-        console.log('follow')
-        setFollowing(true);
-
-        setLoading(false);
-
+        followUser({ token: loggedUser.token, userId })
+            .then(response => { 
+                setFollowing(true)
+                setLoading(false)
+             })
+            .catch(error => {
+                alert('Ocorreu um erro. Por favor, tente novamente.');
+                setLoading(false)
+            })
     }
 
-    function unfollow() {
+    function unfollowRequest() {
         setLoading(true);
 
-        console.log('unfollow')
-        setFollowing(false);
-
-        setLoading(false);
+        unfollowUser({ token: loggedUser.token, userId })
+            .then(response => { 
+                setFollowing(false)
+                setLoading(false)
+             })
+            .catch(error => {
+                alert('Ocorreu um erro. Por favor, tente novamente.');
+                setLoading(false)
+            })
     }
-
-    console.log('entrei')
 
     return (
         following ?
             <CustomButton
-                onClick={loading ? null : unfollow}
+                onClick={loading ? null : unfollowRequest}
                 customStyle={{
                     loading,
                     fontFamily: "'Lato', sans-serif",
@@ -50,12 +68,13 @@ export default function FollowButton({ userId }) {
             </CustomButton >
             :
             <CustomButton
-                onClick={loading ? null : follow}
-                customStyle={{ 
+                onClick={loading ? null : followRequest}
+                customStyle={{
                     loading,
                     fontFamily: "'Lato', sans-serif",
                     fontSize: '15px',
-                    width: '80px' }}
+                    width: '80px'
+                }}
             >
                 Follow
             </CustomButton >
