@@ -17,7 +17,7 @@ export default function Post({ postData }) {
 	const { id, text, link, linkTitle, linkDescription, linkImage, user, likes } = postData;
 
 	const { loggedUser } = useContext(UserContext);
-    const { setDeletingPostId } = useContext(PagePostsContext);
+	const { setDeletingPostId } = useContext(PagePostsContext);
 
 	const [isLiked, setIsLiked] = useState(false);
 
@@ -58,7 +58,7 @@ export default function Post({ postData }) {
 
 		if (tooltipNumber > 1) {
 			if (tooltipNumber === 2) {
-				if(isLiked) return `Você e ${likes[0]["user.username"]} curtiram`;
+				if (isLiked) return `Você e ${likes[0]["user.username"]} curtiram`;
 				tmpTooltip = tmpTooltip + `e ${likes[1]["user.username"]} curtiram`;
 				return tmpTooltip;
 			}
@@ -67,7 +67,7 @@ export default function Post({ postData }) {
 				tmpTooltip = `${tmpTooltip}, ${likes[1]["user.username"]} e mais ${newTooltipNumber} `;
 				moreUsersLiked(tmpTooltip, tooltipNumber - 2);
 			}
-		}		
+		}
 		else {
 			tmpTooltip = tmpTooltip + "curtiu";
 			return tmpTooltip;
@@ -204,27 +204,27 @@ export default function Post({ postData }) {
 					</p>
 				)}
 
-				
-					<PreviewContainer href={link} target="_blank" rel="noreferrer">
-						<DetailsContainer>
-							<div>
-								<h1>{linkTitle} </h1>
-								<p>{linkDescription}</p>
-							</div>
-							<div className="link-container">
-								{link}								
-							</div>
-						</DetailsContainer>
-						{linkImage ? (
-							<PostImage src={linkImage} />
-						) : (
-							<LogoContainer>
-								{" "}
-								<Logo>linkr</Logo>
-							</LogoContainer>
-						)}
-					</PreviewContainer>
-				
+
+				<PreviewContainer href={link} target="_blank" rel="noreferrer">
+					<DetailsContainer>
+						<div>
+							<h1>{linkTitle} </h1>
+							<p>{linkDescription}</p>
+						</div>
+						<div className="link-container">
+							{link}
+						</div>
+					</DetailsContainer>
+					{linkImage ? (
+						<PostImage src={linkImage} />
+					) : (
+						<LogoContainer>
+							{" "}
+							<Logo>linkr</Logo>
+						</LogoContainer>
+					)}
+				</PreviewContainer>
+
 			</RightContainer>
 
 		</PostContainer>

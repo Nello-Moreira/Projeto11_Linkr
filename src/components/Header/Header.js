@@ -4,24 +4,25 @@ import MenuOptions from "./MenuOptions";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import onClickOutside from "react-onclickoutside";
 
-export default function Header() {
+function Header() {
 	const [menuOpened, setMenuOpened] = useState(false);
-
+	Header.handleClickOutside = () => setMenuOpened(false);
 	return (
-		<MenuContainer>
+		<HeaderContainer
+			onClick={() => {
+				if (menuOpened) setMenuOpened(false);
+			}}
+		>
 			<ContentContainer>
 				<Link to="/">
 					<Logo>linkr</Logo>
 				</Link>
 
-				<InteractiveContainer>
+				<InteractiveContainer onClick={() => setMenuOpened(!menuOpened)}>
 					<ArrowContainer menuOpened={menuOpened}>
-						<MdKeyboardArrowDown
-							color="white"
-							fontSize="50px"
-							onClick={() => setMenuOpened(!menuOpened)}
-						/>
+						<MdKeyboardArrowDown color="white" fontSize="50px" />
 					</ArrowContainer>
 
 					<UserAvatar />
@@ -29,11 +30,15 @@ export default function Header() {
 			</ContentContainer>
 
 			<MenuOptions menuOpened={menuOpened} />
-		</MenuContainer>
+		</HeaderContainer>
 	);
 }
 
-const MenuContainer = styled.div`
+const clickOutsideConfig = {
+	handleClickOutside: () => Header.handleClickOutside,
+};
+
+const HeaderContainer = styled.div`
 	box-sizing: border-box;
 	height: 70px;
 	width: 100vw;
@@ -47,6 +52,8 @@ const MenuContainer = styled.div`
 		text-decoration: none;
 	}
 `;
+
+export default onClickOutside(Header, clickOutsideConfig);
 
 const ContentContainer = styled.div`
 	height: 100%;
@@ -72,6 +79,7 @@ const InteractiveContainer = styled.div`
 `;
 
 const ArrowContainer = styled.div`
-	transform: ${({ menuOpened }) => menuOpened ? 'rotate(180deg)' : 'rotate(0deg)'};
-    transition: transform 0.5s ease;
+	transform: ${({ menuOpened }) =>
+		menuOpened ? "rotate(180deg)" : "rotate(0deg)"};
+	transition: transform 0.5s ease;
 `;
