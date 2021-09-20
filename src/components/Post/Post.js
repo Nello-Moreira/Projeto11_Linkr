@@ -98,7 +98,9 @@ export default function Post({ postData }) {
 
 			<RightContainer>
 				<UserContainer>
-					<h2>{user.username}</h2>
+					<Link to={routes.user.replace(":id", user.id)}>
+						<h2>{user.username}</h2>
+					</Link>
 					{loggedUser.user.id !== user.id ? null : (
 						<ButtonsContainer customStyle={{ separationMargin: "0 0 0 5px" }}>
 							<EditButton disabled={loading} onClick={() => editPost()} />

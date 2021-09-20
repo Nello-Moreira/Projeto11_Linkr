@@ -41,12 +41,11 @@ const clickOutsideConfig = {
 const HeaderContainer = styled.div`
 	box-sizing: border-box;
 	height: 70px;
-	width: 100vw;
+	width: 100%;
 	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: 2;
-	width: 100vw;
 
 	a {
 		text-decoration: none;
@@ -58,7 +57,7 @@ export default onClickOutside(Header, clickOutsideConfig);
 const ContentContainer = styled.div`
 	height: 100%;
 	width: 100%;
-	padding: 0 20px 0 10px;
+	padding: 0 20px;
 	background-color: rgba(21, 21, 21, 1);
 	position: relative;
 	z-index: 5;
@@ -75,6 +74,7 @@ const Logo = styled.div`
 `;
 
 const InteractiveContainer = styled.div`
+	cursor: pointer;
 	display: flex;
 `;
 
