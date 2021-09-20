@@ -85,15 +85,19 @@ export default function Like({ likes, loggedUser, postId }) {
 	}
 
 	return (
-		<>
+		<LikeContainer>
 			<button onClick={clickHeart}>
 				{isLiked ? <HeartFilled /> : <HeartOutline />}
 			</button>
 			<p data-tip={tooltip}>{likesText}</p>
 			<ReactTooltip />
-		</>
+		</LikeContainer>
 	);
 }
+
+const LikeContainer = styled.div`
+	margin-top: 10px;
+`;
 
 const HeartOutline = styled(AiOutlineHeart)`
 	width: 23px;
