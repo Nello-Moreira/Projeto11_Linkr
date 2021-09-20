@@ -10,12 +10,7 @@ export default function Like({ likes, loggedUser, postId }) {
 	const [likesNumber, setLikesNumber] = useState(likes.length);
 
 	const likesText =
-		likesNumber > 0
-			? likesNumber > 1
-				? `${likesNumber} likes`
-				: `${likesNumber} like`
-			: "";
-
+		likesNumber > 0 ? `${likesNumber} likes` : `${likesNumber} like`;
 	const [tooltip, setTooltip] = useState("");
 
 	useEffect(() => {
@@ -30,6 +25,11 @@ export default function Like({ likes, loggedUser, postId }) {
 	function constructTooltip() {
 		let tooltipNumber = likesNumber;
 		let tmpTooltip = "";
+
+		if (likesNumber === 0) {
+			setTooltip("Seja o primeiro a curtir!");
+			return;
+		}
 
 		if (likesNumber > 0) {
 			if (isLiked) {
@@ -84,8 +84,8 @@ export default function Like({ likes, loggedUser, postId }) {
 		<LikeContainer>
 			<button onClick={clickHeart}>
 				{isLiked ? <HeartFilled /> : <HeartOutline />}
+				<p data-tip={tooltip}>{likesText}</p>
 			</button>
-			<p data-tip={tooltip}>{likesText}</p>
 			<ReactTooltip />
 		</LikeContainer>
 	);
@@ -110,7 +110,7 @@ const HeartOutline = styled(AiOutlineHeart)`
 const HeartFilled = styled(AiFillHeart)`
 	width: 23px;
 	height: 23px;
-	color: #fff;
+	color: red;
 	margin-bottom: 3px;
 
 	@media (max-width: 611px) {
