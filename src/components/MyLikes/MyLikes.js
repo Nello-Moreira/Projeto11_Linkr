@@ -1,7 +1,7 @@
 import CircleLoader from "../loaders/CircleLoader";
 import Header from "../Header/Header";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
-import { PageTitle } from "../_shared/PageTitle";
+import { PageTitleContainer } from "../_shared/PageTitleContainer";
 import HashtagBox from "../HashtagBox/HashtagBox";
 import Post from "../Post/Post";
 import { getLikedPosts } from "../../API/requests";
@@ -43,7 +43,7 @@ export default function MyLikes() {
 					<Header />
 
 					<ContentContainer>
-						<PageTitle>my likes</PageTitle>
+						<PageTitleContainer><h1>my likes</h1></PageTitleContainer>
 
 						{pagePosts.map((postData, index) => (
 							<Post postData={postData} key={index} />

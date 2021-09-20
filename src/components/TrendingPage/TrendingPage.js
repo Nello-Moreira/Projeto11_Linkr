@@ -1,7 +1,7 @@
 import CircleLoader from "../loaders/CircleLoader";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import Header from "../Header/Header";
-import { PageTitle } from "../_shared/PageTitle";
+import { PageTitleContainer } from "../_shared/PageTitleContainer";
 import HashtagBox from "../HashtagBox/HashtagBox";
 import Post from "../Post/Post";
 import { getTrendingPosts } from "../../API/requests";
@@ -46,7 +46,7 @@ export default function TrendingPage() {
 					<Header />
 
 					<ContentContainer>
-						<PageTitle>{`# ${HASHTAG}`}</PageTitle>
+						<PageTitleContainer><h1>{`# ${HASHTAG}`}</h1></PageTitleContainer>
 
 						{pagePosts.map((post) => (
 							<Post postData={post} key={post.id} />

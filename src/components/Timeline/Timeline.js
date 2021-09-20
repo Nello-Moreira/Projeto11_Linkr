@@ -1,6 +1,6 @@
 import CircleLoader from "../loaders/CircleLoader";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
-import { PageTitle } from "../_shared/PageTitle";
+import { PageTitleContainer } from "../_shared/PageTitleContainer";
 import Post from "../Post/Post";
 import Header from "../Header/Header";
 import PublishBox from "./PublishBox";
@@ -47,7 +47,7 @@ export default function Timeline() {
 					<Header />
 
 					<ContentContainer>
-						<PageTitle>timeline</PageTitle>
+						<PageTitleContainer><h1>timeline</h1></PageTitleContainer>
 
 						<PublishBox updateTimeline={updateTimeline} />
 

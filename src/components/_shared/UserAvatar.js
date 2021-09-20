@@ -13,14 +13,13 @@ export default function UserAvatar({ customStyle = {}, src }) {
 }
 
 const Profile = styled.div`
-	padding: ${({ customStyle }) =>
-		customStyle.padding ? customStyle.padding : "inherit"};
+	padding: ${({ customStyle }) => customStyle.padding || "inherit"};
+	margin: ${({ customStyle }) => customStyle.margin || 0};
 	display: flex;
 	align-items: center;
 
 	@media (max-width: 611px) {
-		display: ${({ customStyle }) =>
-			customStyle.mobileDisplay ? customStyle.mobileDisplay : "initial"};
+		display: ${({ customStyle }) => customStyle.mobileDisplay || "initial"};
 	}
 
 	img {
@@ -31,9 +30,9 @@ const Profile = styled.div`
 
 		@media (max-width: 611px) {
 			height: ${({ customStyle }) =>
-				customStyle.resizeOnMobile === true ? "40px" : "50px"};
+		customStyle.resizeOnMobile === true ? "40px" : "50px"};
 			width: ${({ customStyle }) =>
-				customStyle.resizeOnMobile === true ? "40px" : "50px"};
+		customStyle.resizeOnMobile === true ? "40px" : "50px"};
 		}
 	}
 `;

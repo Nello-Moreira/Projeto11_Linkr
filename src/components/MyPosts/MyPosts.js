@@ -1,7 +1,7 @@
 import CircleLoader from "../loaders/CircleLoader";
 import Header from "../Header/Header";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
-import { PageTitle } from "../_shared/PageTitle";
+import { PageTitleContainer } from "../_shared/PageTitleContainer";
 import HashtagBox from "../HashtagBox/HashtagBox";
 import Post from "../Post/Post";
 import { getUserPosts } from "../../API/requests";
@@ -44,7 +44,7 @@ export default function MyPosts() {
 					<Header />
 
 					<ContentContainer>
-						<PageTitle>my posts</PageTitle>
+						<PageTitleContainer><h1>my posts</h1></PageTitleContainer>
 
 						{pagePosts.map((postData, index) => (
 							<Post postData={postData} key={index} />
