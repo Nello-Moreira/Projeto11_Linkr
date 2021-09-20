@@ -1,4 +1,5 @@
 import CircleLoader from "../loaders/CircleLoader";
+import InfiniteScroll from "react-infinite-scroller";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import { PageTitle } from "../_shared/PageTitle";
 import Post from "../Post/Post";
@@ -11,6 +12,7 @@ import { getPosts } from "../../API/requests";
 import routes from "../../routes/routes";
 import { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 export default function Timeline() {
 	const { loggedUser } = useContext(UserContext);
@@ -18,16 +20,16 @@ export default function Timeline() {
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
 
+	const [nextPost, setNextPost] = useState(null);
+
 	function updateTimeline() {
 		if (!loggedUser.token) return history.push(routes.login);
 
-		setPagePosts([]);
-
-		getPosts(loggedUser)
+		getPosts(loggedUser, nextPost)
 			.then((resp) => {
 				if (resp.data.posts.length === 0) alert("Nenhum post encontrado");
-				setPagePosts(resp.data.posts);
-
+				setPagePosts(pagePosts.concat(resp.data.posts));
+				setNextPost(resp.data.posts[9].id - 1);
 				setLoading(false);
 			})
 			.catch(() => {
@@ -36,7 +38,10 @@ export default function Timeline() {
 			});
 	}
 
-	useEffect(() => updateTimeline(), []);
+	useEffect(() => {
+		updateTimeline();
+		// setPagePosts([]);
+	}, []);
 
 	return (
 		<PageContainer>
@@ -50,10 +55,20 @@ export default function Timeline() {
 						<PageTitle>timeline</PageTitle>
 
 						<PublishBox updateTimeline={updateTimeline} />
-
-						{pagePosts.map((post) => (
-							<Post postData={post} key={post.id} />
-						))}
+						<InfiniteTimeline
+							pageStart={0}
+							loadMore={updateTimeline}
+							hasMore={true || false}
+							loader={
+								<div className="loader" key={0}>
+									Loading ...
+								</div>
+							}
+						>
+							{pagePosts.map((post) => (
+								<Post postData={post} key={post.id} />
+							))}
+						</InfiniteTimeline>
 					</ContentContainer>
 
 					<HashtagBox />
@@ -62,3 +77,7 @@ export default function Timeline() {
 		</PageContainer>
 	);
 }
+
+const InfiniteTimeline = styled(InfiniteScroll)`
+	width: 100%;
+`;

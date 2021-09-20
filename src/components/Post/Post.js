@@ -14,7 +14,7 @@ import UserAvatar from "../_shared/UserAvatar";
 import TrashButton from "../_shared/buttons/TrashButton";
 import EditButton from "../_shared/buttons/EditButton";
 
-import Snippet from "./Sinippet";
+import Snippet from "./Snippet";
 import Like from "./Like";
 import PostText from "./PostText";
 
