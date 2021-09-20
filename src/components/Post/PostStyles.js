@@ -66,24 +66,11 @@ const RightContainer = styled.div`
 		color: #fff;
 	}
 
-	> p {
-		font-size: 17px;
-		color: #aaaaaa;
-		line-height: 18px;
-		margin-bottom: 15px;
-		word-wrap: break-word;
-	}
-
 	@media (max-width: 611px) {
 		width: calc(100% - 30px);
 
 		h2 {
 			font-size: 17px;
-			margin-left: 5px;
-		}
-
-		p {
-			font-size: 15px;
 			margin-left: 5px;
 		}
 	}

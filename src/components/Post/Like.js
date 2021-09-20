@@ -1,5 +1,5 @@
 import ReactTooltip from "react-tooltip";
-import { likePost, dislikePost, post } from "../../API/requests";
+import { likePost, dislikePost } from "../../API/requests";
 import { useState, useEffect } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import styled from "styled-components";
@@ -19,13 +19,13 @@ export default function Like({ likes, loggedUser, postId }) {
 	const [tooltip, setTooltip] = useState("");
 
 	useEffect(() => {
-		constructTooltip();
-	}, [tooltip, isLiked, likesNumber, likesText]);
-
-	useEffect(() => {
 		if (likes.find((like) => like.userId === loggedUser.user.id))
 			setIsLiked(true);
 	}, []);
+
+	useEffect(() => {
+		constructTooltip();
+	}, [tooltip, isLiked, likesNumber, likesText]);
 
 	function constructTooltip() {
 		let tooltipNumber = likesNumber;
