@@ -1,5 +1,4 @@
 import CircleLoader from "../loaders/CircleLoader";
-import InfiniteScroll from "react-infinite-scroller";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import { PageTitle } from "../_shared/PageTitle";
 import Post from "../Post/Post";
@@ -12,24 +11,25 @@ import { getPosts } from "../../API/requests";
 import routes from "../../routes/routes";
 import { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components";
+import { InfiniteTimeline } from "../_shared/InfineTimeline";
 
 export default function Timeline() {
 	const { loggedUser } = useContext(UserContext);
 	const { pagePosts, setPagePosts } = useContext(PagePostsContext);
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
-
-	const [nextPost, setNextPost] = useState(null);
+	const [lastPost, setLastPost] = useState(null);
+	const [hasMore, setHasMore] = useState(true);
 
 	function updateTimeline() {
 		if (!loggedUser.token) return history.push(routes.login);
 
-		getPosts(loggedUser, nextPost)
+		getPosts(loggedUser, lastPost)
 			.then((resp) => {
 				if (resp.data.posts.length === 0) alert("Nenhum post encontrado");
 				setPagePosts(pagePosts.concat(resp.data.posts));
-				setNextPost(resp.data.posts[9].id - 1);
+				if (resp.data.posts.length > 9) setLastPost(resp.data.posts[9].id);
+				else setHasMore(false);
 				setLoading(false);
 			})
 			.catch(() => {
@@ -58,7 +58,7 @@ export default function Timeline() {
 						<InfiniteTimeline
 							pageStart={0}
 							loadMore={updateTimeline}
-							hasMore={true || false}
+							hasMore={hasMore}
 							loader={
 								<div className="loader" key={0}>
 									Loading ...
@@ -77,7 +77,3 @@ export default function Timeline() {
 		</PageContainer>
 	);
 }
-
-const InfiniteTimeline = styled(InfiniteScroll)`
-	width: 100%;
-`;

@@ -7,9 +7,10 @@ import Post from "../Post/Post";
 import { getLikedPosts } from "../../API/requests";
 import routes from "../../routes/routes";
 import UserContext from "../../contexts/UserContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import PagePostsContext from "../../contexts/PagePostsContext";
+import { InfiniteTimeline } from "../_shared/InfineTimeline";
 
 export default function MyLikes() {
 	const { loggedUser } = useContext(UserContext);
@@ -18,20 +19,32 @@ export default function MyLikes() {
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		if (!loggedUser.token) return history.push(routes.login);
+	const [hasMore, setHasMore] = useState(true);
 
-		setPagePosts([]);
+	const [lastPost, setLastPost] = useState(null);
 
-		getLikedPosts({ token })
+	function updateMyLikes() {
+		getLikedPosts({ token }, lastPost)
 			.then((response) => {
-				setPagePosts(response.data.posts);
-				setLoading(false);
+				if (response.data.posts.length > 0) {
+					if (response.data.posts.length > 9) {
+						setLastPost(response.data.posts[9].id);
+						setPagePosts(pagePosts.concat(response.data.posts));
+					} else setHasMore(false);
+					setLoading(false);
+				}
 			})
 			.catch(() => {
 				alert("Ops, algo deu errado.");
 				setLoading(false);
 			});
+	}
+
+	useEffect(() => {
+		if (!loggedUser.token) return history.push(routes.login);
+
+		setPagePosts([]);
+		updateMyLikes();
 	}, [loggedUser]);
 
 	return (
@@ -44,10 +57,27 @@ export default function MyLikes() {
 
 					<ContentContainer>
 						<PageTitle>my likes</PageTitle>
-
-						{pagePosts.map((postData, index) => (
-							<Post postData={postData} key={index} />
-						))}
+						<InfiniteTimeline
+							pageStart={0}
+							loadMore={() => {
+								if (pagePosts.length > 9) updateMyLikes();
+							}}
+							hasMore={hasMore}
+							loader={
+								<div className="loader" key={0}>
+									Loading ...
+								</div>
+							}
+							endMessage={
+								<p style={{ textAlign: "center" }}>
+									<b>Yay! You have seen it all</b>
+								</p>
+							}
+						>
+							{pagePosts.map((postData, index) => (
+								<Post postData={postData} key={index} />
+							))}
+						</InfiniteTimeline>
 					</ContentContainer>
 
 					<HashtagBox />

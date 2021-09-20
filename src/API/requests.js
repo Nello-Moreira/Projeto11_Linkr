@@ -28,16 +28,21 @@ function edit({ id, text, token }) {
 	);
 }
 
-function getPosts({ token }, nextPost) {
-	if (nextPost)
+function getPosts({ token }, lastPost) {
+	if (lastPost)
 		return axiosBase.get(
-			`/posts?olderThan=${nextPost}`,
+			`/posts?olderThan=${lastPost}`,
 			createBearerAuthorization(token)
 		);
 	return axiosBase.get("/posts", createBearerAuthorization(token));
 }
 
-function getLikedPosts({ token }) {
+function getLikedPosts({ token }, lastPost) {
+	if (lastPost)
+		return axiosBase.get(
+			`/posts/liked?olderThan=${lastPost}`,
+			createBearerAuthorization(token)
+		);
 	return axiosBase.get("/posts/liked", createBearerAuthorization(token));
 }
 
