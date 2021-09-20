@@ -6,6 +6,15 @@ export default function Snippet({
 	linkDescription,
 	linkImage,
 }) {
+	function checkImgOnline(linkImage) {
+		var img = new Image();
+		img.src = linkImage;
+		if (img.height > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	return (
 		<PreviewContainer href={link} target="_blank" rel="noreferrer">
 			<DetailsContainer>
@@ -15,7 +24,7 @@ export default function Snippet({
 				</div>
 				<div className="link-container">{link}</div>
 			</DetailsContainer>
-			{linkImage ? (
+			{linkImage && checkImgOnline(linkImage) ? (
 				<PostImage src={linkImage} />
 			) : (
 				<LogoContainer>
@@ -46,6 +55,7 @@ const PostImage = styled.img`
 
 const DetailsContainer = styled.div`
 	height: 155px;
+	width: calc(100% - 153px);
 	border: 1px solid #c4c4c4;
 	border-right: none;
 	border-radius: 11px 0 0 11px;
