@@ -143,7 +143,7 @@ export default function Post({ postData }) {
 	}
 
 	function handleKeys(e) {
-		if (e.key === "Enter") {
+		if (e.key === "Enter" && !loading) {
 			e.preventDefault();
 
 			if (e.repeat) {
