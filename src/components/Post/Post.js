@@ -13,14 +13,15 @@ import ButtonsContainer from "../_shared/buttons/ButtonsContainer";
 import UserAvatar from "../_shared/UserAvatar";
 import TrashButton from "../_shared/buttons/TrashButton";
 import EditButton from "../_shared/buttons/EditButton";
-import routes from "../../routes/routes";
-import { edit } from "../../API/requests";
-import UserContext from "../../contexts/UserContext";
-import PagePostsContext from "../../contexts/PagePostsContext";
 
 import Snippet from "./Sinippet";
 import Like from "./Like";
 import PostText from "./PostText";
+
+import routes from "../../routes/routes";
+import { edit } from "../../API/requests";
+import UserContext from "../../contexts/UserContext";
+import PagePostsContext from "../../contexts/PagePostsContext";
 
 export default function Post({ postData }) {
 	const { id, text, link, linkTitle, linkDescription, linkImage, user, likes } =
