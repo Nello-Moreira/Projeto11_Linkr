@@ -1,13 +1,13 @@
-import { MdDelete } from "react-icons/md";
+import { AiOutlineSearch } from "react-icons/ai";
 
 import styled from "styled-components";
 
-export default function TrashButton({ customStyle, ...otherprops }) {
+export default function SearchButton({ customStyle, ...otherprops }) {
   return (
     <Button {...otherprops}>
-      <MdDelete
+      <AiOutlineSearch
         color={"inherit"}
-        title={"Delete this post"}
+        title={"Search a hashtag"}
         height="100%"
         width="100%"
         cursor={"pointer"}
