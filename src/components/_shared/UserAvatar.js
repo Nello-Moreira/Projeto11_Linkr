@@ -2,12 +2,12 @@ import { useContext } from "react";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
 
-export default function UserAvatar({ customStyle = {} }) {
+export default function UserAvatar({ customStyle = {}, src }) {
 	const { loggedUser } = useContext(UserContext);
 
 	return (
 		<Profile customStyle={customStyle}>
-			<img src={loggedUser.user.avatar} alt="userAvatar" />
+			<img src={src ? src : loggedUser.user.avatar} alt="userAvatar" />
 		</Profile>
 	);
 }
