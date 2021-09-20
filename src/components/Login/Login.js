@@ -3,7 +3,7 @@ import CircleLoader from '../loaders/CircleLoader'
 import Cover from '../_shared/Cover';
 import ContentContainer from '../_shared/ContentContainer';
 import { CustomForm, CustomInput } from '../_shared/Inputs';
-import BlueButton from '../_shared/buttons/BlueButton';
+import CustomButton from '../_shared/buttons/CustomButton';
 import CustomLink from '../_shared/CustomLink';
 import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../contexts/UserContext';
@@ -98,9 +98,9 @@ export default function Login(params) {
                                 />
                             )}
 
-                            <BlueButton customStyle={{ loading }} type='submit'>
+                            <CustomButton customStyle={{ loading }} type='submit'>
                                 Log In
-                            </BlueButton>
+                            </CustomButton>
                         </CustomForm>
 
                         <CustomLink onClick={loading ? null : () => history.push(routes.signUp)}>

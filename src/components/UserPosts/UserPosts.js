@@ -2,15 +2,14 @@ import styled from "styled-components";
 import CircleLoader from "../loaders/CircleLoader";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import Header from "../Header/Header";
-import Post from "../_shared/Post";
-import BlueButton from "../_shared/buttons/BlueButton";
+import Post from "../Post/Post";
+import CustomButton from "../_shared/buttons/CustomButton";
 import HashtagBox from "../HashtagBox/HashtagBox";
 import { getUserData, getUserPosts } from "../../API/requests";
 import routes from "../../routes/routes";
 import UserContext from "../../contexts/UserContext";
 import { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-
 
 export default function UserPosts() {
 	const { loggedUser } = useContext(UserContext);
@@ -37,11 +36,11 @@ export default function UserPosts() {
 
 		getUserPosts({ id, token })
 			.then((response) => {
-				setPostList(response.data.posts)
+				setPostList(response.data.posts);
 				setLoading(false);
 			})
 			.catch(() => {
-				alert("Ops, algo deu errado.")
+				alert("Ops, algo deu errado.");
 				setLoading(false);
 			});
 	}, []);
@@ -52,9 +51,9 @@ export default function UserPosts() {
 
 	return (
 		<PageContainer>
-			{loading ?
-				<CircleLoader customStyle={{ height: '50vh' }} />
-				:
+			{loading ? (
+				<CircleLoader customStyle={{ height: "50vh" }} />
+			) : (
 				<>
 					<Header />
 					<ContentContainer>
@@ -78,15 +77,14 @@ export default function UserPosts() {
 							</FollowButton>
 						</ProfileTitle>
 
-						{postList.map(
-							(postData, index) => <Post postData={postData} key={index} />
-						)}
-
+						{postList.map((postData, index) => (
+							<Post postData={postData} key={index} />
+						))}
 					</ContentContainer>
 
 					<HashtagBox />
 				</>
-			}
+			)}
 		</PageContainer>
 	);
 }
@@ -97,7 +95,7 @@ const ProfilePicture = styled.img`
 	border-radius: 50%;
 	margin-right: 15px;
 
-	@media (max-width: 700px) {
+	@media (max-width: 611px) {
 		height: 40px;
 		width: 40px;
 	}
@@ -123,8 +121,8 @@ const ProfileTitle = styled.div`
 		margin-top: -15px;
 	}
 
-	@media (max-width: 700px) {
-		margin: 19px 17px;
+	@media (max-width: 611px) {
+		padding: 19px 17px;
 
 		h1 {
 			font-size: 33px;
@@ -132,7 +130,7 @@ const ProfileTitle = styled.div`
 	}
 `;
 
-const FollowButton = styled(BlueButton)`
+const FollowButton = styled(CustomButton)`
 	color: ${({ selected }) => (selected ? "#1877F2" : "#fff")};
 	background-color: ${({ selected }) => (selected ? "#fff" : "#1877F2")};
 `;

@@ -1,42 +1,38 @@
 import CircleLoader from "../loaders/CircleLoader";
+import Header from "../Header/Header";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import { PageTitle } from "../_shared/PageTitle";
-import Post from "../Post/Post";
-import Header from "../Header/Header";
-import PublishBox from "./PublishBox";
 import HashtagBox from "../HashtagBox/HashtagBox";
-import PagePostsContext from "../../contexts/PagePostsContext";
-import UserContext from "../../contexts/UserContext";
-import { getPosts } from "../../API/requests";
+import Post from "../Post/Post";
+import { getLikedPosts } from "../../API/requests";
 import routes from "../../routes/routes";
-import { useEffect, useContext, useState } from "react";
+import UserContext from "../../contexts/UserContext";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import PagePostsContext from "../../contexts/PagePostsContext";
 
-export default function Timeline() {
+export default function MyLikes() {
 	const { loggedUser } = useContext(UserContext);
 	const { pagePosts, setPagePosts } = useContext(PagePostsContext);
+	const { token } = loggedUser;
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
 
-	function updateTimeline() {
+	useEffect(() => {
 		if (!loggedUser.token) return history.push(routes.login);
 
 		setPagePosts([]);
 
-		getPosts(loggedUser)
-			.then((resp) => {
-				if (resp.data.posts.length === 0) alert("Nenhum post encontrado");
-				setPagePosts(resp.data.posts);
-
+		getLikedPosts({ token })
+			.then((response) => {
+				setPagePosts(response.data.posts);
 				setLoading(false);
 			})
 			.catch(() => {
-				alert("Houve uma falha ao obter os posts, por favor atualize a página");
+				alert("Ops, algo deu errado.");
 				setLoading(false);
 			});
-	}
-
-	useEffect(() => updateTimeline(), []);
+	}, [loggedUser]);
 
 	return (
 		<PageContainer>
@@ -47,12 +43,10 @@ export default function Timeline() {
 					<Header />
 
 					<ContentContainer>
-						<PageTitle>timeline</PageTitle>
+						<PageTitle>my likes</PageTitle>
 
-						<PublishBox updateTimeline={updateTimeline} />
-
-						{pagePosts.map((post) => (
-							<Post postData={post} key={post.id} />
+						{pagePosts.map((postData, index) => (
+							<Post postData={postData} key={index} />
 						))}
 					</ContentContainer>
 

@@ -2,7 +2,7 @@ import HomeContainer from '../_shared/HomeContainer';
 import Cover from '../_shared/Cover';
 import ContentContainer from '../_shared/ContentContainer';
 import { CustomForm, CustomInput } from '../_shared/Inputs';
-import BlueButton from '../_shared/buttons/BlueButton';
+import CustomButton from '../_shared/buttons/CustomButton';
 import CustomLink from '../_shared/CustomLink';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -78,9 +78,9 @@ export default function SignUp(params) {
                         />
                     )}
 
-                    <BlueButton customStyle={{ loading }} type='submit'>
+                    <CustomButton customStyle={{ loading }} type='submit'>
                         Sign Up
-                    </BlueButton>
+                    </CustomButton>
                 </CustomForm>
 
                 <CustomLink onClick={loading ? null : () => history.push(routes.login)}>
