@@ -1,11 +1,11 @@
 import CircleLoader from "../loaders/CircleLoader";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import { PageTitle } from "../_shared/PageTitle";
-import Post from "../_shared/Post";
+import Post from "../Post/Post";
 import Header from "../Header/Header";
 import PublishBox from "./PublishBox";
 import HashtagBox from "../HashtagBox/HashtagBox";
-import PagePostsContext from '../../contexts/PagePostsContext';
+import PagePostsContext from "../../contexts/PagePostsContext";
 import UserContext from "../../contexts/UserContext";
 import { getPosts } from "../../API/requests";
 import routes from "../../routes/routes";
@@ -14,25 +14,24 @@ import { useHistory } from "react-router-dom";
 
 export default function Timeline() {
 	const { loggedUser } = useContext(UserContext);
-    const { pagePosts, setPagePosts } = useContext(PagePostsContext);
+	const { pagePosts, setPagePosts } = useContext(PagePostsContext);
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
 
 	function updateTimeline() {
 		if (!loggedUser.token) return history.push(routes.login);
 
-        setPagePosts([]);
+		setPagePosts([]);
 
 		getPosts(loggedUser)
 			.then((resp) => {
-				if (resp.data.posts.length === 0)
-					alert("Nenhum post encontrado");
-                setPagePosts(resp.data.posts);
+				if (resp.data.posts.length === 0) alert("Nenhum post encontrado");
+				setPagePosts(resp.data.posts);
 
 				setLoading(false);
 			})
 			.catch(() => {
-				alert("Houve uma falha ao obter os posts, por favor atualize a página")
+				alert("Houve uma falha ao obter os posts, por favor atualize a página");
 				setLoading(false);
 			});
 	}
@@ -41,27 +40,25 @@ export default function Timeline() {
 
 	return (
 		<PageContainer>
-			{loading ?
-				<CircleLoader customStyle={{ height: '50vh' }} />
-				:
+			{loading ? (
+				<CircleLoader customStyle={{ height: "50vh" }} />
+			) : (
 				<>
 					<Header />
 
 					<ContentContainer>
-						<PageTitle>
-							timeline
-						</PageTitle>
+						<PageTitle>timeline</PageTitle>
 
 						<PublishBox updateTimeline={updateTimeline} />
 
-						{pagePosts.map(post =>
+						{pagePosts.map((post) => (
 							<Post postData={post} key={post.id} />
-						)}
+						))}
 					</ContentContainer>
 
 					<HashtagBox />
 				</>
-			}
+			)}
 		</PageContainer>
 	);
 }

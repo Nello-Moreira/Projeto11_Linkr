@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CircleLoader from "../loaders/CircleLoader";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import Header from "../Header/Header";
-import Post from "../_shared/Post";
+import Post from "../Post/Post";
 import CustomButton from "../_shared/buttons/CustomButton";
 import HashtagBox from "../HashtagBox/HashtagBox";
 import { getUserData, getUserPosts } from "../../API/requests";
@@ -10,7 +10,6 @@ import routes from "../../routes/routes";
 import UserContext from "../../contexts/UserContext";
 import { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-
 
 export default function UserPosts() {
 	const { loggedUser } = useContext(UserContext);
@@ -37,11 +36,11 @@ export default function UserPosts() {
 
 		getUserPosts({ id, token })
 			.then((response) => {
-				setPostList(response.data.posts)
+				setPostList(response.data.posts);
 				setLoading(false);
 			})
 			.catch(() => {
-				alert("Ops, algo deu errado.")
+				alert("Ops, algo deu errado.");
 				setLoading(false);
 			});
 	}, []);
@@ -52,9 +51,9 @@ export default function UserPosts() {
 
 	return (
 		<PageContainer>
-			{loading ?
-				<CircleLoader customStyle={{ height: '50vh' }} />
-				:
+			{loading ? (
+				<CircleLoader customStyle={{ height: "50vh" }} />
+			) : (
 				<>
 					<Header />
 					<ContentContainer>
@@ -78,15 +77,14 @@ export default function UserPosts() {
 							</FollowButton>
 						</ProfileTitle>
 
-						{postList.map(
-							(postData, index) => <Post postData={postData} key={index} />
-						)}
-
+						{postList.map((postData, index) => (
+							<Post postData={postData} key={index} />
+						))}
 					</ContentContainer>
 
 					<HashtagBox />
 				</>
-			}
+			)}
 		</PageContainer>
 	);
 }
