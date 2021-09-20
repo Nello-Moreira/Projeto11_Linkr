@@ -71,16 +71,12 @@ export default function Like({ likes, loggedUser, postId }) {
 		if (!isLiked) {
 			setIsLiked(true);
 			setLikesNumber(likesNumber + 1);
-			likePost({ likedPost: postId, token: loggedUser.token })
-				.then((resp) => console.log(resp.data))
-				.catch((err) => console.log(err.response));
+			likePost({ likedPost: postId, token: loggedUser.token });
 			setLikesNumber(likesNumber + 1);
 		} else {
 			setIsLiked(false);
 			setLikesNumber(likesNumber - 1);
-			dislikePost({ likedPost: postId, token: loggedUser.token })
-				.then((resp) => console.log(resp.data))
-				.catch((err) => console.log(err.response));
+			dislikePost({ likedPost: postId, token: loggedUser.token });
 		}
 	}
 

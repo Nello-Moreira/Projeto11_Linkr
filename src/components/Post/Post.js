@@ -68,7 +68,7 @@ export default function Post({ postData }) {
 	}
 
 	function handleKeys(e) {
-		if (e.key === "Enter") {
+		if (e.key === "Enter" && !loading) {
 			e.preventDefault();
 
 			if (e.repeat) {
@@ -112,7 +112,7 @@ export default function Post({ postData }) {
 						value={editText}
 						ref={inputRef}
 						onChange={(e) => setEditText(e.target.value)}
-						onKeyPress={(e) => handleKeys(e, id)}
+						onKeyDown={(e) => handleKeys(e, id)}
 						loading={loading}
 						disabled={loading}
 					/>
