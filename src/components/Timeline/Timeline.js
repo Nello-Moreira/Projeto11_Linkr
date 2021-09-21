@@ -22,8 +22,6 @@ export default function Timeline() {
 	const [hasMore, setHasMore] = useState(true);
 
 	function updateTimeline() {
-		if (!loggedUser.token) return history.push(routes.login);
-
 		getPosts(loggedUser, lastPost)
 			.then((resp) => {
 				if (resp.data.posts.length === 0) alert("Nenhum post encontrado");
@@ -33,10 +31,8 @@ export default function Timeline() {
 						setPagePosts(pagePosts.concat(resp.data.posts));
 					} else {
 						setHasMore(false);
-						setPagePosts([]);
 					}
-				} else setPagePosts([]);
-				setLoading(false);
+				} else setLoading(false);
 			})
 			.catch(() => {
 				alert("Houve uma falha ao obter os posts, por favor atualize a página");
@@ -46,6 +42,8 @@ export default function Timeline() {
 
 	useEffect(() => {
 		setPagePosts([]);
+		if (!loggedUser.token) return history.push(routes.login);
+
 		updateTimeline();
 	}, [loggedUser]);
 

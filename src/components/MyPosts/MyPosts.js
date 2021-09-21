@@ -22,23 +22,23 @@ export default function MyPosts() {
 	const [lastPost, setLastPost] = useState(null);
 
 	function updateMyPost() {
-		getUserPosts({ id: user.id, token: token, lastPost })
-			.then((response) => {
-				if (response.data.posts.length > 0) {
-					if (response.data.posts.length > 9) {
-						setLastPost(response.data.posts[9].id);
-						setPagePosts(pagePosts.concat(response.data.posts));
-					} else {
-						setHasMore(false);
-						setPagePosts([]);
-					}
-				} else setPagePosts([]);
-				setLoading(false);
-			})
-			.catch(() => {
-				alert("Ops, algo deu errado.");
-				setLoading(false);
-			});
+		if (pagePosts.length === 0) {
+			getUserPosts({ id: user.id, token: token, lastPost })
+				.then((response) => {
+					if (response.data.posts.length > 0) {
+						if (response.data.posts.length > 9) {
+							setLastPost(response.data.posts[9].id);
+							setPagePosts(pagePosts.concat(response.data.posts));
+						} else {
+							setHasMore(false);
+						}
+					} else setLoading(false);
+				})
+				.catch(() => {
+					alert("Ops, algo deu errado.");
+					setLoading(false);
+				});
+		}
 	}
 
 	useEffect(() => {

@@ -7,7 +7,7 @@ import Post from "../Post/Post";
 import { getLikedPosts } from "../../API/requests";
 import routes from "../../routes/routes";
 import UserContext from "../../contexts/UserContext";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import PagePostsContext from "../../contexts/PagePostsContext";
 import { InfiniteTimeline } from "../_shared/InfineTimeline";
@@ -30,10 +30,8 @@ export default function MyLikes() {
 						setPagePosts(pagePosts.concat(response.data.posts));
 					} else {
 						setHasMore(false);
-						setPagePosts([]);
 					}
-				} else setPagePosts([]);
-				setLoading(false);
+				} else setLoading(false);
 			})
 			.catch(() => {
 				alert("Ops, algo deu errado.");
