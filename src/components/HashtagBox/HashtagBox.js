@@ -3,16 +3,12 @@ import CircleLoader from "../loaders/CircleLoader";
 import styled from "styled-components";
 import { getTrendingTopics } from "../../API/requests";
 import UserContext from "../../contexts/UserContext";
-import { useContext, useState, useEffect, useRef } from "react";
-import SearchButton from "../_shared/buttons/SearchButton";
+import { useContext, useState, useEffect } from "react";
 import SearchHashtag from "./SearchHashtag";
-
 export default function HashtagBox() {
   const { loggedUser } = useContext(UserContext);
   const [hashtags, setHashtags] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isSearching, setIsSearching] = useState(false);
-  const inputRef = useRef();
 
   useEffect(() => {
     getTrendingTopics(loggedUser).then((response) => {
@@ -21,21 +17,10 @@ export default function HashtagBox() {
     });
   }, [loggedUser]);
 
-  useEffect(() => {
-    if (isSearching) {
-      inputRef.current.focus();
-    }
-  }, [isSearching]);
-
   return (
     <Container>
       <TitleContainer>
-        {isSearching ? (
-          <SearchHashtag setIsSearching={setIsSearching} inputRef={inputRef} />
-        ) : (
-          <h2>trending</h2>
-        )}
-        <SearchButton onClick={() => setIsSearching(!isSearching)} />
+        <h2>trending</h2>
       </TitleContainer>
 
       <ContentContainer>
@@ -49,13 +34,14 @@ export default function HashtagBox() {
           ))
         )}
       </ContentContainer>
+      <SearchHashtag />
     </Container>
   );
 }
 
 const Container = styled.div`
   width: 300px;
-  height: 400px;
+  height: auto;
   margin: 142px 0 0 20px;
   background-color: rgba(23, 23, 23, 1);
   border-radius: 15px;
@@ -77,12 +63,8 @@ const TitleContainer = styled.div`
   padding: 0 15px;
   border-bottom: 1px solid rgba(72, 72, 72, 1);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-
-  .h2 {
-    display: inline;
-  }
 `;
 
 const ContentContainer = styled.div`
