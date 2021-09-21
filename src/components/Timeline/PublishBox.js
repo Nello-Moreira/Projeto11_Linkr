@@ -77,7 +77,7 @@ export default function PublishBox({ updateTimeline }) {
 						name="publish"
 						disabled={loading}
 					>
-						Publicar{" "}
+						{loading ? "Publicando..." : "Publicar"}
 					</CustomButton>
 				</ButtonContainer>
 			</PostForm>
