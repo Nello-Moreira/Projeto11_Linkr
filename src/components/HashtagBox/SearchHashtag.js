@@ -8,7 +8,7 @@ export default function SearchHashtag() {
   const [searchValue, setSearchValue] = useState("");
   const history = useHistory();
 
-  function handleKeys(e) {
+  function submitSearch(e) {
     if (e.key === "Enter") {
       e.preventDefault();
       history.push(routes.trending.replace(":HASHTAG", searchValue));
@@ -24,7 +24,7 @@ export default function SearchHashtag() {
         customStyle={{ loading: false, width: "85%" }}
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
-        onKeyDown={(e) => handleKeys(e)}
+        onKeyDown={(e) => submitSearch(e)}
         placeholder="type a hashtag"
       />
     </Container>
