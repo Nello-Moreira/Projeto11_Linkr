@@ -10,10 +10,10 @@ export default function FollowButton({ userId }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        amFollowing(userId);
+        isFollowing(userId);
     }, [])
 
-    function amFollowing(userId) {
+    function isFollowing(userId) {
         getFollows({ token: loggedUser.token })
             .then(response => {
                 if (response.data.users.filter(user => user.id == userId).length > 0) {
