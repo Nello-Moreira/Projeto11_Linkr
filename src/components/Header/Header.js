@@ -5,6 +5,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import onClickOutside from "react-onclickoutside";
+import routes from "../../routes/routes";
 
 function Header() {
 	const [menuOpened, setMenuOpened] = useState(false);
@@ -16,7 +17,7 @@ function Header() {
 			}}
 		>
 			<ContentContainer>
-				<Link to="/">
+				<Link to={routes.timeline}>
 					<Logo>linkr</Logo>
 				</Link>
 
