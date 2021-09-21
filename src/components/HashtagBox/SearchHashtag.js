@@ -21,7 +21,7 @@ export default function SearchHashtag() {
       #
       <Input
         type="search"
-        customStyle={{ loading: false, width: "85%" }}
+        customStyle={{ loading: false }}
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
         onKeyDown={(e) => submitSearch(e)}
