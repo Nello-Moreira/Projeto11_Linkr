@@ -18,21 +18,22 @@ export default function MyLikes() {
 	const { token } = loggedUser;
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
-
 	const [hasMore, setHasMore] = useState(true);
-
 	const [lastPost, setLastPost] = useState(null);
 
 	function updateMyLikes() {
-		getLikedPosts({ token }, lastPost)
+		getLikedPosts({ token, lastPost })
 			.then((response) => {
 				if (response.data.posts.length > 0) {
 					if (response.data.posts.length > 9) {
 						setLastPost(response.data.posts[9].id);
 						setPagePosts(pagePosts.concat(response.data.posts));
-					} else setHasMore(false);
-					setLoading(false);
-				}
+					} else {
+						setHasMore(false);
+						setPagePosts([]);
+					}
+				} else setPagePosts([]);
+				setLoading(false);
 			})
 			.catch(() => {
 				alert("Ops, algo deu errado.");
@@ -41,9 +42,8 @@ export default function MyLikes() {
 	}
 
 	useEffect(() => {
-		if (!loggedUser.token) return history.push(routes.login);
-
 		setPagePosts([]);
+		if (!loggedUser.token) return history.push(routes.login);
 		updateMyLikes();
 	}, [loggedUser]);
 
@@ -59,19 +59,12 @@ export default function MyLikes() {
 						<PageTitle>my likes</PageTitle>
 						<InfiniteTimeline
 							pageStart={0}
-							loadMore={() => {
-								if (pagePosts.length > 9) updateMyLikes();
-							}}
+							loadMore={() => updateMyLikes()}
 							hasMore={hasMore}
 							loader={
 								<div className="loader" key={0}>
 									Loading ...
 								</div>
-							}
-							endMessage={
-								<p style={{ textAlign: "center" }}>
-									<b>Yay! You have seen it all</b>
-								</p>
 							}
 						>
 							{pagePosts.map((postData, index) => (

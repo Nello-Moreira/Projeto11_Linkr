@@ -28,7 +28,7 @@ function edit({ id, text, token }) {
 	);
 }
 
-function getPosts({ token }, lastPost) {
+function getPosts({ token, lastPost }) {
 	if (lastPost)
 		return axiosBase.get(
 			`/posts?olderThan=${lastPost}`,
@@ -37,7 +37,7 @@ function getPosts({ token }, lastPost) {
 	return axiosBase.get("/posts", createBearerAuthorization(token));
 }
 
-function getLikedPosts({ token }, lastPost) {
+function getLikedPosts({ token, lastPost }) {
 	if (lastPost)
 		return axiosBase.get(
 			`/posts/liked?olderThan=${lastPost}`,
@@ -46,7 +46,12 @@ function getLikedPosts({ token }, lastPost) {
 	return axiosBase.get("/posts/liked", createBearerAuthorization(token));
 }
 
-function getUserPosts({ id, token }) {
+function getUserPosts({ id, token, lastPost }) {
+	if (lastPost)
+		return axiosBase.get(
+			`/users/${id}/posts?olderThan=${lastPost}`,
+			createBearerAuthorization(token)
+		);
 	return axiosBase.get(`/users/${id}/posts`, createBearerAuthorization(token));
 }
 

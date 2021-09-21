@@ -37,6 +37,7 @@ export default function Post({ postData }) {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
+		console.log(id);
 		if (isEditing) {
 			inputRef.current.focus();
 			autosize(inputRef.current);

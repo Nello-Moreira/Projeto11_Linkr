@@ -27,9 +27,15 @@ export default function Timeline() {
 		getPosts(loggedUser, lastPost)
 			.then((resp) => {
 				if (resp.data.posts.length === 0) alert("Nenhum post encontrado");
-				setPagePosts(pagePosts.concat(resp.data.posts));
-				if (resp.data.posts.length > 9) setLastPost(resp.data.posts[9].id);
-				else setHasMore(false);
+				if (resp.data.posts.length > 0) {
+					if (resp.data.posts.length > 9) {
+						setLastPost(resp.data.posts[9].id);
+						setPagePosts(pagePosts.concat(resp.data.posts));
+					} else {
+						setHasMore(false);
+						setPagePosts([]);
+					}
+				} else setPagePosts([]);
 				setLoading(false);
 			})
 			.catch(() => {
@@ -39,9 +45,9 @@ export default function Timeline() {
 	}
 
 	useEffect(() => {
+		setPagePosts([]);
 		updateTimeline();
-		// setPagePosts([]);
-	}, []);
+	}, [loggedUser]);
 
 	return (
 		<PageContainer>
