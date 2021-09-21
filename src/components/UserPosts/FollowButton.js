@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import CustomButton from '../_shared/buttons/CustomButton';
 import UserContext from '../../contexts/UserContext';
 import { useState, useContext, useEffect } from 'react';
@@ -27,10 +28,10 @@ export default function FollowButton({ userId }) {
         setLoading(true);
 
         followUser({ token: loggedUser.token, userId })
-            .then(response => { 
+            .then(response => {
                 setFollowing(true)
                 setLoading(false)
-             })
+            })
             .catch(error => {
                 alert('Ocorreu um erro. Por favor, tente novamente.');
                 setLoading(false)
@@ -41,10 +42,10 @@ export default function FollowButton({ userId }) {
         setLoading(true);
 
         unfollowUser({ token: loggedUser.token, userId })
-            .then(response => { 
+            .then(response => {
                 setFollowing(false)
                 setLoading(false)
-             })
+            })
             .catch(error => {
                 alert('Ocorreu um erro. Por favor, tente novamente.');
                 setLoading(false)
@@ -53,31 +54,38 @@ export default function FollowButton({ userId }) {
 
     return (
         following ?
-            <CustomButton
+            <ButtonBase
                 onClick={loading ? null : unfollowRequest}
                 customStyle={{
                     loading,
-                    fontFamily: "'Lato', sans-serif",
-                    fontSize: '15px',
                     color: 'rgb(24, 119, 242)',
-                    width: '80px',
                     backgroundColor: 'rgb(225,225,225)',
                 }}
             >
                 Unfollow
-            </CustomButton >
+            </ButtonBase >
             :
-            <CustomButton
+            <ButtonBase
                 onClick={loading ? null : followRequest}
                 customStyle={{
                     loading,
-                    fontFamily: "'Lato', sans-serif",
-                    fontSize: '15px',
-                    width: '80px'
+
                 }}
             >
                 Follow
-            </CustomButton >
+            </ButtonBase >
 
     );
 }
+
+const ButtonBase = styled(CustomButton)`
+    font-family: "'Lato', sans-serif";
+    font-size: 15px;
+    width: 80px;
+    position: relative;
+    left: 320px;
+
+    @media (max-width: 1000px){
+        position: initial;
+    }
+`;
