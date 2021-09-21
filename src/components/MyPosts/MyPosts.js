@@ -10,6 +10,7 @@ import PagePostsContext from "../../contexts/PagePostsContext";
 import UserContext from "../../contexts/UserContext";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { InfiniteTimeline } from "../_shared/InfineTimeline";
 
 export default function MyPosts() {
 	const { loggedUser } = useContext(UserContext);
@@ -17,22 +18,33 @@ export default function MyPosts() {
 	const { user, token } = loggedUser;
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
+	const [hasMore, setHasMore] = useState(true);
+	const [lastPost, setLastPost] = useState(null);
+
+	function updateMyPost() {
+		if (pagePosts.length === 0) {
+			getUserPosts({ id: user.id, token: token, lastPost })
+				.then((response) => {
+					if (response.data.posts.length > 0) {
+						if (response.data.posts.length > 9) {
+							setLastPost(response.data.posts[9].id);
+							setPagePosts(pagePosts.concat(response.data.posts));
+						} else {
+							setHasMore(false);
+						}
+					} else setLoading(false);
+				})
+				.catch(() => {
+					alert("Ops, algo deu errado.");
+					setLoading(false);
+				});
+		}
+	}
 
 	useEffect(() => {
-		if (!loggedUser.token) return history.push(routes.login);
-
 		setPagePosts([]);
-
-		getUserPosts({ id: user.id, token: token })
-			.then((response) => {
-				setPagePosts(response.data.posts);
-
-				setLoading(false);
-			})
-			.catch(() => {
-				alert("Ops, algo deu errado.");
-				setLoading(false);
-			});
+		if (!loggedUser.token) return history.push(routes.login);
+		updateMyPost();
 	}, [loggedUser]);
 
 	return (
@@ -45,10 +57,21 @@ export default function MyPosts() {
 
 					<ContentContainer>
 						<PageTitleContainer><h1>my posts</h1></PageTitleContainer>
-
-						{pagePosts.map((postData, index) => (
-							<Post postData={postData} key={index} />
-						))}
+						
+						<InfiniteTimeline
+							pageStart={0}
+							loadMore={updateMyPost}
+							hasMore={hasMore}
+							loader={
+								<div className="loader" key={0}>
+									Loading ...
+								</div>
+							}
+						>
+							{pagePosts.map((postData, index) => (
+								<Post postData={postData} key={index} />
+							))}
+						</InfiniteTimeline>
 					</ContentContainer>
 
 					<HashtagBox />

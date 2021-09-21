@@ -21,19 +21,38 @@ function post({ token }, data) {
 }
 
 function edit({ id, text, token }) {
-	return axiosBase.put(`/posts/${id}`, { text: text }, createBearerAuthorization(token));
+	return axiosBase.put(
+		`/posts/${id}`, { text: text }, createBearerAuthorization(token)
+	);
 }
 
-function getPosts({ token }) {
+function getPosts({ token, lastPost }) {
+	if (lastPost)
+		return axiosBase.get(
+			`/posts?olderThan=${lastPost}`,
+			createBearerAuthorization(token)
+		);
 	return axiosBase.get("/posts", createBearerAuthorization(token));
 }
 
-function getLikedPosts({ token }) {
-	return axiosBase.get("/posts/liked", createBearerAuthorization(token));
+function getLikedPosts({ token, lastPost }) {
+	if (lastPost)
+		return axiosBase.get(
+			`/posts/liked?olderThan=${lastPost}`, createBearerAuthorization(token)
+		);
+	return axiosBase.get(
+		"/posts/liked", createBearerAuthorization(token)
+	);
 }
 
-function getUserPosts({ id, token }) {
-	return axiosBase.get(`/users/${id}/posts`, createBearerAuthorization(token));
+function getUserPosts({ id, token, lastPost }) {
+	if (lastPost)
+		return axiosBase.get(
+			`/users/${id}/posts?olderThan=${lastPost}`, createBearerAuthorization(token)
+		);
+	return axiosBase.get(
+		`/users/${id}/posts`, createBearerAuthorization(token)
+	);
 }
 
 function getTrendingTopics({ token }) {
