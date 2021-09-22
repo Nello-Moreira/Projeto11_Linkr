@@ -19,30 +19,33 @@ export default function MyPosts() {
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
 	const [hasMore, setHasMore] = useState(true);
-	const [lastPost, setLastPost] = useState(null);
+	const [lastPostId, setLastPostId] = useState(null);
 
 	function updateMyPost() {
-		if (pagePosts.length === 0) {
-			getUserPosts({ id: user.id, token: token, lastPost })
-				.then((response) => {
-					if (response.data.posts.length > 0) {
-						if (response.data.posts.length > 9) {
-							setLastPost(response.data.posts[9].id);
-							setPagePosts(pagePosts.concat(response.data.posts));
-						} else {
-							setHasMore(false);
-						}
-					} else setLoading(false);
-				})
-				.catch(() => {
-					alert("Ops, algo deu errado.");
-					setLoading(false);
-				});
-		}
+		getUserPosts({ id: user.id, token: token, lastPostId })
+			.then((response) => {
+				const posts = response.data.posts;
+
+				if (posts.length < 10) {
+					setHasMore(false);
+				}
+
+				if (!lastPostId) {
+					setPagePosts(posts);
+				} else {
+					setPagePosts([...pagePosts, ...posts]);
+				}
+
+				setLastPostId(posts[posts.length - 1].id);
+				setLoading(false);
+			})
+			.catch(() => {
+				alert("Ops, algo deu errado.");
+				setLoading(false);
+			});
 	}
 
 	useEffect(() => {
-		setPagePosts([]);
 		if (!loggedUser.token) return history.push(routes.login);
 		updateMyPost();
 	}, [loggedUser]);
@@ -57,7 +60,7 @@ export default function MyPosts() {
 
 					<ContentContainer>
 						<PageTitleContainer><h1>my posts</h1></PageTitleContainer>
-						
+
 						<InfiniteTimeline
 							pageStart={0}
 							loadMore={updateMyPost}

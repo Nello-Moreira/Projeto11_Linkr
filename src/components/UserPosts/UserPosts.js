@@ -10,17 +10,45 @@ import HashtagBox from "../HashtagBox/HashtagBox";
 import { getUserData, getUserPosts } from "../../API/requests";
 import routes from "../../routes/routes";
 import UserContext from "../../contexts/UserContext";
+import PagePostsContext from "../../contexts/PagePostsContext";
 import { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { InfiniteTimeline } from "../_shared/InfineTimeline";
 
 export default function UserPosts() {
 	const { loggedUser } = useContext(UserContext);
+	const { pagePosts, setPagePosts } = useContext(PagePostsContext);
 	const { token } = loggedUser;
 	const { id } = useParams();
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
 	const [userProfile, setUserProfile] = useState({});
-	const [postList, setPostList] = useState([]);
+	const [hasMore, setHasMore] = useState(true);
+	const [lastPostId, setLastPostId] = useState(null);
+
+	function updateUserPost(settings={ id: userProfile.id, token: token, lastPostId }) {
+		getUserPosts(settings)
+			.then((response) => {
+				const posts = response.data.posts;
+
+				if (posts.length < 10) {
+					setHasMore(false);
+				}
+
+				if (!settings.lastPostId) {
+					setPagePosts(posts);
+				} else {
+					setPagePosts([...pagePosts, ...posts]);
+				}
+
+				setLastPostId(posts[posts.length - 1].id);
+				setLoading(false);
+			})
+			.catch(() => {
+				alert("Ops, algo deu errado.");
+				setLoading(false);
+			});
+	}
 
 	useEffect(() => {
 		if (!loggedUser.token) return history.push(routes.login);
@@ -28,6 +56,7 @@ export default function UserPosts() {
 		getUserData({ id, token })
 			.then((response) => {
 				setUserProfile(response.data.user);
+				updateUserPost({ id: response.data.user.id, token: token, lastPostId: null })
 				setLoading(false);
 			})
 			.catch(() => {
@@ -35,16 +64,7 @@ export default function UserPosts() {
 				setLoading(false);
 			});
 
-		getUserPosts({ id, token })
-			.then((response) => {
-				setPostList(response.data.posts);
-				setLoading(false);
-			})
-			.catch(() => {
-				alert("Ops, algo deu errado.");
-				setLoading(false);
-			});
-	}, []);
+	}, [loggedUser, id]);
 
 	return (
 		<PageContainer>
@@ -59,7 +79,7 @@ export default function UserPosts() {
 								<UserAvatar src={userProfile.avatar} customStyle={{ margin: '0 15px 0 0', resizeOnMobile: true }} />
 								<h1>{userProfile.username}'s posts</h1>
 							</ProfileInformations>
-							
+
 							{loggedUser.user.id != id ?
 								<FollowButton userId={id} />
 								:
@@ -67,9 +87,20 @@ export default function UserPosts() {
 							}
 						</PageTitleContainer>
 
-						{postList.map((postData, index) => (
-							<Post postData={postData} key={index} />
-						))}
+						<InfiniteTimeline
+							pageStart={0}
+							loadMore={()=>updateUserPost()}
+							hasMore={hasMore}
+							loader={
+								<div className="loader" key={0}>
+									Loading ...
+								</div>
+							}
+						>
+							{pagePosts.map((postData, index) => (
+								<Post postData={postData} key={index} />
+							))}
+						</InfiniteTimeline>
 					</ContentContainer>
 
 					<HashtagBox />

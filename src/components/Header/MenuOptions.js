@@ -18,7 +18,7 @@ export default function MenuOptions({ menuOpened }) {
 		<Container menuOpened={menuOpened}>
 			<span
 				onClick={() => {
-					setPagePosts([]);
+					// setPagePosts([]);
 					return history.push(routes.myPosts);
 				}}
 			>
@@ -26,7 +26,7 @@ export default function MenuOptions({ menuOpened }) {
 			</span>
 			<span
 				onClick={() => {
-					setPagePosts([]);
+					// setPagePosts([]);
 					return history.push(routes.likes);
 				}}
 			>
@@ -34,7 +34,7 @@ export default function MenuOptions({ menuOpened }) {
 			</span>
 			<span
 				onClick={() => {
-					setPagePosts([]);
+					// setPagePosts([]);
 					return logout();
 				}}
 			>

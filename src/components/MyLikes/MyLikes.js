@@ -19,19 +19,33 @@ export default function MyLikes() {
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
 	const [hasMore, setHasMore] = useState(true);
-	const [lastPost, setLastPost] = useState(null);
+	const [lastPostId, setLastPostId] = useState(null);
+
+	function samePosts(responsePosts, lastRequestPosts) {
+		return (
+			responsePosts.filter(
+				(element, index) => lastRequestPosts[index].id === element.id
+			).length === lastRequestPosts.length
+		)
+	}
 
 	function updateMyLikes() {
-		getLikedPosts({ token, lastPost })
+		getLikedPosts({ token, lastPostId })
 			.then((response) => {
-				if (response.data.posts.length > 0) {
-					if (response.data.posts.length > 9) {
-						setLastPost(response.data.posts[9].id);
-						setPagePosts(pagePosts.concat(response.data.posts));
-					} else {
-						setHasMore(false);
-					}
-				} else setLoading(false);
+				const posts = response.data.posts;
+
+				if (posts.length < 10) {
+					setHasMore(false);
+				}
+
+				if (!lastPostId) {
+					setPagePosts(posts);
+				} else {
+					setPagePosts([...pagePosts, ...posts]);
+				}
+
+				setLastPostId(posts[posts.length - 1].id);
+				setLoading(false);
 			})
 			.catch(() => {
 				alert("Ops, algo deu errado.");
@@ -40,25 +54,26 @@ export default function MyLikes() {
 	}
 
 	useEffect(() => {
-		setPagePosts([]);
 		if (!loggedUser.token) return history.push(routes.login);
+
 		updateMyLikes();
 	}, [loggedUser]);
 
+
 	return (
 		<PageContainer>
-			{loading ? (
+			{loading ?
 				<CircleLoader customStyle={{ height: "50vh" }} />
-			) : (
+				:
 				<>
 					<Header />
 
 					<ContentContainer>
-					<PageTitleContainer><h1>my likes</h1></PageTitleContainer>
-						
+						<PageTitleContainer><h1>my likes</h1></PageTitleContainer>
+
 						<InfiniteTimeline
 							pageStart={0}
-							loadMore={() => updateMyLikes()}
+							loadMore={updateMyLikes}
 							hasMore={hasMore}
 							loader={
 								<div className="loader" key={0}>
@@ -66,15 +81,17 @@ export default function MyLikes() {
 								</div>
 							}
 						>
+
 							{pagePosts.map((postData, index) => (
 								<Post postData={postData} key={index} />
 							))}
+
 						</InfiniteTimeline>
 					</ContentContainer>
 
 					<HashtagBox />
 				</>
-			)}
+			}
 		</PageContainer>
 	);
 }

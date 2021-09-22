@@ -18,23 +18,36 @@ export default function Timeline() {
 	const { pagePosts, setPagePosts } = useContext(PagePostsContext);
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
-	const [lastPost, setLastPost] = useState(null);
+	const [lastPostId, setLastPostId] = useState(null);
 	const [hasMore, setHasMore] = useState(true);
 
-	function updateTimeline() {
-		getPosts(loggedUser, lastPost)
-			.then((resp) => {
-				/* if (resp.data.posts.length === 0) alert("Nenhum post encontrado");
-				if (resp.data.posts.length > 0) {
-					if (resp.data.posts.length > 9) {
-						setLastPost(resp.data.posts[9].id);
-						setPagePosts(pagePosts.concat(resp.data.posts));
-					} else {
-						setHasMore(false);
-					}
-				} else setLoading(false); */
+	function samePosts(responsePosts, lastRequestPosts) {
+		return (
+			responsePosts.filter(
+				(element, index) => lastRequestPosts[index].id === element.id
+			).length === lastRequestPosts.length
+		)
+	}
 
-				console.log(resp)
+	function updateTimeline() {
+		getPosts({
+			token: loggedUser.token,
+			lastPostId
+		})
+			.then((response) => {
+				const posts = response.data.posts;
+
+				if (posts.length < 10) {
+					setHasMore(false);
+				}
+
+				if (!lastPostId) {
+					setPagePosts(posts);
+				} else {
+					setPagePosts([...pagePosts, ...posts]);
+				}
+
+				setLastPostId(posts[posts.length - 1].id);
 				setLoading(false);
 			})
 			.catch(() => {
@@ -44,9 +57,8 @@ export default function Timeline() {
 	}
 
 	useEffect(() => {
-		setPagePosts([]);
 		if (!loggedUser.token) return history.push(routes.login);
-
+		
 		updateTimeline();
 	}, [loggedUser]);
 
@@ -73,13 +85,9 @@ export default function Timeline() {
 							}
 						>
 							{
-							
-							
-							pagePosts.map((post) => (
-								<Post postData={post} key={post.id} />
-							))
-							
-							
+								pagePosts.map((post) => (
+									<Post postData={post} key={post.id} />
+								))
 							}
 						</InfiniteTimeline>
 					</ContentContainer>
