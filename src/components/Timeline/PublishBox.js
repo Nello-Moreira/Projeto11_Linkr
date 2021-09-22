@@ -4,6 +4,7 @@ import { post } from "../../API/requests";
 
 import UserAvatar from "../_shared/UserAvatar";
 import CustomButton from "../_shared/buttons/CustomButton";
+import LocationButton from "./LocationButton";
 import UserContext from "../../contexts/UserContext";
 
 export default function PublishBox({ updateTimeline }) {
@@ -66,6 +67,7 @@ export default function PublishBox({ updateTimeline }) {
 				/>
 
 				<ButtonContainer>
+					<LocationButton newPost={newPost} setNewPost={setNewPost} />
 					<CustomButton
 						customStyle={{
 							fontFamily: "'Lato', sans-serif",
@@ -150,7 +152,7 @@ const Label = styled.label`
 const ButtonContainer = styled.div`
 	width: 100%;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	align-items: center;
 	margin: 5px 0 10px;
 `;
