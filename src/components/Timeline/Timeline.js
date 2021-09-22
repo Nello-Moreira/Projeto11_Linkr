@@ -47,7 +47,9 @@ export default function Timeline() {
 					<Header />
 
 					<ContentContainer>
-						<PageTitleContainer><h1>timeline</h1></PageTitleContainer>
+						<PageTitleContainer>
+							<h1>timeline</h1>
+						</PageTitleContainer>
 
 						<PublishBox updateTimeline={updateTimeline} />
 
