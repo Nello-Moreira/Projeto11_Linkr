@@ -60,10 +60,15 @@ export default function UserPosts() {
                   src={userProfile.avatar}
                   customStyle={{ margin: "0 15px 0 0", resizeOnMobile: true }}
                 />
-                <h1>{userProfile.username}'s posts</h1>
+                <h1>
+                  <span className="username">{userProfile.username}</span>'s
+                  posts
+                </h1>
               </ProfileInformations>
 
-              {loggedUser.user.id != id ? <FollowButton userId={id} /> : null}
+              {loggedUser.user.id != id ? (
+                <FollowButton userId={id} key={id} />
+              ) : null}
             </PageTitleContainer>
 
             {postList.map((postData, index) => (
@@ -81,4 +86,18 @@ export default function UserPosts() {
 const ProfileInformations = styled.div`
   display: flex;
   align-items: center;
+
+  .username {
+    display: inline-block;
+    max-width: 350px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 600px) {
+    .username {
+      max-width: 150px;
+    }
+  }
 `;

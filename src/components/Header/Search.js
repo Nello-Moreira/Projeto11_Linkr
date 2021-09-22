@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import UserAvatar from "../_shared/UserAvatar";
 import { Link } from "react-router-dom";
 import routes from "../../routes/routes";
+
 function UserFound({ user, clearSearch }) {
   return (
     <Link to={routes.user.replace(":id", user.id)} onClick={clearSearch}>
@@ -32,15 +33,16 @@ export default function Search({ className }) {
   function searchUsers(e) {
     if (e.key === "Escape") return;
 
-    setSearchValue(e.target.value);
+    let value = e.target.value;
+    setSearchValue(value);
 
-    if (e.target.value.length > 2) {
+    if (value.length > 2) {
       getSearchedUsers({
-        username: e.target.value,
+        username: value,
         token: loggedUser.token,
       })
         .then((response) => {
-          setUsersList(response.data.users);
+          setUsersList(response.data.users.sort(comparator));
           setShowResults(true);
         })
         .catch((error) => console.log(error));
@@ -51,13 +53,17 @@ export default function Search({ className }) {
     setShowResults(false);
   }
 
+  function comparator(a) {
+    return a.isFollowingLoggedUser ? -1 : 1;
+  }
+
   function clearSearch() {
     setShowResults(false);
     setSearchValue("");
   }
 
   return (
-    <Container className={className}>
+    <Container className={className} showResults={showResults}>
       <SearchContainer>
         <DebounceInput
           type="search"
@@ -66,7 +72,7 @@ export default function Search({ className }) {
             loading: false,
           }}
           placeholder="Search for people and friends"
-          minLength={2}
+          minLength={3}
           debounceTimeout={300}
           value={searchValue}
           onChange={(e) => searchUsers(e)}
@@ -75,11 +81,13 @@ export default function Search({ className }) {
         <AiOutlineSearch color="#C6C6C6" title={"Search"} fontSize="28px" />
       </SearchContainer>
       <ResultsContainer showResults={showResults}>
-        {usersList.length > 0
-          ? usersList.map((user, index) => (
-              <UserFound user={user} key={index} clearSearch={clearSearch} />
-            ))
-          : "Nenhum usuario encontrado"}
+        {usersList.length > 0 ? (
+          usersList.map((user, index) => (
+            <UserFound user={user} key={index} clearSearch={clearSearch} />
+          ))
+        ) : (
+          <h3>Ops, não achamos nada com essas informações ;)</h3>
+        )}
       </ResultsContainer>
     </Container>
   );
@@ -100,11 +108,17 @@ const Container = styled.div`
     showResults ? "#e7e7e7" : "transparent"};
   border-radius: 8px 8px 0 0;
   z-index: 1;
+  padding-bottom: 15px;
+
+  a {
+    text-decoration: none;
+  }
 
   &.timeline {
     display: none;
     width: 100%;
   }
+
   @media (max-width: 611px) {
     &.header {
       display: none;
@@ -126,6 +140,14 @@ const ResultsContainer = styled.div`
   overflow-y: scroll;
   max-height: 200px;
   z-index: 3;
+
+  h3 {
+    font-family: "Lato", sans-serif;
+    font-size: 25px;
+    color: #1c1919;
+    margin: 20px;
+    font-weight: bold;
+  }
 `;
 
 const SearchContainer = styled.div`
