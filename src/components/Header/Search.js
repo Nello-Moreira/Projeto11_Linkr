@@ -53,6 +53,7 @@ export default function Search({ className }) {
     setShowResults(false);
   }
 
+  //puts users being followed first on the list
   function comparator(a) {
     return a.isFollowingLoggedUser ? -1 : 1;
   }
@@ -93,14 +94,6 @@ export default function Search({ className }) {
   );
 }
 
-const SearchInput = styled(CustomInput)`
-  font-family: "Lato", sans-serif;
-  background-color: transparent;
-  border: none;
-  font-size: 17px;
-  width: 90%;
-`;
-
 const Container = styled.div`
   width: 43%;
   height: 45px;
@@ -131,6 +124,29 @@ const Container = styled.div`
   }
 `;
 
+const SearchContainer = styled.div`
+  width: 100%;
+  height: 45px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  align-items: center;
+  border-radius: 8px;
+  padding: 0 5px;
+
+  input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+`;
+
+const SearchInput = styled(CustomInput)`
+  font-family: "Lato", sans-serif;
+  background-color: transparent;
+  border: none;
+  font-size: 17px;
+  width: 90%;
+`;
+
 const ResultsContainer = styled.div`
   display: ${({ showResults }) => (showResults ? "inherit" : "none")};
   background-color: #e7e7e7;
@@ -148,20 +164,11 @@ const ResultsContainer = styled.div`
     margin: 20px;
     font-weight: bold;
   }
-`;
 
-const SearchContainer = styled.div`
-  width: 100%;
-  height: 45px;
-  display: flex;
-  justify-content: space-between;
-  background-color: #fff;
-  align-items: center;
-  border-radius: 8px;
-  padding: 0 5px;
-
-  input[type="search"]::-webkit-search-cancel-button {
-    -webkit-appearance: none;
+  @media (max-width: 600px) {
+    h3 {
+      font-size: 19px;
+    }
   }
 `;
 
