@@ -14,72 +14,71 @@ import { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
 export default function UserPosts() {
-	const { loggedUser } = useContext(UserContext);
-	const { token } = loggedUser;
-	const { id } = useParams();
-	const history = useHistory();
-	const [loading, setLoading] = useState(true);
-	const [userProfile, setUserProfile] = useState({});
-	const [postList, setPostList] = useState([]);
+  const { loggedUser } = useContext(UserContext);
+  const { token } = loggedUser;
+  const { id } = useParams();
+  const history = useHistory();
+  const [loading, setLoading] = useState(true);
+  const [userProfile, setUserProfile] = useState({});
+  const [postList, setPostList] = useState([]);
 
-	useEffect(() => {
-		if (!loggedUser.token) return history.push(routes.login);
+  useEffect(() => {
+    if (!loggedUser.token) return history.push(routes.login);
 
-		getUserData({ id, token })
-			.then((response) => {
-				setUserProfile(response.data.user);
-				setLoading(false);
-			})
-			.catch(() => {
-				alert("Ops, algo deu errado.");
-				setLoading(false);
-			});
+    getUserData({ id, token })
+      .then((response) => {
+        setUserProfile(response.data.user);
+        setLoading(false);
+      })
+      .catch(() => {
+        alert("Ops, algo deu errado.");
+        setLoading(false);
+      });
 
-		getUserPosts({ id, token })
-			.then((response) => {
-				setPostList(response.data.posts);
-				setLoading(false);
-			})
-			.catch(() => {
-				alert("Ops, algo deu errado.");
-				setLoading(false);
-			});
-	}, []);
+    getUserPosts({ id, token })
+      .then((response) => {
+        setPostList(response.data.posts);
+        setLoading(false);
+      })
+      .catch(() => {
+        alert("Ops, algo deu errado.");
+        setLoading(false);
+      });
+  }, [id]);
 
-	return (
-		<PageContainer>
-			{loading ?
-				<CircleLoader customStyle={{ height: "50vh" }} />
-				:
-				<>
-					<Header />
-					<ContentContainer>
-						<PageTitleContainer>
-							<ProfileInformations>
-								<UserAvatar src={userProfile.avatar} customStyle={{ margin: '0 15px 0 0', resizeOnMobile: true }} />
-								<h1>{userProfile.username}'s posts</h1>
-							</ProfileInformations>
-							
-							{loggedUser.user.id != id ?
-								<FollowButton userId={id} />
-								:
-								null
-							}
-						</PageTitleContainer>
+  return (
+    <PageContainer>
+      {loading ? (
+        <CircleLoader customStyle={{ height: "50vh" }} />
+      ) : (
+        <>
+          <Header />
+          <ContentContainer>
+            <PageTitleContainer>
+              <ProfileInformations>
+                <UserAvatar
+                  src={userProfile.avatar}
+                  customStyle={{ margin: "0 15px 0 0", resizeOnMobile: true }}
+                />
+                <h1>{userProfile.username}'s posts</h1>
+              </ProfileInformations>
 
-						{postList.map((postData, index) => (
-							<Post postData={postData} key={index} />
-						))}
-					</ContentContainer>
+              {loggedUser.user.id != id ? <FollowButton userId={id} /> : null}
+            </PageTitleContainer>
 
-					<HashtagBox />
-				</>
-			}
-		</PageContainer>
-	);
+            {postList.map((postData, index) => (
+              <Post postData={postData} key={index} />
+            ))}
+          </ContentContainer>
+
+          <HashtagBox />
+        </>
+      )}
+    </PageContainer>
+  );
 }
 
 const ProfileInformations = styled.div`
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 `;
