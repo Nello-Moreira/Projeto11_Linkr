@@ -82,8 +82,8 @@ export default function MyLikes() {
 							}
 						>
 
-							{pagePosts.map((postData, index) => (
-								<Post postData={postData} key={index} />
+							{pagePosts.map(postData => (
+								<Post postData={postData} key={postData.id} />
 							))}
 
 						</InfiniteTimeline>

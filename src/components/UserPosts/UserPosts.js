@@ -97,8 +97,8 @@ export default function UserPosts() {
 								</div>
 							}
 						>
-							{pagePosts.map((postData, index) => (
-								<Post postData={postData} key={index} />
+							{pagePosts.map(postData => (
+								<Post postData={postData} key={postData.id} />
 							))}
 						</InfiniteTimeline>
 					</ContentContainer>
