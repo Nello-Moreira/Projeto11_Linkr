@@ -41,7 +41,10 @@ export default function UserPosts() {
 					setPagePosts([...pagePosts, ...posts]);
 				}
 
-				setLastPostId(posts[posts.length - 1].id);
+				if (posts.length > 0) {
+					setLastPostId(posts[posts.length - 1].id);
+				}
+				
 				setLoading(false);
 			})
 			.catch(() => {

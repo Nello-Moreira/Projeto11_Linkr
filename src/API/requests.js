@@ -29,10 +29,10 @@ function edit({ id, text, token }) {
 function getPosts({ token, lastPostId }) {
 	if (lastPostId)
 		return axiosBase.get(
-			`/posts?olderThan=${lastPostId}`,
+			`/following/posts?olderThan=${lastPostId}`,
 			createBearerAuthorization(token)
 		);
-	return axiosBase.get("/posts", createBearerAuthorization(token));
+	return axiosBase.get("/following/posts", createBearerAuthorization(token));
 }
 
 function getLikedPosts({ token, lastPostId }) {

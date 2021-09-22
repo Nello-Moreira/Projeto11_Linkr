@@ -21,14 +21,6 @@ export default function MyLikes() {
 	const [hasMore, setHasMore] = useState(true);
 	const [lastPostId, setLastPostId] = useState(null);
 
-	function samePosts(responsePosts, lastRequestPosts) {
-		return (
-			responsePosts.filter(
-				(element, index) => lastRequestPosts[index].id === element.id
-			).length === lastRequestPosts.length
-		)
-	}
-
 	function updateMyLikes() {
 		getLikedPosts({ token, lastPostId })
 			.then((response) => {
@@ -44,7 +36,10 @@ export default function MyLikes() {
 					setPagePosts([...pagePosts, ...posts]);
 				}
 
-				setLastPostId(posts[posts.length - 1].id);
+				if (posts.length > 0) {
+					setLastPostId(posts[posts.length - 1].id);
+				}
+				
 				setLoading(false);
 			})
 			.catch(() => {
