@@ -5,7 +5,7 @@ const WarningParagraph = styled.p`
     font-size: 20px;
     font-weight: 700;
     color: rgb(255, 255, 255);
-    margin: 50px auto;
+    margin: 30px auto 50px;
 `;
 
 export default WarningParagraph;
