@@ -2,15 +2,26 @@ import styled from "styled-components";
 import { useState } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 
-export default function LocationButton() {
+export default function LocationButton({ newPost, setNewPost }) {
 	const [isLocationActive, setIsLocationActive] = useState(false);
-	const [location, setLocation] = useState("");
 
 	function activeLocation() {
 		setIsLocationActive(true);
-		navigator.geolocation.getCurrentPosition(function (position) {
-			setLocation(position.coords.latitude, position.coords.longitude);
-		});
+		navigator.geolocation.watchPosition(
+			function (position) {
+				setNewPost({
+					...newPost,
+					geolocation: {
+						latitude: position.coords.latitude,
+						longitude: position.coords.longitude,
+					},
+				});
+			},
+			function errorCallback() {
+				alert("Não foi possível obter sua localização.");
+				setIsLocationActive(false);
+			}
+		);
 	}
 
 	return (
@@ -22,7 +33,7 @@ export default function LocationButton() {
 			}}
 		>
 			<IoLocationOutline />
-			Localização{isLocationActive ? "ativada" : " desativada"}
+			Localização{isLocationActive ? " ativada" : " desativada"}
 		</LocationButtonContainer>
 	);
 }

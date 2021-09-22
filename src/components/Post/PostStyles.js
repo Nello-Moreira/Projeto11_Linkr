@@ -97,10 +97,19 @@ const InputEditText = styled.textarea`
 	}
 `;
 
+const UserNameContainer = styled.div`
+	display: flex;
+
+	svg {
+		cursor: pointer;
+	}
+`;
+
 export {
 	PostContainer,
 	LeftContainer,
 	UserContainer,
 	RightContainer,
 	InputEditText,
+	UserNameContainer,
 };

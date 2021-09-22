@@ -67,7 +67,7 @@ export default function PublishBox({ updateTimeline }) {
 				/>
 
 				<ButtonContainer>
-					<LocationButton />
+					<LocationButton newPost={newPost} setNewPost={setNewPost} />
 					<CustomButton
 						customStyle={{
 							fontFamily: "'Lato', sans-serif",

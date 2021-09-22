@@ -48,23 +48,22 @@ export default function UserPosts() {
 
 	return (
 		<PageContainer>
-			{loading ?
+			{loading ? (
 				<CircleLoader customStyle={{ height: "50vh" }} />
-				:
+			) : (
 				<>
 					<Header />
 					<ContentContainer>
 						<PageTitleContainer>
 							<ProfileInformations>
-								<UserAvatar src={userProfile.avatar} customStyle={{ margin: '0 15px 0 0', resizeOnMobile: true }} />
+								<UserAvatar
+									src={userProfile.avatar}
+									customStyle={{ margin: "0 15px 0 0", resizeOnMobile: true }}
+								/>
 								<h1>{userProfile.username}'s posts</h1>
 							</ProfileInformations>
-							
-							{loggedUser.user.id != id ?
-								<FollowButton userId={id} />
-								:
-								null
-							}
+
+							{loggedUser.user.id != id ? <FollowButton userId={id} /> : null}
 						</PageTitleContainer>
 
 						{postList.map((postData, index) => (
@@ -74,7 +73,7 @@ export default function UserPosts() {
 
 					<HashtagBox />
 				</>
-			}
+			)}
 		</PageContainer>
 	);
 }

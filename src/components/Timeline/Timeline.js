@@ -27,6 +27,7 @@ export default function Timeline() {
 			.then((resp) => {
 				if (resp.data.posts.length === 0) alert("Nenhum post encontrado");
 				setPagePosts(resp.data.posts);
+				console.log(resp.data.posts);
 
 				setLoading(false);
 			})
