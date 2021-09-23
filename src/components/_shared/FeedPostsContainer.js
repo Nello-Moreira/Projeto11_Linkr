@@ -39,54 +39,52 @@ export default function FeedPostsContainer({ APIfunction, settings }) {
                 setLoading(false);
             })
             .catch((error) => {
-                alert("Houve uma falha ao obter os posts, por favor atualize a página");
+                alert(
+                    "Houve uma falha ao obter os posts, por favor atualize a página"
+                );
                 setLoading(false);
-                console.log(error)
+                console.log(error);
             });
     }
 
     useEffect(() => {
         setLoading(true);
         updateFeed(settings);
-    }, [APIfunction])
+    }, [APIfunction]);
 
-    return (
-        loading ?
-            <FeedLoader />
-            :
-            pagePosts.length === 0 ?
-                <WarningParagraph>Nenhuma publicação encontrada</WarningParagraph>
-                :
-                <InfiniteTimeline
-                    pageStart={0}
-                    loadMore={() => updateFeed(settings)}
-                    hasMore={hasMore}
-                    loader={<FeedLoader />}
-                >
-                    {
-                        pagePosts.map(post => (
-                            <Post postData={post} key={post.id} />
-                        ))
-                    }
-                </InfiniteTimeline>
-    )
+    return loading ? (
+        <FeedLoader />
+    ) : pagePosts.length === 0 ? (
+        <WarningParagraph>Nenhuma publicação encontrada</WarningParagraph>
+    ) : (
+        <InfiniteTimeline
+            pageStart={0}
+            loadMore={() => updateFeed(settings)}
+            hasMore={hasMore}
+            loader={<FeedLoader />}
+        >
+            {pagePosts.map((post, index) => (
+                <Post postData={post} key={index} />
+            ))}
+        </InfiniteTimeline>
+    );
 }
 
 function FeedLoader() {
     return (
         <LoaderContainer>
-            <CircleLoader customStyle={{ color: 'rgba(109, 109, 109, 1)' }} />
+            <CircleLoader customStyle={{ color: "rgba(109, 109, 109, 1)" }} />
             <p>Carregando mais posts...</p>
         </LoaderContainer>
-    )
+    );
 }
 
 const InfiniteTimeline = styled(InfiniteScroll)`
-	width: 100%;
+    width: 100%;
 `;
 
 const LoaderContainer = styled.div`
-    font-family: 'Lato', sans-serif;
+    font-family: "Lato", sans-serif;
     font-size: 20px;
     font-weight: 400;
     color: rgba(109, 109, 109, 1);
