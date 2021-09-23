@@ -43,6 +43,7 @@ export default function FeedPostsContainer({ APIfunction, settings }) {
                     "Houve uma falha ao obter os posts, por favor atualize a página"
                 );
                 setLoading(false);
+                console.log(error);
             });
     }
 
@@ -62,8 +63,8 @@ export default function FeedPostsContainer({ APIfunction, settings }) {
             hasMore={hasMore}
             loader={<FeedLoader />}
         >
-            {pagePosts.map((post, index) => (
-                <Post postData={post} key={JSON.stringify(post)} />
+            {pagePosts.map((post) => (
+                <Post postData={post} key={post.id} />
             ))}
         </InfiniteTimeline>
     );
