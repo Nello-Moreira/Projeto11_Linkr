@@ -59,8 +59,6 @@ export default function Post({ postData }) {
     const [isMapModelOpen, setIsMapModalOpen] = useState(false);
     const [isRepost, setIsRepost] = useState(!!repostedBy);
 
-    console.log({ repostedBy, repostId, isRepost });
-
     useEffect(() => {
         if (isEditing) {
             inputRef.current.focus();
@@ -130,7 +128,12 @@ export default function Post({ postData }) {
                         />
                     </Link>
                     <Like likes={likes} postId={id} loggedUser={loggedUser} />
-                    <Repost repostCount={repostCount} repostedBy={repostedBy} />
+                    <Repost
+                        repostCount={repostCount}
+                        repostedBy={repostedBy}
+                        postId={id}
+                        loggedUser={loggedUser}
+                    />
                 </LeftContainer>
 
                 <RightContainer>
