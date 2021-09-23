@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
-import routes from '../../routes/routes';
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import routes from "../../routes/routes";
 
 export default function MenuOptions({ menuOpened }) {
     const history = useHistory();
 
     function logout() {
-        localStorage.removeItem('linkrUser');
+        localStorage.removeItem("linkrUser");
         history.push(routes.login);
     }
 
@@ -25,7 +25,7 @@ const Container = styled.div`
     background-color: rgba(23, 23, 23, 1);
     border-bottom-left-radius: 10px;
     position: fixed;
-    top: ${({ menuOpened }) => menuOpened ? '70px' : '-30vh'};
+    top: ${({ menuOpened }) => (menuOpened ? "70px" : "-30vh")};
     right: -1px;
     display: flex;
     flex-direction: column;
@@ -33,10 +33,11 @@ const Container = styled.div`
     transition: top 0.5s ease;
 
     span {
-        font-family: 'Lato', sans-serif;
+        font-family: "Lato", sans-serif;
         font-weight: 700;
         font-size: 20px;
-        color: rgba(255,255,255,1);
+        color: rgba(255, 255, 255, 1);
         margin-top: 10px;
+        cursor: pointer;
     }
 `;

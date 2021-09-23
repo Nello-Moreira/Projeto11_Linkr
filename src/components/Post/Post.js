@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 import autosize from "autosize";
 
 import {
-	PostContainer,
-	LeftContainer,
-	UserContainer,
-	RightContainer,
-	InputEditText,
+  PostContainer,
+  LeftContainer,
+  UserContainer,
+  RightContainer,
+  InputEditText,
 } from "../Post/PostStyles";
 import ButtonsContainer from "../_shared/buttons/ButtonsContainer";
 import UserAvatar from "../_shared/UserAvatar";
 import TrashButton from "../_shared/buttons/TrashButton";
 import EditButton from "../_shared/buttons/EditButton";
 
-import Snippet from "./Sinippet";
+import Snippet from "./Snippet";
 import Like from "./Like";
 import PostText from "./PostText";
 
@@ -98,7 +98,9 @@ export default function Post({ postData }) {
 
 			<RightContainer>
 				<UserContainer>
-					<h2>{user.username}</h2>
+					<Link to={routes.user.replace(":id", user.id)}>
+						<h2>{user.username}</h2>
+					</Link>
 					{loggedUser.user.id !== user.id ? null : (
 						<ButtonsContainer customStyle={{ separationMargin: "0 0 0 5px" }}>
 							<EditButton disabled={loading} onClick={() => editPost()} />
