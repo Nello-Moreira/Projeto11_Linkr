@@ -10,7 +10,7 @@ const Container = styled.div`
 const RepostContainer = styled.div`
     width: 100%;
     height: 33px;
-    display: ${({ isRepost }) => (isRepost ? "flex" : "none")};
+    display: flex;
     align-items: center;
 
     button {

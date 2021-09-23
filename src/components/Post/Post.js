@@ -43,7 +43,6 @@ export default function Post({ postData }) {
         likes,
         geolocation,
         repostCount,
-        repostId,
         repostedBy,
     } = postData;
 
@@ -57,7 +56,8 @@ export default function Post({ postData }) {
     const [loading, setLoading] = useState(false);
 
     const [isMapModelOpen, setIsMapModalOpen] = useState(false);
-    const [isRepost, setIsRepost] = useState(!!repostedBy);
+
+    const isRepost = !!repostedBy;
 
     useEffect(() => {
         if (isEditing) {
@@ -113,7 +113,11 @@ export default function Post({ postData }) {
                     <RepostButton customStyle={{ fontSize: "23px" }} />
                     <p>
                         Re-posted by{" "}
-                        <Username user={repostedBy} fontSize="11px" />
+                        <Username
+                            user={repostedBy}
+                            canBeYou={true}
+                            fontSize="11px"
+                        />
                     </p>
                 </RepostContainer>
             )}

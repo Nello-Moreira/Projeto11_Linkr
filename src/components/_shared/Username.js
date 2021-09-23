@@ -1,15 +1,24 @@
 import { Link } from "react-router-dom";
 import routes from "../../routes/routes";
 import styled from "styled-components";
+import UserContext from "../../contexts/UserContext";
+import { useContext } from "react";
 
-export default function Username({ user, fontSize, customStyle }) {
+export default function Username({ user, fontSize, customStyle, canBeYou }) {
     //FontSize required
     //Margin and Color as CustomStyle
+    const { loggedUser } = useContext(UserContext);
+    const username = canBeYou
+        ? user.id === loggedUser.user.id
+            ? "you"
+            : user.username
+        : user.username;
+
     return (
         <Container>
             <Link to={routes.user.replace(":id", user.id)}>
                 <NameContainer fontSize={fontSize} customStyle={customStyle}>
-                    {user.username}
+                    {username}
                 </NameContainer>
             </Link>
         </Container>

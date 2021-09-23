@@ -2,7 +2,7 @@ import RepostButton from "../_shared/buttons/RepostButton";
 import styled from "styled-components";
 import { repost } from "../../API/requests";
 import { useState } from "react";
-
+import RepostModal from "./RepostModal";
 export default function Repost({
     repostCount,
     repostedBy,
@@ -11,24 +11,37 @@ export default function Repost({
 }) {
     const [repostTimes, setRepostTimes] = useState(repostCount);
     const [reposted, setReposted] = useState(false);
-
+    const [openRepostModal, setOpenRepostModal] = useState(false);
+    const [loading, setLoading] = useState(false);
     function submitRepost() {
-        setReposted(true);
+        setLoading(true);
         repost({ token: loggedUser.token, postId })
-            .then(() => setRepostTimes(() => repostTimes + 1))
+            .then(() => {
+                setRepostTimes(() => repostTimes + 1);
+                setReposted(true);
+                setOpenRepostModal(false);
+            })
             .catch((error) => {
                 alert("Desculpe, houve um erro. Atualize a pagina.");
-                setReposted(false);
+                setLoading(false);
             });
     }
     return (
-        <Container reposted={reposted}>
-            <RepostButton
-                customStyle={{ fontSize: "28px" }}
-                onClick={submitRepost}
+        <>
+            <Container reposted={reposted}>
+                <RepostButton
+                    customStyle={{ fontSize: "28px" }}
+                    onClick={() => setOpenRepostModal(true)}
+                />
+                <p>{repostTimes} re-posts</p>
+            </Container>
+            <RepostModal
+                openRepostModal={openRepostModal}
+                setOpenRepostModal={setOpenRepostModal}
+                loading={loading}
+                submitRepost={submitRepost}
             />
-            <p>{repostTimes} re-posts</p>
-        </Container>
+        </>
     );
 }
 
@@ -41,7 +54,7 @@ const Container = styled.div`
 
     p {
         font-size: 10px;
-        color: inherit;
+        color: ${({ reposted }) => (reposted ? "#00e03f" : "inherit")};
     }
 
     @media (max-width: 600px) {
