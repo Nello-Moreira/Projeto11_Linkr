@@ -1,15 +1,14 @@
-import { AiOutlineSearch } from "react-icons/ai";
+import { BiRepost } from "react-icons/bi";
 
 import styled from "styled-components";
 
-export default function SearchButton({ customStyle, ...otherprops }) {
+export default function RepostButton({ customStyle, ...otherprops }) {
+  console.log(customStyle);
   return (
-    <Button {...otherprops}>
-      <AiOutlineSearch
+    <Button customStyle={customStyle} {...otherprops}>
+      <BiRepost
         color={"inherit"}
-        title={"Search"}
-        height="100%"
-        width="100%"
+        title={"Repost this in your feed"}
         cursor={"pointer"}
       />
     </Button>
