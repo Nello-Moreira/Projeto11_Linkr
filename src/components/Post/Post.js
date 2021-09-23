@@ -42,6 +42,9 @@ export default function Post({ postData }) {
         user,
         likes,
         geolocation,
+        repostCount,
+        repostId,
+        repostedBy,
     } = postData;
 
     const { loggedUser } = useContext(UserContext);
@@ -54,6 +57,9 @@ export default function Post({ postData }) {
     const [loading, setLoading] = useState(false);
 
     const [isMapModelOpen, setIsMapModalOpen] = useState(false);
+    const [isRepost, setIsRepost] = useState(!!repostedBy);
+
+    console.log({ repostedBy, repostId, isRepost });
 
     useEffect(() => {
         if (isEditing) {
@@ -104,12 +110,16 @@ export default function Post({ postData }) {
 
     return (
         <Container>
-            <RepostContainer>
-                <RepostButton customStyle={{ fontSize: "23px" }} />
-                <p>
-                    Re-posted by <Username user={user} fontSize="11px" />
-                </p>
-            </RepostContainer>
+            {isRepost && (
+                <RepostContainer isRepost={isRepost}>
+                    <RepostButton customStyle={{ fontSize: "23px" }} />
+                    <p>
+                        Re-posted by{" "}
+                        <Username user={repostedBy} fontSize="11px" />
+                    </p>
+                </RepostContainer>
+            )}
+
             <PostContainer>
                 <LeftContainer>
                     <Link to={routes.user.replace(":id", user.id)}>
@@ -120,7 +130,7 @@ export default function Post({ postData }) {
                         />
                     </Link>
                     <Like likes={likes} postId={id} loggedUser={loggedUser} />
-                    <Repost />
+                    <Repost repostCount={repostCount} repostedBy={repostedBy} />
                 </LeftContainer>
 
                 <RightContainer>

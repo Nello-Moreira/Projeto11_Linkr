@@ -21,23 +21,38 @@ function post({ token }, data) {
 }
 
 function edit({ id, text, token }) {
-  return axiosBase.put(
-    `/posts/${id}`,
-    { text: text },
-    createBearerAuthorization(token)
-  );
+	return axiosBase.put(
+		`/posts/${id}`, { text: text }, createBearerAuthorization(token)
+	);
 }
 
-function getPosts({ token }) {
-  return axiosBase.get("/posts", createBearerAuthorization(token));
+function getPosts({ token, lastPostId }) {
+	if (lastPostId)
+		return axiosBase.get(
+			`/following/posts?olderThan=${lastPostId}`,
+			createBearerAuthorization(token)
+		);
+	return axiosBase.get("/following/posts", createBearerAuthorization(token));
 }
 
-function getLikedPosts({ token }) {
-  return axiosBase.get("/posts/liked", createBearerAuthorization(token));
+function getLikedPosts({ token, lastPostId }) {
+	if (lastPostId)
+		return axiosBase.get(
+			`/posts/liked?olderThan=${lastPostId}`, createBearerAuthorization(token)
+		);
+	return axiosBase.get(
+		"/posts/liked", createBearerAuthorization(token)
+	);
 }
 
-function getUserPosts({ id, token }) {
-  return axiosBase.get(`/users/${id}/posts`, createBearerAuthorization(token));
+function getUserPosts({ id, token, lastPostId }) {
+	if (lastPostId)
+		return axiosBase.get(
+			`/users/${id}/posts?olderThan=${lastPostId}`, createBearerAuthorization(token)
+		);
+	return axiosBase.get(
+		`/users/${id}/posts`, createBearerAuthorization(token)
+	);
 }
 
 function getTrendingTopics({ token }) {
@@ -48,11 +63,12 @@ function getUserData({ id, token }) {
   return axiosBase.get(`/users/${id}`, createBearerAuthorization(token));
 }
 
-function getTrendingPosts({ topic, token }) {
-  return axiosBase.get(
-    `/hashtags/${topic}/posts`,
-    createBearerAuthorization(token)
-  );
+function getTrendingPosts({ topic, token, lastPostId }) {
+	if (lastPostId)
+		return axiosBase.get(
+			`/hashtags/${topic}/posts?olderThan=${lastPostId}`, createBearerAuthorization(token)
+		);
+	return axiosBase.get(`/hashtags/${topic}/posts`, createBearerAuthorization(token));
 }
 
 function likePost({ likedPost, token }) {
