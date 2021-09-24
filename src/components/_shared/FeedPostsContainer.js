@@ -17,9 +17,7 @@ function getNewPosts({ APIfunction, settings, pagePosts }) {
 
             const index = indexOfLastPost(posts, pagePosts[0]);
 
-            console.log({ pagePosts });
             if (index > -1) {
-                console.log({ posts: posts.slice(0, index) });
                 return posts.slice(0, index);
             }
             return [
@@ -83,11 +81,10 @@ function FeedPostsContainer({ APIfunction, settings }) {
             .then((response) => {
                 setPagePosts([...response, ...pagePosts]);
             })
-            .catch(
-                (error) => console.log(error)
-                /* alert(
+            .catch((error) =>
+                alert(
                     "Não foi possível carregar os novos posts. Por favor, recarregue a página."
-                ) */
+                )
             );
     }, intervalInSeconds * 1000);
 
