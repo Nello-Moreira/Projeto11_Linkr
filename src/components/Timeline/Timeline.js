@@ -1,43 +1,47 @@
 import CircleLoader from "../loaders/CircleLoader";
 import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import { PageTitleContainer } from "../_shared/PageTitleContainer";
-import Post from "../Post/Post";
 import Header from "../Header/Header";
 import PublishBox from "./PublishBox";
 import HashtagBox from "../HashtagBox/HashtagBox";
+import WarningParagraph from "../_shared/WarningParagraph";
+import FeedPostsContainer from "../_shared/FeedPostsContainer";
+import Search from "../Header/Search";
 import PagePostsContext from "../../contexts/PagePostsContext";
 import UserContext from "../../contexts/UserContext";
-import { getPosts } from "../../API/requests";
-import routes from "../../routes/routes";
 import { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { getPosts, getFollows } from "../../API/requests";
+import routes from "../../routes/routes";
 
 export default function Timeline() {
 	const { loggedUser } = useContext(UserContext);
 	const { pagePosts, setPagePosts } = useContext(PagePostsContext);
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
+	const [followingList, setFollowingList] = useState([]);
 
-	function updateTimeline() {
-		if (!loggedUser.token) return history.push(routes.login);
-
-		setPagePosts([]);
-
-		getPosts(loggedUser)
-			.then((resp) => {
-				if (resp.data.posts.length === 0) alert("Nenhum post encontrado");
-				setPagePosts(resp.data.posts);
-				console.log(resp.data.posts);
-
+	function getFollowingList() {
+		getFollows({ token: loggedUser.token })
+			.then((response) => {
+				setFollowingList(response.data.users);
 				setLoading(false);
 			})
-			.catch(() => {
-				alert("Houve uma falha ao obter os posts, por favor atualize a página");
+			.catch((error) => {
+				alert("Algo deu errado. Por favor, recarregue a página.");
 				setLoading(false);
 			});
 	}
 
-	useEffect(() => updateTimeline(), []);
+	function updateTimeline(newPost) {
+		setPagePosts([newPost, ...pagePosts]);
+	}
+
+	useEffect(() => {
+		if (!loggedUser.token) return history.push(routes.login);
+
+		getFollowingList();
+	}, [loggedUser]);
 
 	return (
 		<PageContainer>
@@ -48,15 +52,20 @@ export default function Timeline() {
 					<Header />
 
 					<ContentContainer>
+						<Search className="timeline" />
 						<PageTitleContainer>
 							<h1>timeline</h1>
 						</PageTitleContainer>
 
 						<PublishBox updateTimeline={updateTimeline} />
 
-						{pagePosts.map((post) => (
-							<Post postData={post} key={post.id} />
-						))}
+						{followingList.length === 0 ? (
+							<WarningParagraph>
+								Você não segue ninguém ainda, procure por perfis na busca
+							</WarningParagraph>
+						) : null}
+
+						<FeedPostsContainer APIfunction={getPosts} />
 					</ContentContainer>
 
 					<HashtagBox />

@@ -4,7 +4,6 @@ import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import Header from "../Header/Header";
 import { PageTitleContainer } from "../_shared/PageTitleContainer";
 import UserAvatar from "../_shared/UserAvatar";
-import Post from "../Post/Post";
 import FollowButton from "./FollowButton";
 import HashtagBox from "../HashtagBox/HashtagBox";
 import { getUserData, getUserPosts } from "../../API/requests";
@@ -12,20 +11,19 @@ import routes from "../../routes/routes";
 import UserContext from "../../contexts/UserContext";
 import { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import FeedPostsContainer from "../_shared/FeedPostsContainer";
 
 export default function UserPosts() {
 	const { loggedUser } = useContext(UserContext);
-	const { token } = loggedUser;
 	const { id } = useParams();
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
 	const [userProfile, setUserProfile] = useState({});
-	const [postList, setPostList] = useState([]);
 
 	useEffect(() => {
 		if (!loggedUser.token) return history.push(routes.login);
 
-		getUserData({ id, token })
+		getUserData({ id, token: loggedUser.token })
 			.then((response) => {
 				setUserProfile(response.data.user);
 				setLoading(false);
@@ -34,17 +32,7 @@ export default function UserPosts() {
 				alert("Ops, algo deu errado.");
 				setLoading(false);
 			});
-
-		getUserPosts({ id, token })
-			.then((response) => {
-				setPostList(response.data.posts);
-				setLoading(false);
-			})
-			.catch(() => {
-				alert("Ops, algo deu errado.");
-				setLoading(false);
-			});
-	}, []);
+	}, [loggedUser, id]);
 
 	return (
 		<PageContainer>
@@ -58,17 +46,24 @@ export default function UserPosts() {
 							<ProfileInformations>
 								<UserAvatar
 									src={userProfile.avatar}
-									customStyle={{ margin: "0 15px 0 0", resizeOnMobile: true }}
+									customStyle={{
+										margin: "0 15px 0 0",
+										resizeOnMobile: true,
+									}}
 								/>
 								<h1>{userProfile.username}'s posts</h1>
 							</ProfileInformations>
 
-							{loggedUser.user.id != id ? <FollowButton userId={id} /> : null}
+							{loggedUser.user.id != id ? (
+								<FollowButton userId={id} key={id} />
+							) : null}
 						</PageTitleContainer>
 
-						{postList.map((postData, index) => (
-							<Post postData={postData} key={index} />
-						))}
+						<FeedPostsContainer
+							APIfunction={getUserPosts}
+							settings={{ id }}
+							key={id}
+						/>
 					</ContentContainer>
 
 					<HashtagBox />
@@ -81,4 +76,18 @@ export default function UserPosts() {
 const ProfileInformations = styled.div`
 	display: flex;
 	align-items: center;
+
+	.username {
+		display: inline-block;
+		max-width: 350px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	@media (max-width: 600px) {
+		.username {
+			max-width: 150px;
+		}
+	}
 `;

@@ -3,7 +3,7 @@ import ModalTitle from "../Modal/ModalTitle";
 import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
 import Leaflet from "leaflet";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 import icon from "leaflet/dist/images/marker-icon.png";

@@ -7,7 +7,7 @@ export default function SearchButton({ customStyle, ...otherprops }) {
     <Button {...otherprops}>
       <AiOutlineSearch
         color={"inherit"}
-        title={"Search a hashtag"}
+        title={"Search"}
         height="100%"
         width="100%"
         cursor={"pointer"}

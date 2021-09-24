@@ -25,10 +25,10 @@ export default function PublishBox({ updateTimeline }) {
 		event.preventDefault();
 		setLoading(true);
 		post(loggedUser, newPost)
-			.then(() => {
+			.then((response) => {
 				setNewPost(clearedForm);
 				setLoading(false);
-				updateTimeline();
+				updateTimeline(response.data.post);
 			})
 			.catch(() => {
 				alert("Houve um erro ao publicar seu link");

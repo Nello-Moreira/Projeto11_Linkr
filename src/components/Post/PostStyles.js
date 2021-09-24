@@ -64,6 +64,7 @@ const RightContainer = styled.div`
 	h2 {
 		font-size: 19px;
 		color: #fff;
+		word-break: break-word;
 	}
 
 	@media (max-width: 611px) {
