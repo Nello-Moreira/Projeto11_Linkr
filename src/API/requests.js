@@ -135,6 +135,16 @@ function getSearchedUsers({ token, username }) {
         createBearerAuthorization(token)
     );
 }
+
+function repost({ token, postId }) {
+    console.log({ token, postId });
+    return axiosBase.post(
+        `/posts/${postId}/share`,
+        "",
+        createBearerAuthorization(token)
+    );
+}
+
 export {
     login,
     signUp,
@@ -153,4 +163,5 @@ export {
     followUser,
     unfollowUser,
     getSearchedUsers,
+    repost,
 };

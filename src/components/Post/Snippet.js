@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
+import PreviewModal from "./PreviewModal";
 
 export default function Snippet({
 	link,
@@ -15,28 +17,38 @@ export default function Snippet({
 			return false;
 		}
 	}
+
+	const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
 	return (
-		<PreviewContainer href={link} target="_blank" rel="noreferrer">
-			<DetailsContainer>
-				<div>
-					<h1>{linkTitle} </h1>
-					<p>{linkDescription}</p>
-				</div>
-				<div className="link-container">{link}</div>
-			</DetailsContainer>
-			{linkImage && checkImgOnline(linkImage) ? (
-				<PostImage src={linkImage} />
-			) : (
-				<LogoContainer>
-					{" "}
-					<Logo>linkr</Logo>
-				</LogoContainer>
-			)}
-		</PreviewContainer>
+		<>
+			<SnippetContainer onClick={() => setIsPreviewModalOpen(true)}>
+				<DetailsContainer>
+					<div>
+						<h1>{linkTitle} </h1>
+						<p>{linkDescription}</p>
+					</div>
+					<div className="link-container">{link}</div>
+				</DetailsContainer>
+				{linkImage && checkImgOnline(linkImage) ? (
+					<PostImage src={linkImage} />
+				) : (
+					<LogoContainer>
+						{" "}
+						<Logo>linkr</Logo>
+					</LogoContainer>
+				)}
+			</SnippetContainer>
+			<PreviewModal
+				isOpen={isPreviewModalOpen}
+				setIsOpen={setIsPreviewModalOpen}
+				link={link}
+				linkTitle={linkTitle}
+			/>
+		</>
 	);
 }
 
-const PreviewContainer = styled.a`
+const SnippetContainer = styled.a`
 	max-width: 503px;
 	display: flex;
 	justify-content: space-between;
@@ -70,12 +82,14 @@ const DetailsContainer = styled.div`
 		font-size: 16px;
 		color: #cecece;
 		margin-bottom: 8px;
+		word-wrap: break-word;
 	}
 
 	p {
 		font-size: 11px;
 		color: #aaaaaa;
 		margin: 10px 0;
+		word-wrap: break-word;
 	}
 
 	.link-container {

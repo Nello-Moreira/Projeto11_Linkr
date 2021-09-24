@@ -33,12 +33,13 @@ export default function Timeline() {
             });
     }
 
-    function updateTimeline(newPost) {
+    function updateTimeline() {
         const APIfunction = getPosts;
         const settings = { token: loggedUser.token };
 
         getNewPosts({ APIfunction, settings, pagePosts })
             .then((response) => {
+                console.log({ response });
                 setPagePosts([...response, ...pagePosts]);
             })
             .catch((error) =>

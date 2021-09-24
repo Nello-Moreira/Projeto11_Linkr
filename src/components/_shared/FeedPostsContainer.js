@@ -17,12 +17,9 @@ function getNewPosts({ APIfunction, settings, pagePosts }) {
 
             const index = indexOfLastPost(posts, pagePosts[0]);
 
-            console.log({ post: posts[0] });
-            console.log({ pagePost_0: pagePosts[0] });
-            console.log({ index });
-            //debugger;
-
+            console.log({ pagePosts });
             if (index > -1) {
+                console.log({ posts: posts.slice(0, index) });
                 return posts.slice(0, index);
             }
             return [
@@ -84,7 +81,6 @@ function FeedPostsContainer({ APIfunction, settings }) {
 
         getNewPosts({ APIfunction, settings, pagePosts })
             .then((response) => {
-                console.log(response);
                 setPagePosts([...response, ...pagePosts]);
             })
             .catch(
@@ -107,7 +103,7 @@ function FeedPostsContainer({ APIfunction, settings }) {
             loader={<FeedLoader />}
         >
             {pagePosts.map((post) => (
-                <Post postData={post} key={post.id} />
+                <Post postData={post} key={JSON.stringify(post)} />
             ))}
         </InfiniteTimeline>
     );
@@ -125,10 +121,6 @@ function indexOfLastPost(postsList, postToCompare) {
         ) {
             index = i;
         }
-
-        /*         if (JSON.stringify(post) === JSON.stringify(postToCompare)) {
-            index = i;
-        } */
     });
 
     return index;
