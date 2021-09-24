@@ -133,7 +133,7 @@ export default function Post({ postData }) {
                     </Link>
                     <Like likes={likes} postId={id} loggedUser={loggedUser} />
                     <Repost
-                        repostCount={repostCount}
+                        repostCount={repostCount ? repostCount : 0}
                         repostedBy={repostedBy}
                         postId={id}
                         loggedUser={loggedUser}

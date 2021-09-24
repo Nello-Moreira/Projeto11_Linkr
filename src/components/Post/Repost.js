@@ -10,9 +10,13 @@ export default function Repost({
     loggedUser,
 }) {
     const [repostTimes, setRepostTimes] = useState(repostCount);
-    const [reposted, setReposted] = useState(false);
     const [openRepostModal, setOpenRepostModal] = useState(false);
     const [loading, setLoading] = useState(false);
+    const isLoggedUserRepost = repostedBy
+        ? repostedBy.id === loggedUser.user.id
+        : false;
+    const [reposted, setReposted] = useState(isLoggedUserRepost);
+
     function submitRepost() {
         setLoading(true);
         repost({ token: loggedUser.token, postId })
