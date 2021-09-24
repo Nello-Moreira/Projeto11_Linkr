@@ -51,7 +51,12 @@ export default function UserPosts() {
                                         resizeOnMobile: true,
                                     }}
                                 />
-                                <h1>{userProfile.username}'s posts</h1>
+                                <h1>
+                                    <span className="username">
+                                        {userProfile.username}
+                                    </span>
+                                    's posts
+                                </h1>
                             </ProfileInformations>
 
                             {loggedUser.user.id != id ? (
@@ -77,7 +82,7 @@ const ProfileInformations = styled.div`
     display: flex;
     align-items: center;
 
-    h1 {
+    .username {
         display: inline-block;
         max-width: 350px;
         white-space: nowrap;

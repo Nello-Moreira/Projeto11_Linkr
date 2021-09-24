@@ -28,6 +28,11 @@ export default function Username({ user, fontSize, customStyle, canBeYou }) {
 const Container = styled.div`
     display: inline-block;
     vertical-align: bottom;
+    max-width: 350px;
+
+    @media (max-width: 600px) {
+        max-width: 150px;
+    }
 `;
 
 const NameContainer = styled.h2`
@@ -37,7 +42,6 @@ const NameContainer = styled.h2`
     margin: ${({ customStyle }) =>
         customStyle && customStyle.margin ? customStyle.margin : "0"};
     font-weight: 700;
-    max-width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

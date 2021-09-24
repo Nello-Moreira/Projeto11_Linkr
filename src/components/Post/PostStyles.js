@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-    width: 100%;
+    width: calc(100%);
     background-color: #1e1e1e;
     margin-bottom: 15px;
     border-radius: 16px;
@@ -28,6 +28,7 @@ const PostContainer = styled.div`
     border-radius: 16px;
     padding: 20px 20px 20px 0;
     display: flex;
+    min-width: 0;
 
     button {
         background: none;

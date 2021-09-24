@@ -52,6 +52,7 @@ export default function Repost({
 const Container = styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     margin: 10px 0;
     color: ${({ reposted }) => (reposted ? "#00e03f" : "inherit")};
