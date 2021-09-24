@@ -42,7 +42,5 @@ const NameContainer = styled.h2`
     margin: ${({ customStyle }) =>
         customStyle && customStyle.margin ? customStyle.margin : "0"};
     font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow-wrap: break-word;
 `;

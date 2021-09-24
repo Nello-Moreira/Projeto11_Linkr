@@ -31,7 +31,7 @@ export default function MyPosts() {
 
                     <ContentContainer>
                         <PageTitleContainer>
-                            <h1>my posts</h1>
+                            <h1>Meus Posts</h1>
                         </PageTitleContainer>
 
                         <FeedPostsContainer

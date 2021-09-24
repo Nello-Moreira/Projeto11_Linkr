@@ -12,9 +12,11 @@ export default function MenuOptions({ menuOpened }) {
 
     return (
         <Container menuOpened={menuOpened}>
-            <span onClick={() => history.push(routes.myPosts)}>My Posts</span>
-            <span onClick={() => history.push(routes.likes)}>My Likes</span>
-            <span onClick={logout}>Logout</span>
+            <span onClick={() => history.push(routes.myPosts)}>Meus Posts</span>
+            <span onClick={() => history.push(routes.likes)}>
+                Minhas curtidas
+            </span>
+            <span onClick={logout}>Sair</span>
         </Container>
     );
 }

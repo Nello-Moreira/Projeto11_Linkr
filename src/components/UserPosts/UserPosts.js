@@ -53,9 +53,8 @@ export default function UserPosts() {
                                 />
                                 <h1>
                                     <span className="username">
-                                        {userProfile.username}
+                                        Posts de {userProfile.username}
                                     </span>
-                                    's posts
                                 </h1>
                             </ProfileInformations>
 
@@ -85,9 +84,7 @@ const ProfileInformations = styled.div`
     .username {
         display: inline-block;
         max-width: 350px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        overflow-wrap: break-word;
     }
 
     @media (max-width: 600px) {
