@@ -82,12 +82,14 @@ const DetailsContainer = styled.div`
 		font-size: 16px;
 		color: #cecece;
 		margin-bottom: 8px;
+		word-wrap: break-word;
 	}
 
 	p {
 		font-size: 11px;
 		color: #aaaaaa;
 		margin: 10px 0;
+		word-wrap: break-word;
 	}
 
 	.link-container {

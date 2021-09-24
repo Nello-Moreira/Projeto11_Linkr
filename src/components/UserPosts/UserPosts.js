@@ -51,7 +51,10 @@ export default function UserPosts() {
 										resizeOnMobile: true,
 									}}
 								/>
-								<h1>{userProfile.username}'s posts</h1>
+								<h1>
+									<span className="username">{userProfile.username}</span>
+									's posts
+								</h1>
 							</ProfileInformations>
 
 							{loggedUser.user.id != id ? (

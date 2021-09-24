@@ -1,12 +1,34 @@
 import styled from "styled-components";
 
+const Container = styled.div`
+	width: calc(100%);
+	background-color: #1e1e1e;
+	margin-bottom: 15px;
+	border-radius: 16px;
+`;
+
+const RepostContainer = styled.div`
+	width: 100%;
+	height: 33px;
+	display: flex;
+	align-items: center;
+
+	button {
+		margin: 0 3px 0 10px;
+	}
+
+	p {
+		font-size: 11px;
+	}
+`;
+
 const PostContainer = styled.div`
 	width: 100%;
 	background-color: #171717;
 	border-radius: 16px;
 	padding: 20px 20px 20px 0;
 	display: flex;
-	margin-bottom: 15px;
+	min-width: 0;
 
 	button {
 		background: none;
@@ -61,12 +83,6 @@ const RightContainer = styled.div`
 		}
 	}
 
-	h2 {
-		font-size: 19px;
-		color: #fff;
-		word-break: break-word;
-	}
-
 	@media (max-width: 611px) {
 		width: calc(100% - 30px);
 
@@ -107,6 +123,8 @@ const UserNameContainer = styled.div`
 `;
 
 export {
+	Container,
+	RepostContainer,
 	PostContainer,
 	LeftContainer,
 	UserContainer,

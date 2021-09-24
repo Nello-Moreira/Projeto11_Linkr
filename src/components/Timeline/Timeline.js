@@ -59,6 +59,8 @@ export default function Timeline() {
 
 						<PublishBox updateTimeline={updateTimeline} />
 
+						<PublishBox updateTimeline={updateTimeline} />
+
 						{followingList.length === 0 ? (
 							<WarningParagraph>
 								Você não segue ninguém ainda, procure por perfis na busca
