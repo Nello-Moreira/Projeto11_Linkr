@@ -11,7 +11,7 @@ import routes from "../../routes/routes";
 import UserContext from "../../contexts/UserContext";
 import { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import FeedPostsContainer from "../_shared/FeedPostsContainer";
+import { FeedPostsContainer } from "../_shared/FeedPostsContainer";
 
 export default function UserPosts() {
     const { loggedUser } = useContext(UserContext);

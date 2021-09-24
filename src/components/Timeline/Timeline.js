@@ -5,7 +5,7 @@ import Header from "../Header/Header";
 import PublishBox from "./PublishBox";
 import HashtagBox from "../HashtagBox/HashtagBox";
 import WarningParagraph from "../_shared/WarningParagraph";
-import FeedPostsContainer from "../_shared/FeedPostsContainer";
+import { FeedPostsContainer, getNewPosts } from "../_shared/FeedPostsContainer";
 import Search from "../Header/Search";
 import PagePostsContext from "../../contexts/PagePostsContext";
 import UserContext from "../../contexts/UserContext";
@@ -34,7 +34,18 @@ export default function Timeline() {
     }
 
     function updateTimeline(newPost) {
-        setPagePosts([newPost, ...pagePosts]);
+        const APIfunction = getPosts;
+        const settings = { token: loggedUser.token };
+
+        getNewPosts({ APIfunction, settings, pagePosts })
+            .then((response) => {
+                setPagePosts([...response, ...pagePosts]);
+            })
+            .catch((error) =>
+                alert(
+                    "Não foi possível carregar os novos posts. Por favor, recarregue a página."
+                )
+            );
     }
 
     useEffect(() => {
