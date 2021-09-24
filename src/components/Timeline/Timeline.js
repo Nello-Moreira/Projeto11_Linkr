@@ -39,7 +39,6 @@ export default function Timeline() {
 
         getNewPosts({ APIfunction, settings, pagePosts })
             .then((response) => {
-                console.log({ response });
                 setPagePosts([...response, ...pagePosts]);
             })
             .catch((error) =>

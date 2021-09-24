@@ -137,7 +137,6 @@ function getSearchedUsers({ token, username }) {
 }
 
 function repost({ token, postId }) {
-    console.log({ token, postId });
     return axiosBase.post(
         `/posts/${postId}/share`,
         "",

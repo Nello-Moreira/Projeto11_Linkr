@@ -45,7 +45,11 @@ export default function Search({ className }) {
                     setUsersList(response.data.users.sort(comparator));
                     setShowResults(true);
                 })
-                .catch((error) => console.log(error));
+                .catch((error) =>
+                    alert(
+                        "Houve um erro ao pesquisar os usuários. Por favor, tente novamente."
+                    )
+                );
 
             return;
         }
