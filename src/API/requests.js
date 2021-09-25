@@ -137,10 +137,24 @@ function getSearchedUsers({ token, username }) {
 }
 
 function repost({ token, postId }) {
-    console.log({ token, postId });
     return axiosBase.post(
         `/posts/${postId}/share`,
         "",
+        createBearerAuthorization(token)
+    );
+}
+
+function getPostComments({ token, postId }) {
+    return axiosBase.get(
+        `/posts/${postId}/comments`,
+        createBearerAuthorization(token)
+    );
+}
+
+function comment({ token, text, postId }) {
+    return axiosBase.post(
+        `/posts/${postId}/comment`,
+        { text: text },
         createBearerAuthorization(token)
     );
 }
@@ -164,4 +178,6 @@ export {
     unfollowUser,
     getSearchedUsers,
     repost,
+    getPostComments,
+    comment,
 };

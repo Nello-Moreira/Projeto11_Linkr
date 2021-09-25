@@ -15,64 +15,63 @@ import { getPosts, getFollows } from "../../API/requests";
 import routes from "../../routes/routes";
 
 export default function Timeline() {
-	const { loggedUser } = useContext(UserContext);
-	const { pagePosts, setPagePosts } = useContext(PagePostsContext);
-	const history = useHistory();
-	const [loading, setLoading] = useState(true);
-	const [followingList, setFollowingList] = useState([]);
+    const { loggedUser } = useContext(UserContext);
+    const { pagePosts, setPagePosts } = useContext(PagePostsContext);
+    const history = useHistory();
+    const [loading, setLoading] = useState(true);
+    const [followingList, setFollowingList] = useState([]);
 
-	function getFollowingList() {
-		getFollows({ token: loggedUser.token })
-			.then((response) => {
-				setFollowingList(response.data.users);
-				setLoading(false);
-			})
-			.catch((error) => {
-				alert("Algo deu errado. Por favor, recarregue a página.");
-				setLoading(false);
-			});
-	}
+    function getFollowingList() {
+        getFollows({ token: loggedUser.token })
+            .then((response) => {
+                setFollowingList(response.data.users);
+                setLoading(false);
+            })
+            .catch((error) => {
+                alert("Algo deu errado. Por favor, recarregue a página.");
+                setLoading(false);
+            });
+    }
 
-	function updateTimeline(newPost) {
-		setPagePosts([newPost, ...pagePosts]);
-	}
+    function updateTimeline(newPost) {
+        setPagePosts([newPost, ...pagePosts]);
+    }
 
-	useEffect(() => {
-		if (!loggedUser.token) return history.push(routes.login);
+    useEffect(() => {
+        if (!loggedUser.token) return history.push(routes.login);
 
-		getFollowingList();
-	}, [loggedUser]);
+        getFollowingList();
+    }, [loggedUser]);
 
-	return (
-		<PageContainer>
-			{loading ? (
-				<CircleLoader customStyle={{ height: "50vh" }} />
-			) : (
-				<>
-					<Header />
+    return (
+        <PageContainer>
+            {loading ? (
+                <CircleLoader customStyle={{ height: "50vh" }} />
+            ) : (
+                <>
+                    <Header />
 
-					<ContentContainer>
-						<Search className="timeline" />
-						<PageTitleContainer>
-							<h1>timeline</h1>
-						</PageTitleContainer>
+                    <ContentContainer>
+                        <Search className="timeline" />
+                        <PageTitleContainer>
+                            <h1>timeline</h1>
+                        </PageTitleContainer>
 
-						<PublishBox updateTimeline={updateTimeline} />
+                        <PublishBox updateTimeline={updateTimeline} />
 
-						<PublishBox updateTimeline={updateTimeline} />
+                        {followingList.length === 0 ? (
+                            <WarningParagraph>
+                                Você não segue ninguém ainda, procure por perfis
+                                na busca
+                            </WarningParagraph>
+                        ) : null}
 
-						{followingList.length === 0 ? (
-							<WarningParagraph>
-								Você não segue ninguém ainda, procure por perfis na busca
-							</WarningParagraph>
-						) : null}
+                        <FeedPostsContainer APIfunction={getPosts} />
+                    </ContentContainer>
 
-						<FeedPostsContainer APIfunction={getPosts} />
-					</ContentContainer>
-
-					<HashtagBox />
-				</>
-			)}
-		</PageContainer>
-	);
+                    <HashtagBox />
+                </>
+            )}
+        </PageContainer>
+    );
 }
