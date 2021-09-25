@@ -77,7 +77,13 @@ function MakeAComment({
 
         if (e.key === "Escape") {
             inputRef.current.blur();
-            setIsDiscardModalOpen(true);
+
+            if (commentValue.length > 5) {
+                setIsDiscardModalOpen(true);
+                return;
+            }
+
+            clearForm();
         }
     }
 
