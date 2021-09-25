@@ -31,11 +31,6 @@ const PostContainer = styled.div`
     display: flex;
     min-width: 0;
 
-    button {
-        background: none;
-        border: none;
-    }
-
     @media (max-width: 611px) {
         border-radius: 0px;
     }
