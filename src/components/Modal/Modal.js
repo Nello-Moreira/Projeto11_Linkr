@@ -63,6 +63,10 @@ const Overlay = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	& :focus {
+		outline: none;
+	}
 `;
 
 const ContentContainer = styled.div`
