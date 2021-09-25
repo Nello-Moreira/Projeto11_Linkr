@@ -75,9 +75,16 @@ export default function ConfirmModal({
 const CancelButton = styled(CustomButton)`
     background-color: rgb(225, 225, 225);
     color: rgb(24, 119, 242);
+    @media (max-width: 400px) {
+        font-size: 15px;
+    }
 `;
 
-const ConfirmButton = styled(CustomButton)``;
+const ConfirmButton = styled(CustomButton)`
+    @media (max-width: 400px) {
+        font-size: 15px;
+    }
+`;
 
 const ModalContainer = styled(Modal)`
     div {

@@ -10,6 +10,7 @@ import { comment } from "../../API/requests";
 import { getFollows } from "../../API/requests";
 import { FiSend } from "react-icons/fi";
 import ActionButton from "../_shared/buttons/ActionButton";
+import ConfirmModal from "../Modal/ConfirmModal";
 
 function Comment({ commentData, postOwner, followsList }) {
     const { text, user } = commentData;
@@ -57,6 +58,7 @@ function MakeAComment({
     setCommentValue,
     loading,
 }) {
+    const [isDiscardModalOpen, setIsDiscardModalOpen] = useState(false);
     const inputRef = useRef();
     autosize(inputRef.current);
 
@@ -74,9 +76,13 @@ function MakeAComment({
         }
 
         if (e.key === "Escape") {
-            setCommentValue("");
             inputRef.current.blur();
+            setIsDiscardModalOpen(true);
         }
+    }
+
+    function clearForm() {
+        setCommentValue("");
     }
 
     return (
@@ -105,6 +111,14 @@ function MakeAComment({
                     <FiSend title="Send message" />
                 </ActionButton>
             </InputContainer>
+            <ConfirmModal
+                isOpen={isDiscardModalOpen}
+                setIsOpen={setIsDiscardModalOpen}
+                loading={loading}
+                onConfirm={clearForm}
+                title="Tem certeza que quer descartar seu comentário? Essa ação não poderá ser desfeita"
+                confirmText="Sim, descartar"
+            />
         </MakeACommentContainer>
     );
 }

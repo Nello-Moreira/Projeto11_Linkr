@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { repost } from "../../API/requests";
 import { useState } from "react";
-import RepostModal from "./RepostModal";
 import ActionButton from "../_shared/buttons/ActionButton";
 import { BiRepost } from "react-icons/bi";
+import ConfirmModal from "../Modal/ConfirmModal";
 
 export default function Repost({
     repostCount,
@@ -43,11 +43,13 @@ export default function Repost({
                     {repostTimes} re<span>&#8209;</span>posts
                 </p>
             </Container>
-            <RepostModal
-                openRepostModal={openRepostModal}
-                setOpenRepostModal={setOpenRepostModal}
+            <ConfirmModal
+                isOpen={openRepostModal}
+                setIsOpen={setOpenRepostModal}
                 loading={loading}
-                submitRepost={submitRepost}
+                onConfirm={submitRepost}
+                title="Tem certeza quer repostar esse post em seu feed?"
+                confirmText="Sim, repostar"
             />
         </>
     );
