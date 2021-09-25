@@ -26,7 +26,7 @@ function Comment({ commentData, postOwner, followsList }) {
     return (
         <CommentContainer>
             <UserAvatar
-                src={user.avatar}
+                user={user}
                 alt="profile"
                 customStyle={{
                     height: "40px",
@@ -83,7 +83,7 @@ function MakeAComment({
     return (
         <MakeACommentContainer>
             <UserAvatar
-                src={loggedUser.user.avatar}
+                user={loggedUser.user}
                 alt="profile"
                 customStyle={{
                     height: "40px",

@@ -1,19 +1,46 @@
 import { useState } from "react";
 import styled from "styled-components";
 import defaultUserImage from "../../assets/images/defaultUserImage.jpg";
+import { Link } from "react-router-dom";
+import routes from "../../routes/routes";
 
-export default function UserAvatar({ customStyle = {}, src }) {
+export default function UserAvatar({ user, noLink, customStyle = {} }) {
     const [imgIsLoaded, setImgIsLoaded] = useState(true);
+
+    console.log(customStyle);
+
+    if (noLink) {
+        return (
+            <Profile customStyle={customStyle}>
+                <img
+                    src={imgIsLoaded ? user.avatar : defaultUserImage}
+                    onError={() => setImgIsLoaded(false)}
+                    alt="userAvatar"
+                />
+            </Profile>
+        );
+    }
 
     return (
         <Profile customStyle={customStyle}>
-            <img
-                src={imgIsLoaded ? src : defaultUserImage}
-                onError={() => setImgIsLoaded(false)}
-                alt="userAvatar"
-            />
+            <Link to={routes.user.replace(":id", user.id)}>
+                <img
+                    src={imgIsLoaded ? user.avatar : defaultUserImage}
+                    onError={() => setImgIsLoaded(false)}
+                    alt="userAvatar"
+                />
+            </Link>
         </Profile>
     );
+}
+
+function customMobileResize(size) {
+    if (!size) {
+        return "40px";
+    }
+
+    const newSize = Number(size.substring(0, 2)) - 10;
+    return `${newSize}px`;
 }
 
 const Profile = styled.div`
@@ -36,9 +63,13 @@ const Profile = styled.div`
 
         @media (max-width: 611px) {
             height: ${({ customStyle }) =>
-                customStyle.resizeOnMobile === true ? "40px" : "50px"};
+                customStyle.resizeOnMobile === true
+                    ? customMobileResize(customStyle.height)
+                    : "50px"};
             width: ${({ customStyle }) =>
-                customStyle.resizeOnMobile === true ? "40px" : "50px"};
+                customStyle.resizeOnMobile === true
+                    ? customMobileResize(customStyle.width)
+                    : "50px"};
         }
     }
 `;

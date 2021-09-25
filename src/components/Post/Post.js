@@ -134,13 +134,12 @@ export default function Post({ postData }) {
 
             <PostContainer>
                 <LeftContainer>
-                    <Link to={routes.user.replace(":id", user.id)}>
-                        <UserAvatar
-                            src={user.avatar}
-                            alt="profile"
-                            customStyle={{ resizeOnMobile: true }}
-                        />
-                    </Link>
+                    <UserAvatar
+                        user={user}
+                        alt="profile"
+                        customStyle={{ resizeOnMobile: true }}
+                    />
+
                     <Like likes={likes} postId={id} loggedUser={loggedUser} />
                     <Comments
                         openCommentSession={openCommentSession}
@@ -192,7 +191,9 @@ export default function Post({ postData }) {
                                     onClick={() =>
                                         setDeletingPostId(postData.id)
                                     }
-                                    customStyle={{ fontSize: "20px" }}
+                                    customStyle={{
+                                        fontSize: "20px",
+                                    }}
                                 >
                                     <MdDelete title={"Delete this post"} />
                                 </ActionButton>

@@ -45,7 +45,8 @@ export default function UserPosts() {
                         <PageTitleContainer>
                             <ProfileInformations>
                                 <UserAvatar
-                                    src={userProfile.avatar}
+                                    user={userProfile}
+                                    noLink={true}
                                     customStyle={{
                                         margin: "0 15px 0 0",
                                         resizeOnMobile: true,

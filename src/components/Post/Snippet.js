@@ -53,6 +53,7 @@ const PostImage = styled.img`
     height: 155px;
     width: 153px;
     border-radius: 0 11px 11px 0;
+    flex: 0 0 auto;
 
     @media (max-width: 611px) {
         height: 115px;
@@ -62,7 +63,6 @@ const PostImage = styled.img`
 
 const DetailsContainer = styled.div`
     height: 155px;
-    width: calc(100% - 153px);
     border: 1px solid #c4c4c4;
     border-right: none;
     border-radius: 11px 0 0 11px;
@@ -103,7 +103,7 @@ const DetailsContainer = styled.div`
     }
 
     @media (max-width: 611px) {
-        width: calc(100 % - 115px);
+        width: 100px;
         height: 115px;
         padding: 10px;
 
