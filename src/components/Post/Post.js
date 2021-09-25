@@ -18,9 +18,9 @@ import ButtonsContainer from "../_shared/buttons/ButtonsContainer";
 import UserAvatar from "../_shared/UserAvatar";
 import TrashButton from "../_shared/buttons/TrashButton";
 import EditButton from "../_shared/buttons/EditButton";
-import RepostButton from "../_shared/buttons/RepostButton";
-import CommentButton from "../_shared/buttons/CommentButton";
 import Username from "../_shared/Username";
+import ActionButton from "../_shared/buttons/ActionButton";
+import { BiRepost } from "react-icons/bi";
 
 import { EmbeddedVideo, FormattedVideoURL } from "./EmbeddedVideo";
 import Snippet from "./Snippet";
@@ -119,7 +119,7 @@ export default function Post({ postData }) {
         <Container>
             {isRepost && (
                 <RepostContainer isRepost={isRepost}>
-                    <RepostButton customStyle={{ fontSize: "23px" }} />
+                    <BiRepost className="repost" />
                     <p>
                         Re-posted by{" "}
                         <Username

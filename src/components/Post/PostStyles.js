@@ -13,7 +13,8 @@ const RepostContainer = styled.div`
     display: flex;
     align-items: center;
 
-    button {
+    .repost {
+        font-size: 20px;
         margin: 0 3px 0 10px;
     }
 

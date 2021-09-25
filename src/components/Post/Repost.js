@@ -1,8 +1,10 @@
-import RepostButton from "../_shared/buttons/RepostButton";
 import styled from "styled-components";
 import { repost } from "../../API/requests";
 import { useState } from "react";
 import RepostModal from "./RepostModal";
+import ActionButton from "../_shared/buttons/ActionButton";
+import { BiRepost } from "react-icons/bi";
+
 export default function Repost({
     repostCount,
     repostedBy,
@@ -33,10 +35,10 @@ export default function Repost({
     return (
         <>
             <Container reposted={reposted}>
-                <RepostButton
-                    customStyle={{ fontSize: "28px" }}
-                    onClick={() => setOpenRepostModal(true)}
-                />
+                <ActionButton onClick={() => setOpenRepostModal(true)}>
+                    <BiRepost title={"Repost this in your feed"} />
+                </ActionButton>
+
                 <p>
                     {repostTimes} re<span>&#8209;</span>posts
                 </p>
@@ -66,10 +68,6 @@ const Container = styled.div`
     @media (max-width: 611px) {
         p {
             font-size: 8px;
-        }
-
-        button {
-            font-size: 20px;
         }
     }
 `;

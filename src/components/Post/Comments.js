@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import CommentButton from "../_shared/buttons/CommentButton";
-
+import ActionButton from "../_shared/buttons/ActionButton";
+import { AiOutlineComment } from "react-icons/ai";
 export default function Comments({
     setOpenCommentSession,
     openCommentSession,
@@ -8,10 +8,12 @@ export default function Comments({
 }) {
     return (
         <Container>
-            <CommentButton
-                customStyle={{ fontSize: "28px" }}
+            <ActionButton
                 onClick={() => setOpenCommentSession(!openCommentSession)}
-            />
+            >
+                <AiOutlineComment title={"See post's comments"} />
+            </ActionButton>
+
             <p>{commentCount} comments</p>
         </Container>
     );
@@ -19,22 +21,17 @@ export default function Comments({
 
 const Container = styled.div`
     margin-top: 10px;
-    color: ${({ reposted }) => (reposted ? "#00e03f" : "inherit")};
     display: flex;
     flex-direction: column;
     text-align: center;
     p {
         font-size: 10px;
-        color: ${({ reposted }) => (reposted ? "#00e03f" : "inherit")};
+        margin-top: 2px;
     }
 
     @media (max-width: 611px) {
         p {
             font-size: 8px;
-        }
-
-        button {
-            font-size: 20px;
         }
     }
 `;
