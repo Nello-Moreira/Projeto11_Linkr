@@ -37,7 +37,9 @@ export default function Repost({
                     customStyle={{ fontSize: "28px" }}
                     onClick={() => setOpenRepostModal(true)}
                 />
-                <p>{repostTimes} re-posts</p>
+                <p>
+                    {repostTimes} re<span>&#8209;</span>posts
+                </p>
             </Container>
             <RepostModal
                 openRepostModal={openRepostModal}
@@ -51,9 +53,8 @@ export default function Repost({
 
 const Container = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    text-align: center;
     margin: 10px 0;
     color: ${({ reposted }) => (reposted ? "#00e03f" : "inherit")};
 
@@ -62,7 +63,7 @@ const Container = styled.div`
         color: ${({ reposted }) => (reposted ? "#00e03f" : "inherit")};
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 611px) {
         p {
             font-size: 8px;
         }

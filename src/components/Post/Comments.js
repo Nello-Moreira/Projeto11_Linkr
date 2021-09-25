@@ -18,19 +18,17 @@ export default function Comments({
 }
 
 const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     margin-top: 10px;
     color: ${({ reposted }) => (reposted ? "#00e03f" : "inherit")};
-
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     p {
         font-size: 10px;
         color: ${({ reposted }) => (reposted ? "#00e03f" : "inherit")};
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 611px) {
         p {
             font-size: 8px;
         }

@@ -65,11 +65,16 @@ function MakeAComment({
         }
     }, [inputRef]);
 
-    function handleEnter(e) {
+    function handleKeys(e) {
         if (e.key === "Enter") {
             e.preventDefault();
             submitComment();
             return;
+        }
+
+        if (e.key === "Escape") {
+            setCommentValue("");
+            inputRef.current.blur();
         }
     }
 
@@ -91,7 +96,7 @@ function MakeAComment({
                     ref={inputRef}
                     value={commentValue}
                     onChange={(e) => setCommentValue(e.target.value)}
-                    onKeyDown={(e) => handleEnter(e)}
+                    onKeyDown={(e) => handleKeys(e)}
                     disabled={loading}
                 />
                 <SendButton
@@ -125,7 +130,7 @@ export default function CommentSession({
         getFollows({ token: loggedUser.token }).then((response) =>
             setFollowsList(response.data.users)
         );
-    }, [loading]);
+    }, [loggedUser.token, postId]);
 
     function submitComment() {
         setLoading(true);
@@ -138,7 +143,9 @@ export default function CommentSession({
                 setLoading(false);
                 setCommentValue("");
             })
-            .catch((error) => console.log(error));
+            .catch((error) =>
+                alert("Ocorreu um erro. Por favor, atualize a página.")
+            );
     }
 
     return (
@@ -206,6 +213,7 @@ const CommentInput = styled.textarea`
     background-color: transparent;
     outline: none;
     border: none;
+    resize: vertical;
 
     :focus {
         outline: none;
@@ -249,6 +257,7 @@ const ContentContainer = styled.div`
         color: #acacac;
         margin-bottom: 5px;
         line-height: 15px;
+        word-break: break-word;
     }
 `;
 
