@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import styled from "styled-components";
 import { post } from "../../API/requests";
 
@@ -7,6 +7,8 @@ import CustomButton from "../_shared/buttons/CustomButton";
 import LocationButton from "./LocationButton";
 import UserContext from "../../contexts/UserContext";
 import CancelPostModal from "./CancelPostModal";
+
+import autosize from "autosize";
 
 export default function PublishBox({ updateTimeline }) {
     const { loggedUser } = useContext(UserContext);
@@ -17,6 +19,9 @@ export default function PublishBox({ updateTimeline }) {
 
     const [cancelPost, setCancelPost] = useState(false);
 
+    const inputRef = useRef();
+    autosize(inputRef.current);
+
     function clearedForm() {
         return {
             ...newPost,
@@ -25,10 +30,12 @@ export default function PublishBox({ updateTimeline }) {
         };
     }
 
-    function publishPost() {
+    function publishPost(event) {
+        event.preventDefault();
+
         setLoading(true);
         post(loggedUser, newPost)
-            .then((response) => {
+            .then(() => {
                 setNewPost(clearedForm);
                 setLoading(false);
                 updateTimeline();
@@ -46,7 +53,7 @@ export default function PublishBox({ updateTimeline }) {
             if (event.repeat) {
                 return;
             }
-            publishPost();
+            publishPost(event);
             setLoading(false);
         }
 
@@ -78,6 +85,7 @@ export default function PublishBox({ updateTimeline }) {
                 />
 
                 <textarea
+                    ref={inputRef}
                     type="text"
                     name="linkComment"
                     value={newPost.text}
