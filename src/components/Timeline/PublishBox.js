@@ -6,6 +6,7 @@ import UserAvatar from "../_shared/UserAvatar";
 import CustomButton from "../_shared/buttons/CustomButton";
 import LocationButton from "./LocationButton";
 import UserContext from "../../contexts/UserContext";
+import CancelPostModal from "./CancelPostModal";
 
 export default function PublishBox({ updateTimeline }) {
 	const { loggedUser } = useContext(UserContext);
@@ -13,6 +14,8 @@ export default function PublishBox({ updateTimeline }) {
 	const [newPost, setNewPost] = useState(clearedForm());
 
 	const [loading, setLoading] = useState(false);
+
+	const [cancelPost, setCancelPost] = useState(false);
 
 	function clearedForm() {
 		return {
@@ -48,7 +51,7 @@ export default function PublishBox({ updateTimeline }) {
 		}
 
 		if (event.key === "Escape") {
-			setNewPost(clearedForm);
+			setCancelPost(true);
 			setLoading(false);
 		}
 	}
@@ -103,6 +106,11 @@ export default function PublishBox({ updateTimeline }) {
 					</CustomButton>
 				</ButtonContainer>
 			</PostForm>
+			<CancelPostModal
+				isOpen={cancelPost}
+				setIsOpen={setCancelPost}
+				clearForm={() => setNewPost(clearedForm)}
+			/>
 		</BoxContainer>
 	);
 }
