@@ -11,7 +11,7 @@ import routes from "../../routes/routes";
 import UserContext from "../../contexts/UserContext";
 import { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import FeedPostsContainer from "../_shared/FeedPostsContainer";
+import { FeedPostsContainer } from "../_shared/FeedPostsContainer";
 
 export default function UserPosts() {
     const { loggedUser } = useContext(UserContext);
@@ -45,16 +45,22 @@ export default function UserPosts() {
                         <PageTitleContainer>
                             <ProfileInformations>
                                 <UserAvatar
-                                    src={userProfile.avatar}
+                                    user={userProfile}
+                                    noLink={true}
                                     customStyle={{
                                         margin: "0 15px 0 0",
                                         resizeOnMobile: true,
                                     }}
                                 />
-                                <h1>{userProfile.username}'s posts</h1>
+                                <h1>
+                                    <span className="username">
+                                        {userProfile.username}
+                                    </span>
+                                    's posts
+                                </h1>
                             </ProfileInformations>
 
-                            {loggedUser.user.id != id ? (
+                            {loggedUser.user.id !== Number(id) ? (
                                 <FollowButton userId={id} key={id} />
                             ) : null}
                         </PageTitleContainer>
