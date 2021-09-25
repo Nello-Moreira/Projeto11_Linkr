@@ -6,6 +6,7 @@ import UserAvatar from "../_shared/UserAvatar";
 import CustomButton from "../_shared/buttons/CustomButton";
 import LocationButton from "./LocationButton";
 import UserContext from "../../contexts/UserContext";
+import CancelPostModal from "./CancelPostModal";
 
 export default function PublishBox({ updateTimeline }) {
     const { loggedUser } = useContext(UserContext);
@@ -13,6 +14,8 @@ export default function PublishBox({ updateTimeline }) {
     const [newPost, setNewPost] = useState(clearedForm());
 
     const [loading, setLoading] = useState(false);
+
+    const [cancelPost, setCancelPost] = useState(false);
 
     function clearedForm() {
         return {
@@ -22,8 +25,7 @@ export default function PublishBox({ updateTimeline }) {
         };
     }
 
-    function publishPost(event) {
-        event.preventDefault();
+    function publishPost() {
         setLoading(true);
         post(loggedUser, newPost)
             .then((response) => {
@@ -37,13 +39,30 @@ export default function PublishBox({ updateTimeline }) {
             });
     }
 
+    function handleKeys(event) {
+        if (event.key === "Enter" && !loading) {
+            event.preventDefault();
+
+            if (event.repeat) {
+                return;
+            }
+            publishPost();
+            setLoading(false);
+        }
+
+        if (event.key === "Escape") {
+            setCancelPost(true);
+            setLoading(false);
+        }
+    }
+
     return (
         <BoxContainer>
             <UserAvatar
                 user={loggedUser.user}
                 customStyle={{ padding: "18px", mobileDisplay: "none" }}
             />
-            <PostForm onSubmit={publishPost}>
+            <PostForm onSubmit={publishPost} onKeyDown={(e) => handleKeys(e)}>
                 <Label>O que você tem pra favoritar hoje?</Label>
 
                 <input
@@ -87,6 +106,11 @@ export default function PublishBox({ updateTimeline }) {
                     </CustomButton>
                 </ButtonContainer>
             </PostForm>
+            <CancelPostModal
+                isOpen={cancelPost}
+                setIsOpen={setCancelPost}
+                clearForm={() => setNewPost(clearedForm)}
+            />
         </BoxContainer>
     );
 }

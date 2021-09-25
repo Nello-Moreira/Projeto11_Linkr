@@ -81,7 +81,7 @@ export default function FollowButton({ userId }) {
 }
 
 const ButtonBase = styled(CustomButton)`
-	font-family: "'Lato', sans-serif";
+	font-family: Lato, "sans-serif";
 	font-size: 15px;
 	width: 80px;
 	position: relative;
