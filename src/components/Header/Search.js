@@ -6,8 +6,6 @@ import { getSearchedUsers } from "../../API/requests";
 import UserContext from "../../contexts/UserContext";
 import { useContext, useState } from "react";
 import UserAvatar from "../_shared/UserAvatar";
-import { Link } from "react-router-dom";
-import routes from "../../routes/routes";
 
 function UserFound({ user, clearSearch }) {
     return (

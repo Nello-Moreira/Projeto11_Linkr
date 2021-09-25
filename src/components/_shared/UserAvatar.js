@@ -4,10 +4,8 @@ import defaultUserImage from "../../assets/images/defaultUserImage.jpg";
 import { Link } from "react-router-dom";
 import routes from "../../routes/routes";
 
-export default function UserAvatar({ user, noLink, customStyle = {} }) {
+export default function UserAvatar({ user, noLink, customStyle }) {
     const [imgIsLoaded, setImgIsLoaded] = useState(true);
-
-    console.log(customStyle);
 
     if (noLink) {
         return (

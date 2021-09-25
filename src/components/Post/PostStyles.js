@@ -80,8 +80,6 @@ const RightContainer = styled.div`
     }
 
     @media (max-width: 611px) {
-        width: calc(100% - 30px);
-
         h2 {
             font-size: 17px;
             margin-left: 5px;
