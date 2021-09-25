@@ -16,6 +16,7 @@ export default function PublishBox({ updateTimeline }) {
 
 	function clearedForm() {
 		return {
+			...newPost,
 			link: "",
 			text: "",
 		};
@@ -28,7 +29,7 @@ export default function PublishBox({ updateTimeline }) {
 			.then((response) => {
 				setNewPost(clearedForm);
 				setLoading(false);
-				updateTimeline(response.data.post);
+				updateTimeline();
 			})
 			.catch(() => {
 				alert("Houve um erro ao publicar seu link");
@@ -38,7 +39,10 @@ export default function PublishBox({ updateTimeline }) {
 
 	return (
 		<BoxContainer>
-			<UserAvatar customStyle={{ padding: "18px", mobileDisplay: "none" }} />
+			<UserAvatar
+				src={loggedUser.user.avatar}
+				customStyle={{ padding: "18px", mobileDisplay: "none" }}
+			/>
 			<PostForm onSubmit={publishPost}>
 				<Label>O que você tem pra favoritar hoje?</Label>
 

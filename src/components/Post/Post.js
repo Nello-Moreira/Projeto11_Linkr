@@ -2,6 +2,7 @@ import { useContext, useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import autosize from "autosize";
 import { IoLocationSharp } from "react-icons/io5";
+import getYouTubeID from "get-youtube-id";
 
 import {
     Container,
@@ -21,6 +22,7 @@ import RepostButton from "../_shared/buttons/RepostButton";
 import CommentButton from "../_shared/buttons/CommentButton";
 import Username from "../_shared/Username";
 
+import { EmbeddedVideo, FormattedVideoURL } from "./EmbeddedVideo";
 import Snippet from "./Snippet";
 import Like from "./Like";
 import PostText from "./PostText";
@@ -60,6 +62,7 @@ export default function Post({ postData }) {
     const [loading, setLoading] = useState(false);
     const [openCommentSession, setOpenCommentSession] = useState(false);
     const [commentValue, setCommentValue] = useState("");
+    const [youtubeVideoId, setYoutubeVideoId] = useState(getYouTubeID(link));
 
     const [isMapModelOpen, setIsMapModalOpen] = useState(false);
 
@@ -203,12 +206,19 @@ export default function Post({ postData }) {
                         <PostText postText={postText} />
                     )}
 
-                    <Snippet
-                        link={link}
-                        linkTitle={linkTitle}
-                        linkDescription={linkDescription}
-                        linkImage={linkImage}
-                    />
+                    {youtubeVideoId ? (
+                        <>
+                            <EmbeddedVideo videoId={youtubeVideoId} />
+                            <FormattedVideoURL>{link}</FormattedVideoURL>
+                        </>
+                    ) : (
+                        <Snippet
+                            link={link}
+                            linkTitle={linkTitle}
+                            linkDescription={linkDescription}
+                            linkImage={linkImage}
+                        />
+                    )}
                 </RightContainer>
             </PostContainer>
             {openCommentSession && (
