@@ -61,7 +61,7 @@ export default function Post({ postData }) {
     const [loading, setLoading] = useState(false);
     const [openCommentSession, setOpenCommentSession] = useState(false);
     const [commentValue, setCommentValue] = useState("");
-    const [youtubeVideoId, setYoutubeVideoId] = useState(getYouTubeID(link));
+    const [youtubeVideoId] = useState(getYouTubeID(link));
 
     const [isMapModelOpen, setIsMapModalOpen] = useState(false);
 
