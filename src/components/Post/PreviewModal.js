@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import Modal from "../Modal/Modal";
-import { AiOutlineClose } from "react-icons/ai";
 import CustomButton from "../_shared/buttons/CustomButton";
+import CloseButton from "../_shared/buttons/CloseButton";
 
 export default function PreviewModal({ link, linkTitle, isOpen, setIsOpen }) {
 	return (
-		<Modal isOpen={isOpen}>
+		<Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
 			<ModalHeader>
 				<a href={link} target="_blank" rel="noreferrer">
 					<NewTabButton> Open in a new tab</NewTabButton>
 				</a>
-				<AiOutlineClose onClick={() => setIsOpen(false)} />
+				<CloseButton onClick={() => setIsOpen(false)} />
 			</ModalHeader>
 			<Preview src={link} title={linkTitle}></Preview>
 		</Modal>
@@ -18,10 +18,11 @@ export default function PreviewModal({ link, linkTitle, isOpen, setIsOpen }) {
 }
 
 const ModalHeader = styled.div`
-	display: flex;
 	width: 100%;
-	justify-content: space-between;
 	margin-bottom: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
 	a {
 		text-decoration: none;

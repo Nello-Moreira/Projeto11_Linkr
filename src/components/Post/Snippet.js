@@ -8,15 +8,7 @@ export default function Snippet({
     linkDescription,
     linkImage,
 }) {
-    function checkImgOnline(linkImage) {
-        var img = new Image();
-        img.src = linkImage;
-        if (img.height > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    const [imgIsLoaded, setImgIsLoaded] = useState(true);
 
     const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
     return (
@@ -29,8 +21,11 @@ export default function Snippet({
                     </div>
                     <div className="link-container">{link}</div>
                 </DetailsContainer>
-                {linkImage && checkImgOnline(linkImage) ? (
-                    <PostImage src={linkImage} />
+                {linkImage && imgIsLoaded ? (
+                    <PostImage
+                        src={linkImage}
+                        onError={() => setImgIsLoaded(false)}
+                    />
                 ) : (
                     <LogoContainer>
                         {" "}
