@@ -22,8 +22,7 @@ export default function PublishBox({ updateTimeline }) {
 		};
 	}
 
-	function publishPost(event) {
-		event.preventDefault();
+	function publishPost() {
 		setLoading(true);
 		post(loggedUser, newPost)
 			.then((response) => {
@@ -37,13 +36,30 @@ export default function PublishBox({ updateTimeline }) {
 			});
 	}
 
+	function handleKeys(event) {
+		if (event.key === "Enter" && !loading) {
+			event.preventDefault();
+
+			if (event.repeat) {
+				return;
+			}
+			publishPost();
+			setLoading(false);
+		}
+
+		if (event.key === "Escape") {
+			setNewPost(clearedForm);
+			setLoading(false);
+		}
+	}
+
 	return (
 		<BoxContainer>
 			<UserAvatar
 				src={loggedUser.user.avatar}
 				customStyle={{ padding: "18px", mobileDisplay: "none" }}
 			/>
-			<PostForm onSubmit={publishPost}>
+			<PostForm onSubmit={publishPost} onKeyDown={(e) => handleKeys(e)}>
 				<Label>O que você tem pra favoritar hoje?</Label>
 
 				<input
