@@ -30,7 +30,9 @@ export default function PublishBox({ updateTimeline }) {
 		};
 	}
 
-	function publishPost() {
+	function publishPost(event) {
+		event.preventDefault();
+
 		setLoading(true);
 		post(loggedUser, newPost)
 			.then(() => {
