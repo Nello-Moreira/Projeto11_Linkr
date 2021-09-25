@@ -6,8 +6,10 @@ import { getSearchedUsers } from "../../API/requests";
 import UserContext from "../../contexts/UserContext";
 import { useContext, useState } from "react";
 import UserAvatar from "../_shared/UserAvatar";
+import { Link } from "react-router-dom";
+import routes from "../../routes/routes";
 
-function UserFound({ user, clearSearch }) {
+function UserFound({ user }) {
     return (
         <UserContainer>
             <UserAvatar
@@ -88,11 +90,12 @@ export default function Search({ className }) {
             <ResultsContainer showResults={showResults}>
                 {usersList.length > 0 ? (
                     usersList.map((user, index) => (
-                        <UserFound
-                            user={user}
-                            key={index}
-                            clearSearch={clearSearch}
-                        />
+                        <Link
+                            to={routes.user.replace(":id", user.id)}
+                            onClick={clearSearch}
+                        >
+                            <UserFound user={user} key={index} />
+                        </Link>
                     ))
                 ) : (
                     <h3>Ops, não achamos nada com essas informações ;)</h3>

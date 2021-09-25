@@ -32,7 +32,6 @@ function Comment({ commentData, postOwner, followsList }) {
                     height: "40px",
                     width: "40px",
                     margin: "0 15px 0 0",
-                    resizeOnMobile: true,
                 }}
             />
 
@@ -89,7 +88,6 @@ function MakeAComment({
                     height: "40px",
                     width: "40px",
                     margin: "0 15px 0 0",
-                    resizeOnMobile: true,
                 }}
             />
             <InputContainer>

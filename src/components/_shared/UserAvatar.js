@@ -4,7 +4,7 @@ import defaultUserImage from "../../assets/images/defaultUserImage.jpg";
 import { Link } from "react-router-dom";
 import routes from "../../routes/routes";
 
-export default function UserAvatar({ user, noLink, customStyle }) {
+export default function UserAvatar({ user, noLink, customStyle = {} }) {
     const [imgIsLoaded, setImgIsLoaded] = useState(true);
 
     if (noLink) {
@@ -61,13 +61,13 @@ const Profile = styled.div`
 
         @media (max-width: 611px) {
             height: ${({ customStyle }) =>
-                customStyle.resizeOnMobile === true
+                customStyle.height
                     ? customMobileResize(customStyle.height)
-                    : "50px"};
+                    : "40px"};
             width: ${({ customStyle }) =>
-                customStyle.resizeOnMobile === true
+                customStyle.width
                     ? customMobileResize(customStyle.width)
-                    : "50px"};
+                    : "40px"};
         }
     }
 `;

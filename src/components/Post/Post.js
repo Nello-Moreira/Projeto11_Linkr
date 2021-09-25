@@ -132,11 +132,7 @@ export default function Post({ postData }) {
 
             <PostContainer>
                 <LeftContainer>
-                    <UserAvatar
-                        user={user}
-                        alt="profile"
-                        customStyle={{ resizeOnMobile: true }}
-                    />
+                    <UserAvatar user={user} alt="profile" />
 
                     <Like likes={likes} postId={id} loggedUser={loggedUser} />
                     <Comments

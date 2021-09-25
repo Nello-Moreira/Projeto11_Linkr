@@ -36,11 +36,7 @@ function Header() {
                         />
                     </ArrowContainer>
 
-                    <UserAvatar
-                        user={loggedUser.user}
-                        noLink={true}
-                        customStyle={{ resizeOnMobile: true }}
-                    />
+                    <UserAvatar user={loggedUser.user} noLink={true} />
                 </InteractiveContainer>
             </ContentContainer>
 
