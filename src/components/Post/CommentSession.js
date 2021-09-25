@@ -58,6 +58,7 @@ function MakeAComment({
     loading,
 }) {
     const inputRef = useRef();
+    autosize(inputRef.current);
 
     useEffect(() => {
         if (inputRef.current) {
@@ -78,7 +79,6 @@ function MakeAComment({
         }
     }
 
-    autosize(inputRef.current);
     return (
         <MakeACommentContainer>
             <UserAvatar
@@ -143,9 +143,12 @@ export default function CommentSession({
                 setLoading(false);
                 setCommentValue("");
             })
-            .catch((error) =>
-                alert("Ocorreu um erro. Por favor, atualize a página.")
-            );
+            .catch((error) => {
+                alert(
+                    "Ocorreu um erro ao postar seu comentario. Por favor, atualize a página."
+                );
+                setLoading(false);
+            });
     }
 
     return (
