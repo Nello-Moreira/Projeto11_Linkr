@@ -16,11 +16,12 @@ import {
 } from "../Post/PostStyles";
 import ButtonsContainer from "../_shared/buttons/ButtonsContainer";
 import UserAvatar from "../_shared/UserAvatar";
-import TrashButton from "../_shared/buttons/TrashButton";
-import EditButton from "../_shared/buttons/EditButton";
-import RepostButton from "../_shared/buttons/RepostButton";
-import CommentButton from "../_shared/buttons/CommentButton";
+import { MdDelete } from "react-icons/md";
+
 import Username from "../_shared/Username";
+import ActionButton from "../_shared/buttons/ActionButton";
+import { BiRepost, BiTrash } from "react-icons/bi";
+import { MdEdit } from "react-icons/md";
 
 import { EmbeddedVideo, FormattedVideoURL } from "./EmbeddedVideo";
 import Snippet from "./Snippet";
@@ -119,7 +120,7 @@ export default function Post({ postData }) {
         <Container>
             {isRepost && (
                 <RepostContainer isRepost={isRepost}>
-                    <RepostButton customStyle={{ fontSize: "23px" }} />
+                    <BiRepost className="repost" />
                     <p>
                         Re-posted by{" "}
                         <Username
@@ -180,15 +181,21 @@ export default function Post({ postData }) {
                             <ButtonsContainer
                                 customStyle={{ separationMargin: "0 0 0 5px" }}
                             >
-                                <EditButton
+                                <ActionButton
                                     disabled={loading}
                                     onClick={() => editPost()}
-                                />
-                                <TrashButton
+                                    customStyle={{ fontSize: "20px" }}
+                                >
+                                    <MdEdit title={"Edit this post"} />
+                                </ActionButton>
+                                <ActionButton
                                     onClick={() =>
                                         setDeletingPostId(postData.id)
                                     }
-                                />
+                                    customStyle={{ fontSize: "20px" }}
+                                >
+                                    <MdDelete title={"Delete this post"} />
+                                </ActionButton>
                             </ButtonsContainer>
                         )}
                     </UserContainer>

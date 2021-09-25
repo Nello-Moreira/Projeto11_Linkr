@@ -13,7 +13,8 @@ const RepostContainer = styled.div`
     display: flex;
     align-items: center;
 
-    button {
+    .repost {
+        font-size: 20px;
         margin: 0 3px 0 10px;
     }
 
@@ -29,11 +30,6 @@ const PostContainer = styled.div`
     padding: 20px 20px 20px 0;
     display: flex;
     min-width: 0;
-
-    button {
-        background: none;
-        border: none;
-    }
 
     @media (max-width: 611px) {
         border-radius: 0px;

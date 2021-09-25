@@ -27,7 +27,11 @@ export default function ConfirmModal({
 	}
 
 	return (
-		<ModalContainer isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
+		<ModalContainer
+			type="confirm"
+			isOpen={isOpen}
+			onRequestClose={() => setIsOpen(false)}
+		>
 			<Title>{title}</Title>
 
 			<ButtonsContainer
@@ -73,9 +77,16 @@ const CancelButton = styled(CustomButton)`
 const ConfirmButton = styled(CustomButton)``;
 
 const ModalContainer = styled(Modal)`
-	border-radius: 50px;
+	div {
+		border-radius: 50px;
+	}
 `;
 
 const Title = styled(ModalTitle)`
+	padding: 0 30px;
 	text-align: center;
+
+	@media (max-width: 611px) {
+		font-size: 26px;
+	}
 `;

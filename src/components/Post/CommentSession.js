@@ -3,12 +3,13 @@ import UserAvatar from "../_shared/UserAvatar";
 import UserContext from "../../contexts/UserContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import autosize from "autosize";
-import SendButton from "../_shared/buttons/SendButton";
 import { getPostComments } from "../../API/requests";
 import ThreeDotsLoader from "../loaders/ThreeDotsLoader";
 import Username from "../_shared/Username";
 import { comment } from "../../API/requests";
 import { getFollows } from "../../API/requests";
+import { FiSend } from "react-icons/fi";
+import ActionButton from "../_shared/buttons/ActionButton";
 
 function Comment({ commentData, postOwner, followsList }) {
     const { text, user } = commentData;
@@ -99,10 +100,12 @@ function MakeAComment({
                     onKeyDown={(e) => handleKeys(e)}
                     disabled={loading}
                 />
-                <SendButton
-                    customStyle={{ fontSize: "14px" }}
+                <ActionButton
                     onClick={() => submitComment({ text: commentValue })}
-                />
+                    customStyle={{ fontSize: "20px" }}
+                >
+                    <FiSend title="Send message" />
+                </ActionButton>
             </InputContainer>
         </MakeACommentContainer>
     );
@@ -236,6 +239,12 @@ const InputContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    button {
+        @media (max-width: 611px) {
+            font-size: 15px;
+        }
+    }
 `;
 
 const CommentContainer = styled.div`

@@ -1,22 +1,16 @@
-import { FiSend } from "react-icons/fi";
-
 import styled from "styled-components";
 
-export default function SendButton({ customStyle, ...otherprops }) {
+export default function ActionButton({ customStyle, children, ...otherprops }) {
     return (
         <Button customStyle={customStyle} {...otherprops}>
-            <FiSend
-                color={"inherit"}
-                title={"Repost this in your feed"}
-                cursor={"pointer"}
-            />
+            {children}
         </Button>
     );
 }
 
 const Button = styled.button`
     font-size: ${({ customStyle }) =>
-        customStyle && customStyle.fontSize ? customStyle.fontSize : "inherit"};
+        customStyle && customStyle.fontSize ? customStyle.fontSize : "28px"};
     color: ${({ customStyle }) =>
         customStyle && customStyle.color ? customStyle.color : "inherit"};
     margin: ${({ customStyle }) =>
@@ -28,4 +22,8 @@ const Button = styled.button`
     align-items: flex-start;
     border: none;
     cursor: pointer;
+
+    @media (max-width: 611px) {
+        font-size: 20px;
+    }
 `;
