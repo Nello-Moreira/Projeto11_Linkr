@@ -36,7 +36,7 @@ export default function Repost({
 		<>
 			<Container reposted={reposted}>
 				<ActionButton onClick={() => setOpenRepostModal(true)}>
-					<BiRepost title={"Repost this in your feed"} />
+					<RepostButton title={"Repost this in your feed"} />
 				</ActionButton>
 
 				<p>
@@ -72,5 +72,15 @@ const Container = styled.div`
 		p {
 			font-size: 8px;
 		}
+	}
+`;
+
+const RepostButton = styled(BiRepost)`
+	border-radius: 50%;
+
+	&:hover {
+		background-color: none;
+		color: #00e03f;
+		box-shadow: 0px 0px 30px rgba(0, 224, 63, 0.35);
 	}
 `;

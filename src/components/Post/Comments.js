@@ -9,7 +9,7 @@ export default function Comments({
 	return (
 		<Container>
 			<ActionButton onClick={() => setOpenCommentSession(!openCommentSession)}>
-				<AiOutlineComment title={"See post's comments"} />
+				<CommentButton title={"See post's comments"} />
 			</ActionButton>
 
 			<p>
@@ -33,5 +33,15 @@ const Container = styled.div`
 		p {
 			font-size: 8px;
 		}
+	}
+`;
+
+const CommentButton = styled(AiOutlineComment)`
+	border-radius: 50%;
+
+	&:hover {
+		background-color: none;
+		color: #1a8cd8;
+		box-shadow: 0px 0px 30px rgba(26, 140, 216, 0.35);
 	}
 `;
