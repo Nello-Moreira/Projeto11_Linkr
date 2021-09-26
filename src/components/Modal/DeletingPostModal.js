@@ -37,7 +37,6 @@ export default function DeletingPostModal() {
 			setIsOpen={setDeletingPostId}
 			onRequestClose={() => setDeletingPostId(false)}
 			title={"Tem certeza que deseja excluir essa publicação?"}
-			cancelText={"Não, voltar"}
 			confirmText={"Sim, excluir"}
 			onCancel={() => setDeletingPostId(false)}
 			onConfirm={deletePostOnServer}
