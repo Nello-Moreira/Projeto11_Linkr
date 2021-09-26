@@ -47,10 +47,12 @@ export default function Post({ postData }) {
 		likes,
 		geolocation,
 		repostCount,
+		repostId,
 		repostedBy,
 		commentCount,
 	} = postData;
 
+	// console.log(r);
 	const { loggedUser } = useContext(UserContext);
 	const { setDeletingPostId } = useContext(PagePostsContext);
 
@@ -167,17 +169,20 @@ export default function Post({ postData }) {
 								""
 							)}
 						</UserNameContainer>
-						{loggedUser.user.id !== user.id ? null : (
+						{loggedUser.user.id === user.id ||
+						(repostedBy && loggedUser.user.id === repostedBy.id) ? (
 							<ButtonsContainer customStyle={{ separationMargin: "0 0 0 5px" }}>
+								{!repostedBy ? (
+									<ActionButton
+										disabled={loading}
+										onClick={() => editPost()}
+										customStyle={{ fontSize: "20px" }}
+									>
+										<MdEdit title={"Edit this post"} />
+									</ActionButton>
+								) : null}
 								<ActionButton
-									disabled={loading}
-									onClick={() => editPost()}
-									customStyle={{ fontSize: "20px" }}
-								>
-									<MdEdit title={"Edit this post"} />
-								</ActionButton>
-								<ActionButton
-									onClick={() => setDeletingPostId(postData.id)}
+									onClick={() => setDeletingPostId(repostId || postData.id)}
 									customStyle={{
 										fontSize: "20px",
 									}}
@@ -185,7 +190,7 @@ export default function Post({ postData }) {
 									<MdDelete title={"Delete this post"} />
 								</ActionButton>
 							</ButtonsContainer>
-						)}
+						) : null}
 					</UserContainer>
 
 					{isEditing ? (
