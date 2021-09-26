@@ -14,7 +14,7 @@ export default function DeletingPostModal() {
 		setLoading(true);
 
 		deletePost({ postId: deletingPostId, token: loggedUser.token })
-			.then((response) => {
+			.then(() => {
 				setPagePosts(
 					pagePosts.filter(
 						(post) =>

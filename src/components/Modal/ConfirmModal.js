@@ -41,9 +41,7 @@ export default function ConfirmModal({
 				}}
 			>
 				<CancelButton
-					customStyle={{
-						loading,
-					}}
+					loading={loading}
 					onClick={
 						loading
 							? null
@@ -58,7 +56,7 @@ export default function ConfirmModal({
 
 				<ConfirmButton
 					type="submit"
-					customStyle={{ loading }}
+					loading={loading}
 					onClick={() => {
 						setIsOpen(false);
 						onConfirm();

@@ -57,25 +57,13 @@ export default function FollowButton({ userId }) {
 			});
 	}
 
-	return following ? (
+	return (
 		<ButtonBase
-			onClick={loading ? null : unfollowRequest}
-			customStyle={{
-				loading,
-				color: "rgb(24, 119, 242)",
-				backgroundColor: "rgb(225,225,225)",
-			}}
+			following={following}
+			onClick={loading ? null : following ? unfollowRequest : followRequest}
+			loading={loading}
 		>
-			Unfollow
-		</ButtonBase>
-	) : (
-		<ButtonBase
-			onClick={loading ? null : followRequest}
-			customStyle={{
-				loading,
-			}}
-		>
-			Follow
+			{following ? "Unfollow" : "Follow"}
 		</ButtonBase>
 	);
 }
@@ -86,6 +74,8 @@ const ButtonBase = styled(CustomButton)`
 	width: 80px;
 	position: relative;
 	left: 320px;
+	color: ${(props) => (props.following ? "rgb(24, 119, 242)" : "")};
+	background-color: ${(props) => (props.following ? "rgb(225, 225, 225)" : "")};
 
 	@media (max-width: 1000px) {
 		position: initial;
