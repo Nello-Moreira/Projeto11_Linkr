@@ -1,11 +1,8 @@
-import Modal from "../Modal/Modal";
-import ModalTitle from "../Modal/ModalTitle";
-import ButtonsContainer from "../_shared/buttons/ButtonsContainer";
-import CustomButton from "../_shared/buttons/CustomButton";
 import { deletePost } from "../../API/requests";
 import PagePostsContext from "../../contexts/PagePostsContext";
 import UserContext from "../../contexts/UserContext";
 import { useState, useContext } from "react";
+import ConfirmModal from "./ConfirmModal";
 
 export default function DeletingPostModal() {
 	const { loggedUser } = useContext(UserContext);
@@ -35,33 +32,16 @@ export default function DeletingPostModal() {
 	}
 
 	return (
-		<Modal
+		<ConfirmModal
 			isOpen={!!deletingPostId}
+			setIsOpen={setDeletingPostId}
 			onRequestClose={() => setDeletingPostId(false)}
-		>
-			<ModalTitle>Tem certeza que deseja excluir essa publicação?</ModalTitle>
-
-			<ButtonsContainer
-				customStyle={{ width: "100%", separationMargin: "45px 10px 15px" }}
-			>
-				<CustomButton
-					customStyle={{
-						loading,
-						backgroundColor: "rgb(225,225,225)",
-						color: "rgb(24, 119, 242)",
-					}}
-					onClick={loading ? null : () => setDeletingPostId(false)}
-				>
-					Não, voltar
-				</CustomButton>
-
-				<CustomButton
-					customStyle={{ loading }}
-					onClick={loading ? null : deletePostOnServer}
-				>
-					Sim, excluir
-				</CustomButton>
-			</ButtonsContainer>
-		</Modal>
+			title={"Tem certeza que deseja excluir essa publicação?"}
+			cancelText={"Não, voltar"}
+			confirmText={"Sim, excluir"}
+			onCancel={() => setDeletingPostId(false)}
+			onConfirm={deletePostOnServer}
+			loading={loading}
+		/>
 	);
 }
