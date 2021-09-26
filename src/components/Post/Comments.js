@@ -12,7 +12,9 @@ export default function Comments({
 				<AiOutlineComment title={"See post's comments"} />
 			</ActionButton>
 
-			<p>{commentCount} comments</p>
+			<p>
+				{commentCount} {commentCount === 1 ? "comment" : "comments"}
+			</p>
 		</Container>
 	);
 }
