@@ -23,7 +23,11 @@ export default function MapModal({ isOpen, username, setIsOpen, geolocation }) {
 	return (
 		<Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
 			<ModalHeader>
-				{username}'s Location <CloseBtn onClick={() => setIsOpen(false)} />
+				<h1>
+					<span className="username">{username}</span>
+					's Location
+				</h1>
+				<CloseBtn onClick={() => setIsOpen(false)} />
 			</ModalHeader>
 			<Map center={position} zoom={10} scrollWheelZoom={false}>
 				<TileLayer
@@ -44,6 +48,21 @@ const ModalHeader = styled(ModalTitle)`
 	font-weight: 700;
 	font-size: 38px;
 	margin-bottom: 15px;
+
+	.username {
+		display: inline-block;
+		max-width: 300px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	@media (max-width: 611px) {
+		font-size: 26px;
+		.username {
+			max-width: 200px;
+		}
+	}
 `;
 
 const Map = styled(MapContainer)`
