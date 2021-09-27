@@ -6,7 +6,9 @@ import WarningParagraph from "./WarningParagraph";
 import PagePostsContext from "../../contexts/PagePostsContext";
 import UserContext from "../../contexts/UserContext";
 import { useEffect, useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import useInterval from "use-interval";
+import routes from "../../routes/routes";
 
 function getNewPosts({ APIfunction, settings, pagePosts }) {
     return APIfunction(settings)
@@ -36,11 +38,7 @@ function forcedPageUpdate({ APIfunction, settings, pagePosts, setPagePosts }) {
         .then((response) => {
             setPagePosts([...response, ...pagePosts]);
         })
-        .catch((error) =>
-            alert(
-                "Não foi possível carregar os novos posts. Por favor, recarregue a página."
-            )
-        );
+        .catch((error) => null);
 }
 
 function FeedPostsContainer({ APIfunction, settings }) {
@@ -50,6 +48,7 @@ function FeedPostsContainer({ APIfunction, settings }) {
     const [loading, setLoading] = useState(true);
     const [lastPostId, setLastPostId] = useState(null);
     const [hasMore, setHasMore] = useState(true);
+    const history = useHistory();
     const intervalInSeconds = 10;
 
     function updateFeed(settings) {
@@ -75,9 +74,6 @@ function FeedPostsContainer({ APIfunction, settings }) {
                 setLoading(false);
             })
             .catch((error) => {
-                alert(
-                    "Houve uma falha ao obter os posts, por favor atualize a página"
-                );
                 setLoading(false);
             });
     }
@@ -100,7 +96,9 @@ function FeedPostsContainer({ APIfunction, settings }) {
         <InfiniteTimeline
             pageStart={0}
             loadMore={() => updateFeed(settings)}
-            hasMore={hasMore}
+            hasMore={
+                history.location.pathname === routes.likes ? false : hasMore
+            }
             loader={<FeedLoader />}
         >
             {pagePosts.map((post) => (
