@@ -31,7 +31,7 @@ export default function MyLikes() {
 
                     <ContentContainer>
                         <PageTitleContainer>
-                            <h1>my likes</h1>
+                            <h1>minhas curtidas</h1>
                         </PageTitleContainer>
 
                         <FeedPostsContainer APIfunction={getLikedPosts} />
