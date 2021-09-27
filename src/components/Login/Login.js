@@ -12,7 +12,7 @@ import { login } from "../../API/requests";
 import statusCode from "../../API/statusCode";
 import routes from "../../routes/routes";
 
-export default function Login(params) {
+export default function Login({ previousPage }) {
 	const history = useHistory();
 	const { setLoggedUser } = useContext(UserContext);
 
@@ -29,6 +29,8 @@ export default function Login(params) {
 		if (!localStorageUser) return setFirsLoading(false);
 
 		setLoggedUser(localStorageUser);
+		console.log(history);
+		if (previousPage) return history.goBack();
 		history.push(routes.timeline);
 	}, []);
 
