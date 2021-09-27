@@ -3,16 +3,14 @@ import styled from "styled-components";
 export default function Cover() {
     return (
         <Container>
-            <CoverTitle>
-                linkr
-            </CoverTitle>
+            <CoverTitle>linkr</CoverTitle>
 
             <CoverSubTitle>
-                save, share and discover <br />
-                the best links on the web
+                salve, compartilhe e descubra <br />
+                os melhores links da web
             </CoverSubTitle>
         </Container>
-    )
+    );
 }
 
 const Container = styled.div`
@@ -36,7 +34,7 @@ const Container = styled.div`
 `;
 
 const CoverTitle = styled.h2`
-    font-family: 'Passion One', cursive;
+    font-family: "Passion One", cursive;
     font-size: 70px;
     font-weight: 700;
 `;
