@@ -10,3 +10,17 @@ body {
 * {
 	box-sizing: border-box;
 }
+
+::-webkit-scrollbar {
+	width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: black;
+}

@@ -12,7 +12,7 @@ import { login } from "../../API/requests";
 import statusCode from "../../API/statusCode";
 import routes from "../../routes/routes";
 
-export default function Login(params) {
+export default function Login({ previousPage }) {
 	const history = useHistory();
 	const { setLoggedUser } = useContext(UserContext);
 
@@ -20,7 +20,12 @@ export default function Login(params) {
 	const [loading, setLoading] = useState(false);
 	const [inputsValues, setInputsValues] = useState([
 		{ field: "email", value: "", type: "email", placeholder: "e-mail" },
-		{ field: "password", value: "", type: "password", placeholder: "Password" },
+		{
+			field: "password",
+			value: "",
+			type: "password",
+			placeholder: "senha",
+		},
 	]);
 
 	useEffect(() => {
@@ -29,6 +34,7 @@ export default function Login(params) {
 		if (!localStorageUser) return setFirsLoading(false);
 
 		setLoggedUser(localStorageUser);
+		if (previousPage) return history.goBack();
 		history.push(routes.timeline);
 	}, []);
 
@@ -47,6 +53,8 @@ export default function Login(params) {
 
 	function loginSubmit(event) {
 		event.preventDefault();
+
+		if (loading) return;
 
 		setLoading(true);
 
@@ -104,14 +112,15 @@ export default function Login(params) {
 							))}
 
 							<CustomButton loading={loading} type="submit">
-								Log In
+								Entrar
 							</CustomButton>
 						</CustomForm>
 
 						<CustomLink
+							loading={loading}
 							onClick={loading ? null : () => history.push(routes.signUp)}
 						>
-							First time? Create an account!
+							Primeira vez? Crie uma conta!
 						</CustomLink>
 					</ContentContainer>
 				</>
