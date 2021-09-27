@@ -11,11 +11,12 @@ export default function Comments({
             <ActionButton
                 onClick={() => setOpenCommentSession(!openCommentSession)}
             >
-                <CommentButton title={"See post's comments"} />
+                <CommentButton title={"Veja os comentários do post"} />
             </ActionButton>
 
             <p>
-                {commentCount} {commentCount === 1 ? "comment" : "comments"}
+                {commentCount}{" "}
+                {commentCount === 1 ? "comentário" : "comentários"}
             </p>
         </Container>
     );
