@@ -122,7 +122,7 @@ export default function Post({ postData, forcedPageUpdate = null }) {
                 <RepostContainer isRepost={isRepost}>
                     <BiRepost className="repost" />
                     <p>
-                        Re-posted by{" "}
+                        Repostado por{" "}
                         <Username
                             user={repostedBy}
                             canBeYou={true}
@@ -184,7 +184,7 @@ export default function Post({ postData, forcedPageUpdate = null }) {
                                         onClick={() => editPost()}
                                         customStyle={{ fontSize: "20px" }}
                                     >
-                                        <MdEdit title={"Edit this post"} />
+                                        <MdEdit title={"Editar post"} />
                                     </ActionButton>
                                 ) : null}
                                 <ActionButton
@@ -197,7 +197,7 @@ export default function Post({ postData, forcedPageUpdate = null }) {
                                         fontSize: "20px",
                                     }}
                                 >
-                                    <MdDelete title={"Delete this post"} />
+                                    <MdDelete title={"Deletar post"} />
                                 </ActionButton>
                             </ButtonsContainer>
                         ) : null}

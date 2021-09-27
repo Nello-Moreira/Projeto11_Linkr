@@ -89,9 +89,9 @@ export default function Like({ likes, loggedUser, postId }) {
         <LikeContainer>
             <ActionButton onClick={clickHeart}>
                 {isLiked ? (
-                    <HeartFilled title="Curtir o post" />
+                    <HeartFilled title="Retirar curtida" />
                 ) : (
-                    <HeartOutline title="Retirar curtida" />
+                    <HeartOutline title="Curtir post" />
                 )}
             </ActionButton>
             <p data-tip={tooltip}>{likesText}</p>
@@ -107,6 +107,15 @@ const LikeContainer = styled.div`
     justify-content: center;
     text-align: center;
     line-height: 10px;
+    p {
+        font-size: 10px;
+    }
+
+    @media (max-width: 611px) {
+        p {
+            font-size: 8px;
+        }
+    }
 `;
 
 const HeartOutline = styled(AiOutlineHeart)`

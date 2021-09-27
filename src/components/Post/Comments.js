@@ -11,7 +11,7 @@ export default function Comments({
             <ActionButton
                 onClick={() => setOpenCommentSession(!openCommentSession)}
             >
-                <CommentButton title={"Veja os comentários do post"} />
+                <CommentButton title={"Ver comentários"} />
             </ActionButton>
 
             <p>
