@@ -32,7 +32,7 @@ export default function MyPosts({ setPreviousPage }) {
 
 					<ContentContainer>
 						<PageTitleContainer>
-							<h1>my posts</h1>
+							<h1>meus posts</h1>
 						</PageTitleContainer>
 
 						<FeedPostsContainer

@@ -17,11 +17,11 @@ function Comment({ commentData, postOwner, followsList }) {
     let userDetails = "";
 
     if (postOwner.id === user.id) {
-        userDetails = "• post's author";
+        userDetails = "• autor do post";
     }
 
     if (followsList.some((followingUser) => followingUser.id === user.id)) {
-        userDetails += " • following";
+        userDetails += " • seguindo";
     }
 
     return (
@@ -116,7 +116,7 @@ function MakeAComment({
                     onClick={() => submitComment({ text: commentValue })}
                     customStyle={{ fontSize: "20px" }}
                 >
-                    <FiSend title="Send message" />
+                    <FiSend title="Enviar mensagem" />
                 </ActionButton>
             </InputContainer>
             <ConfirmModal

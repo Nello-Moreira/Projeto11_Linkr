@@ -20,7 +20,12 @@ export default function Login({ previousPage }) {
 	const [loading, setLoading] = useState(false);
 	const [inputsValues, setInputsValues] = useState([
 		{ field: "email", value: "", type: "email", placeholder: "e-mail" },
-		{ field: "password", value: "", type: "password", placeholder: "Password" },
+		{
+			field: "password",
+			value: "",
+			type: "password",
+			placeholder: "senha",
+		},
 	]);
 
 	useEffect(() => {
@@ -29,7 +34,6 @@ export default function Login({ previousPage }) {
 		if (!localStorageUser) return setFirsLoading(false);
 
 		setLoggedUser(localStorageUser);
-		console.log(history);
 		if (previousPage) return history.goBack();
 		history.push(routes.timeline);
 	}, []);
@@ -49,6 +53,8 @@ export default function Login({ previousPage }) {
 
 	function loginSubmit(event) {
 		event.preventDefault();
+
+		if (loading) return;
 
 		setLoading(true);
 
@@ -106,14 +112,15 @@ export default function Login({ previousPage }) {
 							))}
 
 							<CustomButton loading={loading} type="submit">
-								Log In
+								Entrar
 							</CustomButton>
 						</CustomForm>
 
 						<CustomLink
+							loading={loading}
 							onClick={loading ? null : () => history.push(routes.signUp)}
 						>
-							First time? Create an account!
+							Primeira vez? Crie uma conta!
 						</CustomLink>
 					</ContentContainer>
 				</>

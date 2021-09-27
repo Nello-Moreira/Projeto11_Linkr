@@ -74,7 +74,7 @@ export default function Search({ className }) {
                     customStyle={{
                         loading: false,
                     }}
-                    placeholder="Search for people and friends"
+                    placeholder="Procure por pessoas e amigos"
                     minLength={3}
                     debounceTimeout={300}
                     value={searchValue}

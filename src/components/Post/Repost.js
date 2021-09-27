@@ -38,7 +38,7 @@ export default function Repost({
         <>
             <Container reposted={reposted}>
                 <ActionButton onClick={() => setOpenRepostModal(true)}>
-                    <RepostButton title={"Repost this in your feed"} />
+                    <RepostButton title={"Repostar em meu feed"} />
                 </ActionButton>
 
                 <p>
