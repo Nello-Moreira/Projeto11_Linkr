@@ -13,7 +13,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { FeedPostsContainer } from "../_shared/FeedPostsContainer";
 
-export default function UserPosts() {
+export default function UserPosts({ setPreviousPage }) {
     const { loggedUser } = useContext(UserContext);
     const { id } = useParams();
     const history = useHistory();
@@ -21,6 +21,7 @@ export default function UserPosts() {
     const [userProfile, setUserProfile] = useState({});
 
     useEffect(() => {
+        setPreviousPage(true);
         if (!loggedUser.token) return history.push(routes.login);
 
         getUserData({ id, token: loggedUser.token })
