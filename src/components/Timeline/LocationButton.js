@@ -4,9 +4,20 @@ import { IoLocationOutline } from "react-icons/io5";
 
 export default function LocationButton({ newPost, setNewPost }) {
 	const [isLocationActive, setIsLocationActive] = useState(false);
+	const [position, setPosition] = useState(null);
 
 	function activeLocation() {
 		setIsLocationActive(true);
+		if (position) {
+			setNewPost({
+				...newPost,
+				geolocation: {
+					latitude: position.latitude,
+					longitude: position.longitude,
+				},
+			});
+			return;
+		}
 		navigator.geolocation.watchPosition(
 			function (position) {
 				setNewPost({
@@ -16,6 +27,11 @@ export default function LocationButton({ newPost, setNewPost }) {
 						longitude: position.coords.longitude,
 					},
 				});
+
+				setPosition({
+					latitude: position.coords.latitude,
+					longitude: position.coords.longitude,
+				});
 			},
 			function errorCallback() {
 				alert("Não foi possível obter sua localização.");
@@ -24,12 +40,20 @@ export default function LocationButton({ newPost, setNewPost }) {
 		);
 	}
 
+	function deactivateLocation() {
+		setIsLocationActive(false);
+		setNewPost({
+			...newPost,
+			geolocation: {},
+		});
+	}
+
 	return (
 		<LocationButtonContainer
 			type="input"
 			isLocationActive={isLocationActive}
 			onClick={() => {
-				isLocationActive ? setIsLocationActive(false) : activeLocation();
+				isLocationActive ? deactivateLocation() : activeLocation();
 			}}
 		>
 			<IoLocationOutline />
