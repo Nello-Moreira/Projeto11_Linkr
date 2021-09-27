@@ -52,10 +52,10 @@ export default function UserPosts() {
                                     }}
                                 />
                                 <h1>
+                                    posts de{" "}
                                     <span className="username">
                                         {userProfile.username}
                                     </span>
-                                    's posts
                                 </h1>
                             </ProfileInformations>
 
@@ -83,7 +83,7 @@ const ProfileInformations = styled.div`
     align-items: center;
 
     .username {
-        display: inline-block;
+        vertical-align: bottom;
         max-width: 350px;
         white-space: nowrap;
         overflow: hidden;
