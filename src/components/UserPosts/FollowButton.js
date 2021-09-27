@@ -92,6 +92,7 @@ const ButtonBase = styled(CustomButton)`
     }
 
     &:hover p:after {
+        font-size: 13px;
         content: "Deixar de seguir";
     }
 
