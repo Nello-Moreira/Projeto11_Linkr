@@ -3,6 +3,7 @@ import { likePost, dislikePost } from "../../API/requests";
 import { useState, useEffect } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import styled from "styled-components";
+import ActionButton from "../_shared/buttons/ActionButton";
 
 export default function Like({ likes, loggedUser, postId }) {
 	const [isLiked, setIsLiked] = useState(false);
@@ -10,7 +11,7 @@ export default function Like({ likes, loggedUser, postId }) {
 	const [likesNumber, setLikesNumber] = useState(likes.length);
 
 	const likesText =
-		likesNumber > 0 ? `${likesNumber} likes` : `${likesNumber} like`;
+		likesNumber !== 1 ? `${likesNumber} likes` : `${likesNumber} like`;
 	const [tooltip, setTooltip] = useState("");
 
 	useEffect(() => {
@@ -82,10 +83,14 @@ export default function Like({ likes, loggedUser, postId }) {
 
 	return (
 		<LikeContainer>
-			<button onClick={clickHeart}>
-				{isLiked ? <HeartFilled /> : <HeartOutline />}
-				<p data-tip={tooltip}>{likesText}</p>
-			</button>
+			<ActionButton onClick={clickHeart}>
+				{isLiked ? (
+					<HeartFilled title="Unlike this post" />
+				) : (
+					<HeartOutline title="Like this post" />
+				)}
+			</ActionButton>
+			<p data-tip={tooltip}>{likesText}</p>
 			<ReactTooltip />
 		</LikeContainer>
 	);
@@ -93,6 +98,9 @@ export default function Like({ likes, loggedUser, postId }) {
 
 const LikeContainer = styled.div`
 	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 `;
 
 const HeartOutline = styled(AiOutlineHeart)`
@@ -100,6 +108,13 @@ const HeartOutline = styled(AiOutlineHeart)`
 	height: 23px;
 	color: #fff;
 	margin-bottom: 3px;
+	border-radius: 50%;
+
+	&:hover {
+		background-color: none;
+		color: red;
+		box-shadow: 0px 0px 30px rgba(255, 0, 0, 0.35);
+	}
 
 	@media (max-width: 611px) {
 		width: 17px;

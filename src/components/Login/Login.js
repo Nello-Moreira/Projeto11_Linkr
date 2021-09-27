@@ -1,114 +1,121 @@
-import HomeContainer from '../_shared/HomeContainer';
-import CircleLoader from '../loaders/CircleLoader'
-import Cover from '../_shared/Cover';
-import ContentContainer from '../_shared/ContentContainer';
-import { CustomForm, CustomInput } from '../_shared/Inputs';
-import CustomButton from '../_shared/buttons/CustomButton';
-import CustomLink from '../_shared/CustomLink';
-import { useState, useContext, useEffect } from 'react';
-import UserContext from '../../contexts/UserContext';
-import { useHistory } from 'react-router-dom';
-import { login } from '../../API/requests';
-import statusCode from '../../API/statusCode';
-import routes from '../../routes/routes';
+import HomeContainer from "../_shared/HomeContainer";
+import CircleLoader from "../loaders/CircleLoader";
+import Cover from "../_shared/Cover";
+import ContentContainer from "../_shared/ContentContainer";
+import { CustomForm, CustomInput } from "../_shared/Inputs";
+import CustomButton from "../_shared/buttons/CustomButton";
+import CustomLink from "../_shared/CustomLink";
+import { useState, useContext, useEffect } from "react";
+import UserContext from "../../contexts/UserContext";
+import { useHistory } from "react-router-dom";
+import { login } from "../../API/requests";
+import statusCode from "../../API/statusCode";
+import routes from "../../routes/routes";
 
 export default function Login(params) {
-    const history = useHistory();
-    const { setLoggedUser } = useContext(UserContext);
+	const history = useHistory();
+	const { setLoggedUser } = useContext(UserContext);
 
-    const [firstLoad, setFirsLoading] = useState(true);
-    const [loading, setLoading] = useState(false);
-    const [inputsValues, setInputsValues] = useState([
-        { field: 'email', value: '', type: 'email', placeholder: 'e-mail' },
-        { field: 'password', value: '', type: 'password', placeholder: 'Password' }
-    ]);
+	const [firstLoad, setFirsLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
+	const [inputsValues, setInputsValues] = useState([
+		{ field: "email", value: "", type: "email", placeholder: "e-mail" },
+		{ field: "password", value: "", type: "password", placeholder: "Password" },
+	]);
 
-    useEffect(() => {
-        const localStorageUser = getUserFromLocalStorage();
+	useEffect(() => {
+		const localStorageUser = getUserFromLocalStorage();
 
-        if (!localStorageUser) return setFirsLoading(false);
+		if (!localStorageUser) return setFirsLoading(false);
 
-        setLoggedUser(localStorageUser);
-        history.push(routes.timeline);
-    }, [])
+		setLoggedUser(localStorageUser);
+		history.push(routes.timeline);
+	}, []);
 
-    function getUserFromLocalStorage() {
-        return JSON.parse(localStorage.getItem('linkrUser'));
-    }
+	function getUserFromLocalStorage() {
+		return JSON.parse(localStorage.getItem("linkrUser"));
+	}
 
-    function setLocalStorage(value) {
-        localStorage.setItem('linkrUser', JSON.stringify(value));
-    }
+	function setLocalStorage(value) {
+		localStorage.setItem("linkrUser", JSON.stringify(value));
+	}
 
-    function getInputValue(field) {
-        const input = inputsValues.filter(input => input.field === field)[0];
-        return input.value;
-    }
+	function getInputValue(field) {
+		const input = inputsValues.filter((input) => input.field === field)[0];
+		return input.value;
+	}
 
-    function loginSubmit(event) {
-        event.preventDefault();
+	function loginSubmit(event) {
+		event.preventDefault();
 
-        setLoading(true);
+		setLoading(true);
 
-        login({
-            email: getInputValue('email'),
-            password: getInputValue('password'),
-        })
-            .then(response => {
-                setLoading(false);
-                setLoggedUser(response.data);
-                setLocalStorage(response.data);
-                history.push(routes.timeline);
-            })
-            .catch(err => {
-                if (err.response.status === statusCode.wrongUserOrPassword) {
-                    setLoading(false);
-                    alert("Email e/ou senha inválidos.");
-                    return;
-                }
-                setLoading(false);
-                alert('Houve um erro ao fazer login. Por favor, tente novamente.');
-            });
-    }
+		login({
+			email: getInputValue("email"),
+			password: getInputValue("password"),
+		})
+			.then((response) => {
+				setLoading(false);
+				setLoggedUser(response.data);
+				setLocalStorage(response.data);
+				history.push(routes.timeline);
+			})
+			.catch((err) => {
+				if (err.response.status === statusCode.wrongUserOrPassword) {
+					setLoading(false);
+					alert("Email e/ou senha inválidos.");
+					return;
+				}
+				setLoading(false);
+				alert("Houve um erro ao fazer login. Por favor, tente novamente.");
+			});
+	}
 
-    function inputValueRecorder(index, input, newValue) {
-        inputsValues[index] = { ...input, value: newValue };
-        setInputsValues([...inputsValues]);
-    }
+	function inputValueRecorder(index, input, newValue) {
+		inputsValues[index] = { ...input, value: newValue };
+		setInputsValues([...inputsValues]);
+	}
 
-    return (
-        <HomeContainer>
-            {firstLoad ?
-                <CircleLoader customStyle={{ height: '100%' }} />
-                :
-                <>
-                    <Cover />
+	return (
+		<HomeContainer>
+			{firstLoad ? (
+				<CircleLoader customStyle={{ height: "100%" }} />
+			) : (
+				<>
+					<Cover />
 
-                    <ContentContainer>
-                        <CustomForm onSubmit={loginSubmit}>
-                            {inputsValues.map((input, index) =>
-                                <CustomInput
-                                    value={input.value}
-                                    onChange={loading ? null : (event) => inputValueRecorder(index, input, event.target.value)}
-                                    placeholder={input.placeholder}
-                                    type={input.type}
-                                    customStyle={{ loading }}
-                                    required
-                                    key={index}
-                                />
-                            )}
+					<ContentContainer>
+						<CustomForm onSubmit={loginSubmit}>
+							{inputsValues.map((input, index) => (
+								<CustomInput
+									value={input.value}
+									onChange={
+										loading
+											? null
+											: (event) =>
+													inputValueRecorder(index, input, event.target.value)
+									}
+									placeholder={input.placeholder}
+									type={input.type}
+									customStyle={{ loading }}
+									required
+									key={index}
+								/>
+							))}
 
-                            <CustomButton customStyle={{ loading }} type='submit'>
-                                Log In
-                            </CustomButton>
-                        </CustomForm>
+							<CustomButton loading={loading} type="submit">
+								Log In
+							</CustomButton>
+						</CustomForm>
 
-                        <CustomLink onClick={loading ? null : () => history.push(routes.signUp)}>
-                            First time? Create an account!
-                        </CustomLink>
-                    </ContentContainer>
-                </>
-            }
-        </HomeContainer >
-    )
-};
+						<CustomLink
+							onClick={loading ? null : () => history.push(routes.signUp)}
+						>
+							First time? Create an account!
+						</CustomLink>
+					</ContentContainer>
+				</>
+			)}
+		</HomeContainer>
+	);
+}

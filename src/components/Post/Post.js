@@ -1,32 +1,58 @@
 import { useContext, useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
 import autosize from "autosize";
+import { IoLocationSharp } from "react-icons/io5";
+import getYouTubeID from "get-youtube-id";
 
 import {
-  PostContainer,
-  LeftContainer,
-  UserContainer,
-  RightContainer,
-  InputEditText,
+	Container,
+	RepostContainer,
+	PostContainer,
+	LeftContainer,
+	UserContainer,
+	RightContainer,
+	InputEditText,
+	UserNameContainer,
 } from "../Post/PostStyles";
 import ButtonsContainer from "../_shared/buttons/ButtonsContainer";
 import UserAvatar from "../_shared/UserAvatar";
-import TrashButton from "../_shared/buttons/TrashButton";
-import EditButton from "../_shared/buttons/EditButton";
+import { MdDelete } from "react-icons/md";
 
+import Username from "../_shared/Username";
+import ActionButton from "../_shared/buttons/ActionButton";
+import { BiRepost } from "react-icons/bi";
+import { MdEdit } from "react-icons/md";
+
+import { EmbeddedVideo, FormattedVideoURL } from "./EmbeddedVideo";
 import Snippet from "./Snippet";
 import Like from "./Like";
 import PostText from "./PostText";
 
-import routes from "../../routes/routes";
 import { edit } from "../../API/requests";
 import UserContext from "../../contexts/UserContext";
 import PagePostsContext from "../../contexts/PagePostsContext";
+import MapModal from "./MapModal";
+import Repost from "./Repost";
+import CommentSession from "./CommentSession";
+import Comments from "./Comments";
 
 export default function Post({ postData }) {
-	const { id, text, link, linkTitle, linkDescription, linkImage, user, likes } =
-		postData;
+	const {
+		id,
+		text,
+		link,
+		linkTitle,
+		linkDescription,
+		linkImage,
+		user,
+		likes,
+		geolocation,
+		repostCount,
+		repostId,
+		repostedBy,
+		commentCount,
+	} = postData;
 
+	// console.log(r);
 	const { loggedUser } = useContext(UserContext);
 	const { setDeletingPostId } = useContext(PagePostsContext);
 
@@ -35,6 +61,14 @@ export default function Post({ postData }) {
 	const [postText, setPostText] = useState(text);
 	const [editText, setEditText] = useState(text);
 	const [loading, setLoading] = useState(false);
+	const [openCommentSession, setOpenCommentSession] = useState(false);
+	const [commentValue, setCommentValue] = useState("");
+	const [youtubeVideoId] = useState(getYouTubeID(link));
+
+	const [isMapModelOpen, setIsMapModalOpen] = useState(false);
+	const [commentsNumber, setCommentsNumber] = useState(commentCount);
+
+	const isRepost = !!repostedBy;
 
 	useEffect(() => {
 		if (isEditing) {
@@ -84,51 +118,118 @@ export default function Post({ postData }) {
 	}
 
 	return (
-		<PostContainer>
-			<LeftContainer>
-				<Link to={routes.user.replace(":id", user.id)}>
-					<UserAvatar
-						src={user.avatar}
-						alt="profile"
-						customStyle={{ resizeOnMobile: true }}
-					/>
-				</Link>
-				<Like likes={likes} postId={id} loggedUser={loggedUser} />
-			</LeftContainer>
+		<Container>
+			{isRepost && (
+				<RepostContainer isRepost={isRepost}>
+					<BiRepost className="repost" />
+					<p>
+						Re-posted by{" "}
+						<Username user={repostedBy} canBeYou={true} fontSize="11px" />
+					</p>
+				</RepostContainer>
+			)}
 
-			<RightContainer>
-				<UserContainer>
-					<Link to={routes.user.replace(":id", user.id)}>
-						<h2>{user.username}</h2>
-					</Link>
-					{loggedUser.user.id !== user.id ? null : (
-						<ButtonsContainer customStyle={{ separationMargin: "0 0 0 5px" }}>
-							<EditButton disabled={loading} onClick={() => editPost()} />
-							<TrashButton onClick={() => setDeletingPostId(postData.id)} />
-						</ButtonsContainer>
+			<PostContainer>
+				<LeftContainer>
+					<UserAvatar user={user} alt="profile" />
+
+					<Like likes={likes} postId={id} loggedUser={loggedUser} />
+					<Comments
+						openCommentSession={openCommentSession}
+						setOpenCommentSession={setOpenCommentSession}
+						commentCount={commentsNumber}
+					/>
+
+					<Repost
+						repostCount={repostCount ? repostCount : 0}
+						repostedBy={repostedBy}
+						postId={id}
+						loggedUser={loggedUser}
+					/>
+				</LeftContainer>
+
+				<RightContainer>
+					<UserContainer>
+						<UserNameContainer>
+							<Username user={user} />
+							{geolocation ? (
+								<>
+									{" "}
+									<IoLocationSharp
+										onClick={() => setIsMapModalOpen(true)}
+									/>{" "}
+									<MapModal
+										isOpen={isMapModelOpen}
+										setIsOpen={setIsMapModalOpen}
+										username={user.username}
+										geolocation={geolocation}
+									/>{" "}
+								</>
+							) : (
+								""
+							)}
+						</UserNameContainer>
+						{loggedUser.user.id === user.id ||
+						(repostedBy && loggedUser.user.id === repostedBy.id) ? (
+							<ButtonsContainer customStyle={{ separationMargin: "0 0 0 5px" }}>
+								{!repostedBy ? (
+									<ActionButton
+										disabled={loading}
+										onClick={() => editPost()}
+										customStyle={{ fontSize: "20px" }}
+									>
+										<MdEdit title={"Edit this post"} />
+									</ActionButton>
+								) : null}
+								<ActionButton
+									onClick={() => setDeletingPostId(repostId || postData.id)}
+									customStyle={{
+										fontSize: "20px",
+									}}
+								>
+									<MdDelete title={"Delete this post"} />
+								</ActionButton>
+							</ButtonsContainer>
+						) : null}
+					</UserContainer>
+
+					{isEditing ? (
+						<InputEditText
+							value={editText}
+							ref={inputRef}
+							onChange={(e) => setEditText(e.target.value)}
+							onKeyDown={(e) => handleKeys(e, id)}
+							loading={loading}
+							disabled={loading}
+						/>
+					) : (
+						<PostText postText={postText} />
 					)}
-				</UserContainer>
 
-				{isEditing ? (
-					<InputEditText
-						value={editText}
-						ref={inputRef}
-						onChange={(e) => setEditText(e.target.value)}
-						onKeyDown={(e) => handleKeys(e, id)}
-						loading={loading}
-						disabled={loading}
-					/>
-				) : (
-					<PostText postText={postText} />
-				)}
-
-				<Snippet
-					link={link}
-					linkTitle={linkTitle}
-					linkDescription={linkDescription}
-					linkImage={linkImage}
+					{youtubeVideoId ? (
+						<>
+							<EmbeddedVideo videoId={youtubeVideoId} />
+							<FormattedVideoURL>{link}</FormattedVideoURL>
+						</>
+					) : (
+						<Snippet
+							link={link}
+							linkTitle={linkTitle}
+							linkDescription={linkDescription}
+							linkImage={linkImage}
+						/>
+					)}
+				</RightContainer>
+			</PostContainer>
+			{openCommentSession && (
+				<CommentSession
+					commentValue={commentValue}
+					setCommentValue={setCommentValue}
+					setCommentsNumber={setCommentsNumber}
+					postId={id}
+					postOwner={user}
 				/>
-			</RightContainer>
-		</PostContainer>
+			)}
+		</Container>
 	);
 }
