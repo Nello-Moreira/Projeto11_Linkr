@@ -12,7 +12,7 @@ const PageContainer = styled.div`
 
 const ContentContainer = styled.div`
     font-family: "Lato", sans-serif;
-    color: ${(props) => props.theme.post.text};
+    color: ${(props) => props.theme.mode.post.text};
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

@@ -72,7 +72,7 @@ const ContentContainer = styled.div`
     height: 100%;
     width: 100%;
     padding: 0 20px;
-    background-color: ${(props) => props.theme.header.background};
+    background-color: ${(props) => props.theme.mode.header.background};
     position: relative;
     z-index: 5;
     display: flex;
@@ -84,7 +84,7 @@ const Logo = styled.div`
     font-family: "Passion One", cursive;
     font-size: 49px;
     font-weight: 700;
-    color: ${(props) => props.theme.header.logo};
+    color: ${(props) => props.theme.mode.header.logo};
     cursor: pointer;
 `;
 
@@ -101,7 +101,7 @@ const ArrowContainer = styled.div`
 `;
 
 const ArrowDown = styled(MdKeyboardArrowDown)`
-    color: ${(props) => props.theme.font};
+    color: ${(props) => props.theme.mode.font};
     font-size: 50px;
 
     @media (max-width: 611px) {

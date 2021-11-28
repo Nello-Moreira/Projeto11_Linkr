@@ -26,7 +26,7 @@ const Container = styled.div`
         cursor: pointer;
 
         :hover {
-            color: ${(props) => props.theme.hashtag.onHover};
+            color: ${(props) => props.theme.mode.hashtag.onHover};
         }
     }
 `;

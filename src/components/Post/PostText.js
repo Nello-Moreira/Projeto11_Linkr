@@ -26,7 +26,7 @@ export default function PostText({ postText }) {
 
 const Text = styled.p`
     font-size: 17px;
-    color: ${(props) => props.theme.post.text};
+    color: ${(props) => props.theme.mode.post.text};
     line-height: 18px;
     margin-bottom: 15px;
     word-wrap: break-word;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
     width: calc(100%);
-    background-color: ${(props) => props.theme.post.secondary};
+    background-color: ${(props) => props.theme.mode.post.secondary};
     margin-bottom: 15px;
     border-radius: 16px;
 `;
@@ -25,7 +25,7 @@ const RepostContainer = styled.div`
 
 const PostContainer = styled.div`
     width: 100%;
-    background-color: ${(props) => props.theme.post.primary};
+    background-color: ${(props) => props.theme.mode.post.primary};
     border-radius: 16px;
     padding: 20px 20px 20px 0;
     display: flex;
@@ -45,7 +45,7 @@ const LeftContainer = styled.div`
 
     p {
         font-size: 11px;
-        color: ${(props) => props.theme.post.text};
+        color: ${(props) => props.theme.mode.post.text};
     }
 
     @media (max-width: 611px) {
@@ -58,7 +58,7 @@ const LeftContainer = styled.div`
 
 const UserContainer = styled.div`
     font-size: 19px;
-    color: ${(props) => props.theme.font};
+    color: ${(props) => props.theme.mode.font};
     margin-bottom: 12px;
     display: flex;
     justify-content: space-between;
@@ -69,14 +69,14 @@ const RightContainer = styled.div`
     width: 83%;
 
     a {
-        color: ${(props) => props.theme.hashtag.primary};
+        color: ${(props) => props.theme.mode.hashtag.primary};
         text-decoration: none;
         margin-bottom: 10px;
         cursor: pointer;
         font-weight: 600;
 
         :hover {
-            color: ${(props) => props.theme.hashtag.onHover};
+            color: ${(props) => props.theme.mode.hashtag.onHover};
         }
     }
 

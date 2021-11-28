@@ -184,7 +184,7 @@ export default function Post({ postData, forcedPageUpdate = null }) {
                                         customStyle={{
                                             fontSize: "20px",
                                             color: (props) =>
-                                                props.theme.button,
+                                                props.theme.mode.button,
                                         }}
                                     >
                                         <MdEdit title={"Editar post"} />
@@ -198,7 +198,8 @@ export default function Post({ postData, forcedPageUpdate = null }) {
                                     }
                                     customStyle={{
                                         fontSize: "20px",
-                                        color: (props) => props.theme.button,
+                                        color: (props) =>
+                                            props.theme.mode.button,
                                     }}
                                 >
                                     <MdDelete title={"Deletar post"} />

@@ -49,7 +49,7 @@ const Container = styled.div`
     width: 300px;
     height: auto;
     margin: 142px 0 0 20px;
-    background-color: ${(props) => props.theme.trending.primary};
+    background-color: ${(props) => props.theme.mode.trending.primary};
     border-radius: 15px;
     position: -webkit-sticky;
     position: sticky;
@@ -64,7 +64,7 @@ const TitleContainer = styled.div`
     font-family: "Oswald", sans-serif;
     font-size: 27px;
     font-weight: 700;
-    color: ${(props) => props.theme.font};
+    color: ${(props) => props.theme.mode.font};
     height: 60px;
     padding: 0 15px;
     border-bottom: 1px solid rgba(72, 72, 72, 1);
@@ -77,7 +77,7 @@ const ContentContainer = styled.div`
     font-family: "Lato", sans-serif;
     font-size: 19px;
     font-weight: 700;
-    color: ${(props) => props.theme.hashtag.primary};
+    color: ${(props) => props.theme.mode.hashtag.primary};
     padding: 0 15px;
     margin-top: 20px;
     display: flex;
