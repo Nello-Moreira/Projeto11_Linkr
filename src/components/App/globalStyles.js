@@ -54,7 +54,7 @@ export const darkTheme = {
     },
 };
 
-export const lighTheme = {
+export const lightTheme = {
     background: "#F2F2F2",
     header: {
         background: "lightgray",

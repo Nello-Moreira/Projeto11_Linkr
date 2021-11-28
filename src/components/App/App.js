@@ -14,7 +14,7 @@ import "../App/App.css";
 import MyLikes from "../MyLikes/MyLikes";
 import { GlobalStyle } from "./globalStyles";
 import { ThemeProvider } from "styled-components";
-import { darkTheme, lighTheme } from "./globalStyles";
+import { darkTheme, lightTheme } from "./globalStyles";
 
 function App() {
     const [loggedUser, setLoggedUser] = useState({
@@ -31,7 +31,7 @@ function App() {
     const [previousPage, setPreviousPage] = useState(false);
 
     return (
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={lightTheme}>
             <GlobalStyle />
             <BrowserRouter>
                 <UserContext.Provider value={{ loggedUser, setLoggedUser }}>
