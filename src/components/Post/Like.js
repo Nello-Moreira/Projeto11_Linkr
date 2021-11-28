@@ -121,7 +121,6 @@ const LikeContainer = styled.div`
 const HeartOutline = styled(AiOutlineHeart)`
     width: 23px;
     height: 23px;
-    color: #fff;
     margin-bottom: 3px;
     border-radius: 50%;
 

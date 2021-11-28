@@ -34,9 +34,9 @@ export default function SearchHashtag() {
 const Container = styled.div`
     width: 270px;
     height: 35px;
-    background-color: #252525;
+    background-color: ${(props) => props.theme.hashtag.input};
     border-radius: 5px;
-    color: #fff;
+    color: ${(props) => props.theme.font};
     margin: 5px auto 15px;
     padding-left: 10px;
     font-size: 20px;
@@ -54,7 +54,7 @@ const Input = styled(CustomInput)`
     border: none;
 
     :focus {
-        color: #fff;
+        color: ${(props) => props.theme.font};
     }
 
     ::placeholder {

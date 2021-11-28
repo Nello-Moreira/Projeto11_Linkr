@@ -11,45 +11,45 @@ import { useParams, useHistory } from "react-router-dom";
 import { FeedPostsContainer } from "../_shared/FeedPostsContainer";
 
 export default function TrendingPage({ setPreviousPage }) {
-	const { HASHTAG } = useParams();
-	const { loggedUser } = useContext(UserContext);
-	const history = useHistory();
-	const [loading, setLoading] = useState(true);
+    const { HASHTAG } = useParams();
+    const { loggedUser } = useContext(UserContext);
+    const history = useHistory();
+    const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		setPreviousPage(true);
-		if (!loggedUser.token) return history.push(routes.login);
+    useEffect(() => {
+        setPreviousPage(true);
+        if (!loggedUser.token) return history.push(routes.login);
 
-		setLoading(false);
-	}, [loggedUser]);
+        setLoading(false);
+    }, [loggedUser]);
 
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [HASHTAG]);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [HASHTAG]);
 
-	return (
-		<PageContainer>
-			{loading ? (
-				<CircleLoader customStyle={{ height: "50vh" }} />
-			) : (
-				<>
-					<Header />
+    return (
+        <PageContainer>
+            {loading ? (
+                <CircleLoader customStyle={{ height: "50vh" }} />
+            ) : (
+                <>
+                    <Header />
 
-					<ContentContainer>
-						<PageTitleContainer>
-							<h1>{`# ${HASHTAG}`}</h1>
-						</PageTitleContainer>
+                    <ContentContainer>
+                        <PageTitleContainer>
+                            <h1>{`# ${HASHTAG}`}</h1>
+                        </PageTitleContainer>
 
-						<FeedPostsContainer
-							APIfunction={getTrendingPosts}
-							settings={{ topic: HASHTAG }}
-							key={HASHTAG}
-						/>
-					</ContentContainer>
+                        <FeedPostsContainer
+                            APIfunction={getTrendingPosts}
+                            settings={{ topic: HASHTAG }}
+                            key={HASHTAG}
+                        />
+                    </ContentContainer>
 
-					<HashtagBox />
-				</>
-			)}
-		</PageContainer>
-	);
+                    <HashtagBox />
+                </>
+            )}
+        </PageContainer>
+    );
 }

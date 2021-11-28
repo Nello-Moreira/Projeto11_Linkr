@@ -35,7 +35,7 @@ export default function MenuOptions({ menuOpened }) {
 const Container = styled.div`
     width: 175px;
     padding: 0 10px 10px;
-    background-color: rgba(23, 23, 23, 1);
+    background-color: ${(props) => props.theme.header.background};
     border-bottom-left-radius: 10px;
     position: fixed;
     top: ${({ menuOpened }) => (menuOpened ? "70px" : "-30vh")};
@@ -49,7 +49,7 @@ const Container = styled.div`
         font-family: "Lato", sans-serif;
         font-weight: 700;
         font-size: 20px;
-        color: rgba(255, 255, 255, 1);
+        color: ${(props) => props.theme.font};
         margin-top: 10px;
         cursor: pointer;
     }

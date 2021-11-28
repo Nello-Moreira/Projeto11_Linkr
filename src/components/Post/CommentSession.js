@@ -237,7 +237,7 @@ const CommentInput = styled.textarea`
     width: calc(100% - 30px);
     font-size: 14px;
     border-radius: 5px;
-    color: #fff;
+    color: ${(props) => props.theme.font};
     background-color: transparent;
     outline: none;
     border: none;
@@ -254,9 +254,9 @@ const CommentInput = styled.textarea`
 
 const InputContainer = styled.div`
     width: calc(100% - 50px);
-    background-color: #252525;
+    background-color: ${(props) => props.theme.commentSession.input};
     border-radius: 5px;
-    color: #fff;
+    color: ${(props) => props.theme.font};
     padding: 3px 7px;
     display: flex;
     align-items: center;
