@@ -76,7 +76,9 @@ export default function ThemePreferencesModal({ isOpen, setIsOpen }) {
                                 ...getUserFromLocalStorage(),
                                 theme: {
                                     mode:
-                                        theme === darkTheme ? "dark" : "ligth",
+                                        theme.mode === darkTheme
+                                            ? "dark"
+                                            : "ligth",
                                     color: "",
                                 },
                             });
@@ -93,7 +95,9 @@ export default function ThemePreferencesModal({ isOpen, setIsOpen }) {
                                 ...getUserFromLocalStorage(),
                                 theme: {
                                     mode:
-                                        theme === darkTheme ? "dark" : "ligth",
+                                        theme.mode === darkTheme
+                                            ? "dark"
+                                            : "ligth",
                                     color: "orange",
                                 },
                             });
@@ -110,7 +114,9 @@ export default function ThemePreferencesModal({ isOpen, setIsOpen }) {
                                 ...getUserFromLocalStorage(),
                                 theme: {
                                     mode:
-                                        theme === darkTheme ? "dark" : "ligth",
+                                        theme.mode === darkTheme
+                                            ? "dark"
+                                            : "ligth",
                                     color: "red",
                                 },
                             });
@@ -127,7 +133,9 @@ export default function ThemePreferencesModal({ isOpen, setIsOpen }) {
                                 ...getUserFromLocalStorage(),
                                 theme: {
                                     mode:
-                                        theme === darkTheme ? "dark" : "ligth",
+                                        theme.mode === darkTheme
+                                            ? "dark"
+                                            : "ligth",
                                     color: "purple",
                                 },
                             });
@@ -144,7 +152,9 @@ export default function ThemePreferencesModal({ isOpen, setIsOpen }) {
                                 ...getUserFromLocalStorage(),
                                 theme: {
                                     mode:
-                                        theme === darkTheme ? "dark" : "ligth",
+                                        theme.mode === darkTheme
+                                            ? "dark"
+                                            : "ligth",
                                     color: "CornflowerBlue",
                                 },
                             });
@@ -161,7 +171,9 @@ export default function ThemePreferencesModal({ isOpen, setIsOpen }) {
                                 ...getUserFromLocalStorage(),
                                 theme: {
                                     mode:
-                                        theme === darkTheme ? "dark" : "ligth",
+                                        theme.mode === darkTheme
+                                            ? "dark"
+                                            : "ligth",
                                     color: "green",
                                 },
                             });
@@ -178,7 +190,9 @@ export default function ThemePreferencesModal({ isOpen, setIsOpen }) {
                                 ...getUserFromLocalStorage(),
                                 theme: {
                                     mode:
-                                        theme === darkTheme ? "dark" : "ligth",
+                                        theme.mode === darkTheme
+                                            ? "dark"
+                                            : "ligth",
                                     color: "Crimson",
                                 },
                             });
