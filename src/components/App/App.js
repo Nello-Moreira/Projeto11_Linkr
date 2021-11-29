@@ -5,7 +5,7 @@ import Timeline from "../../pages/timeline/Timeline";
 import MyPosts from "../../pages/myPosts/MyPosts";
 import TrendingPage from "../TrendingPage/TrendingPage";
 import UserPosts from "../../pages/userPosts/UserPosts";
-import DeletingPostModal from "../Modal/DeletingPostModal";
+import DeletingPostModal from "../modals/DeletingPostModal";
 import UserContext from "../../contexts/UserContext";
 import PagePostsContext from "../../contexts/PagePostsContext";
 import { useState } from "react";

@@ -3,7 +3,7 @@ import { repost } from "../../services/API/requests";
 import { useState } from "react";
 import ActionButton from "../_shared/buttons/ActionButton";
 import { BiRepost } from "react-icons/bi";
-import ConfirmModal from "../Modal/ConfirmModal";
+import ConfirmModal from "../modals/ConfirmModal";
 
 export default function Repost({
     repostCount,

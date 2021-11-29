@@ -10,7 +10,7 @@ import { comment } from "../../services/API/requests";
 import { getFollows } from "../../services/API/requests";
 import { FiSend } from "react-icons/fi";
 import ActionButton from "../_shared/buttons/ActionButton";
-import ConfirmModal from "../Modal/ConfirmModal";
+import ConfirmModal from "../modals/ConfirmModal";
 
 function Comment({ commentData, postOwner, followsList }) {
     const { text, user } = commentData;
