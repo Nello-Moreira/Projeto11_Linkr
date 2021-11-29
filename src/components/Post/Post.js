@@ -122,7 +122,7 @@ export default function Post({ postData, forcedPageUpdate = null }) {
                 <RepostContainer isRepost={isRepost}>
                     <BiRepost className="repost" />
                     <p>
-                        Repostado por{" "}
+                        {"Repostado por "}
                         <Username
                             user={repostedBy}
                             canBeYou={true}
@@ -158,16 +158,15 @@ export default function Post({ postData, forcedPageUpdate = null }) {
                             <Username user={user} />
                             {geolocation ? (
                                 <>
-                                    {" "}
                                     <IoLocationSharp
                                         onClick={() => setIsMapModalOpen(true)}
-                                    />{" "}
+                                    />
                                     <MapModal
                                         isOpen={isMapModelOpen}
                                         setIsOpen={setIsMapModalOpen}
                                         username={user.username}
                                         geolocation={geolocation}
-                                    />{" "}
+                                    />
                                 </>
                             ) : (
                                 ""
@@ -182,7 +181,11 @@ export default function Post({ postData, forcedPageUpdate = null }) {
                                     <ActionButton
                                         disabled={loading}
                                         onClick={() => editPost()}
-                                        customStyle={{ fontSize: "20px" }}
+                                        customStyle={{
+                                            fontSize: "20px",
+                                            color: (props) =>
+                                                props.theme.mode.button,
+                                        }}
                                     >
                                         <MdEdit title={"Editar post"} />
                                     </ActionButton>
@@ -195,6 +198,8 @@ export default function Post({ postData, forcedPageUpdate = null }) {
                                     }
                                     customStyle={{
                                         fontSize: "20px",
+                                        color: (props) =>
+                                            props.theme.mode.button,
                                     }}
                                 >
                                     <MdDelete title={"Deletar post"} />

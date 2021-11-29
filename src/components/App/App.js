@@ -12,62 +12,83 @@ import PagePostsContext from "../../contexts/PagePostsContext";
 import { useState } from "react";
 import "../App/App.css";
 import MyLikes from "../MyLikes/MyLikes";
+import { GlobalStyle } from "./globalStyles";
+import { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme } from "./globalStyles";
 
 function App() {
-	const [loggedUser, setLoggedUser] = useState({
-		token: "",
-		user: {
-			id: "",
-			email: "",
-			username: "",
-			avatar: "",
-		},
-	});
-	const [pagePosts, setPagePosts] = useState([]);
-	const [deletingPostId, setDeletingPostId] = useState(false);
-	const [previousPage, setPreviousPage] = useState(false);
+    const [loggedUser, setLoggedUser] = useState({
+        token: "",
+        user: {
+            id: "",
+            email: "",
+            username: "",
+            avatar: "",
+        },
+        theme: {
+            mode: "",
+            color: "",
+        },
+    });
+    const [pagePosts, setPagePosts] = useState([]);
+    const [deletingPostId, setDeletingPostId] = useState(false);
+    const [previousPage, setPreviousPage] = useState(false);
 
-	return (
-		<BrowserRouter>
-			<UserContext.Provider value={{ loggedUser, setLoggedUser }}>
-				<PagePostsContext.Provider
-					value={{ pagePosts, setPagePosts, deletingPostId, setDeletingPostId }}
-				>
-					<Switch>
-						<Route exact path={routes.signUp}>
-							<SignUp />
-						</Route>
+    const [theme, setTheme] = useState({ mode: darkTheme });
 
-						<Route exact path={routes.timeline}>
-							<Timeline />
-						</Route>
+    return (
+        <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <BrowserRouter>
+                <UserContext.Provider
+                    value={{ loggedUser, setLoggedUser, setTheme }}
+                >
+                    <PagePostsContext.Provider
+                        value={{
+                            pagePosts,
+                            setPagePosts,
+                            deletingPostId,
+                            setDeletingPostId,
+                        }}
+                    >
+                        <Switch>
+                            <Route exact path={routes.signUp}>
+                                <SignUp />
+                            </Route>
 
-						<Route exact path={routes.myPosts}>
-							<MyPosts setPreviousPage={setPreviousPage} />
-						</Route>
+                            <Route exact path={routes.timeline}>
+                                <Timeline />
+                            </Route>
 
-						<Route exact path={routes.likes}>
-							<MyLikes setPreviousPage={setPreviousPage} />
-						</Route>
+                            <Route exact path={routes.myPosts}>
+                                <MyPosts setPreviousPage={setPreviousPage} />
+                            </Route>
 
-						<Route exact path={routes.trending}>
-							<TrendingPage setPreviousPage={setPreviousPage} />
-						</Route>
+                            <Route exact path={routes.likes}>
+                                <MyLikes setPreviousPage={setPreviousPage} />
+                            </Route>
 
-						<Route exact path={routes.user}>
-							<UserPosts setPreviousPage={setPreviousPage} />
-						</Route>
+                            <Route exact path={routes.trending}>
+                                <TrendingPage
+                                    setPreviousPage={setPreviousPage}
+                                />
+                            </Route>
 
-						<Route path={routes.login}>
-							<Login previousPage={previousPage} />
-						</Route>
-					</Switch>
+                            <Route exact path={routes.user}>
+                                <UserPosts setPreviousPage={setPreviousPage} />
+                            </Route>
 
-					<DeletingPostModal />
-				</PagePostsContext.Provider>
-			</UserContext.Provider>
-		</BrowserRouter>
-	);
+                            <Route path={routes.login}>
+                                <Login previousPage={previousPage} />
+                            </Route>
+                        </Switch>
+
+                        <DeletingPostModal />
+                    </PagePostsContext.Provider>
+                </UserContext.Provider>
+            </BrowserRouter>
+        </ThemeProvider>
+    );
 }
 
 export default App;

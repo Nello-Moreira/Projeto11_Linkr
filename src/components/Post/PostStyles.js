@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
     width: calc(100%);
-    background-color: #1e1e1e;
+    background-color: ${(props) => props.theme.mode.post.secondary};
     margin-bottom: 15px;
     border-radius: 16px;
 `;
@@ -25,7 +25,7 @@ const RepostContainer = styled.div`
 
 const PostContainer = styled.div`
     width: 100%;
-    background-color: #171717;
+    background-color: ${(props) => props.theme.mode.post.primary};
     border-radius: 16px;
     padding: 20px 20px 20px 0;
     display: flex;
@@ -45,7 +45,7 @@ const LeftContainer = styled.div`
 
     p {
         font-size: 11px;
-        color: #fff;
+        color: ${(props) => props.theme.mode.post.text};
     }
 
     @media (max-width: 611px) {
@@ -58,7 +58,7 @@ const LeftContainer = styled.div`
 
 const UserContainer = styled.div`
     font-size: 19px;
-    color: rgb(255, 255, 255);
+    color: ${(props) => props.theme.mode.font};
     margin-bottom: 12px;
     display: flex;
     justify-content: space-between;
@@ -69,13 +69,14 @@ const RightContainer = styled.div`
     width: 83%;
 
     a {
-        color: rgb(234, 232, 232);
+        color: ${(props) => props.theme.mode.hashtag.primary};
         text-decoration: none;
         margin-bottom: 10px;
         cursor: pointer;
+        font-weight: 600;
 
         :hover {
-            color: rgb(255, 255, 255);
+            color: ${(props) => props.theme.mode.hashtag.onHover};
         }
     }
 
