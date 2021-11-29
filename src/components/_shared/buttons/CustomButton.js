@@ -17,7 +17,7 @@ const Button = styled.button`
     color: rgb(255, 255, 255);
     width: 100%;
     height: 40px;
-    background-color: ${(props) => props.theme.button};
+    background-color: ${(props) => props.theme.mode.button};
     border: none;
     border-radius: 5px;
     display: flex;

@@ -4,7 +4,7 @@ const PageTitleContainer = styled.div`
     font-family: "Oswald", sans-serif;
     font-weight: bold;
     font-size: 43px;
-    color: ${(props) => props.theme.font};
+    color: ${(props) => props.theme.mode.font};
     width: 100%;
     margin: 50px 0;
     display: flex;

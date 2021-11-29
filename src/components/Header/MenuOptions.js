@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import routes from "../../routes/routes";
 import { useState } from "react";
 import ConfirmModal from "../Modal/ConfirmModal";
+import ThemePreferencesModal from "../Modal/ThemePreferencesModal";
 
 export default function MenuOptions({ menuOpened }) {
     const history = useHistory();
@@ -13,6 +14,7 @@ export default function MenuOptions({ menuOpened }) {
     }
 
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+    const [showThemeModal, setShowThemeModal] = useState(false);
 
     return (
         <Container menuOpened={menuOpened}>
@@ -20,7 +22,15 @@ export default function MenuOptions({ menuOpened }) {
             <span onClick={() => history.push(routes.likes)}>
                 Minhas Curtidas
             </span>
+
+            <span onClick={() => setShowThemeModal(true)}>Preferências</span>
+
             <span onClick={() => setShowLogoutModal(true)}>Logout</span>
+
+            <ThemePreferencesModal
+                isOpen={showThemeModal}
+                setIsOpen={setShowThemeModal}
+            />
             <ConfirmModal
                 isOpen={showLogoutModal}
                 setIsOpen={setShowLogoutModal}
@@ -35,7 +45,7 @@ export default function MenuOptions({ menuOpened }) {
 const Container = styled.div`
     width: 175px;
     padding: 0 10px 10px;
-    background-color: ${(props) => props.theme.header.background};
+    background-color: ${(props) => props.theme.mode.header.background};
     border-bottom-left-radius: 10px;
     position: fixed;
     top: ${({ menuOpened }) => (menuOpened ? "70px" : "-30vh")};
@@ -49,7 +59,7 @@ const Container = styled.div`
         font-family: "Lato", sans-serif;
         font-weight: 700;
         font-size: 20px;
-        color: ${(props) => props.theme.font};
+        color: ${(props) => props.theme.mode.font};
         margin-top: 10px;
         cursor: pointer;
     }

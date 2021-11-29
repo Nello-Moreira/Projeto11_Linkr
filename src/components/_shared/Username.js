@@ -41,7 +41,7 @@ const Container = styled.div`
 
 const NameContainer = styled.h2`
     font-size: ${({ fontSize }) => fontSize};
-    color: ${(props) => props.theme.font};
+    color: ${(props) => props.theme.mode.font};
     margin: ${({ customStyle }) =>
         customStyle && customStyle.margin ? customStyle.margin : "0"};
     font-weight: 700;

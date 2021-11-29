@@ -25,16 +25,24 @@ function App() {
             username: "",
             avatar: "",
         },
+        theme: {
+            mode: "",
+            color: "",
+        },
     });
     const [pagePosts, setPagePosts] = useState([]);
     const [deletingPostId, setDeletingPostId] = useState(false);
     const [previousPage, setPreviousPage] = useState(false);
 
+    const [theme, setTheme] = useState({ mode: darkTheme });
+
     return (
-        <ThemeProvider theme={lightTheme}>
+        <ThemeProvider theme={theme}>
             <GlobalStyle />
             <BrowserRouter>
-                <UserContext.Provider value={{ loggedUser, setLoggedUser }}>
+                <UserContext.Provider
+                    value={{ loggedUser, setLoggedUser, setTheme }}
+                >
                     <PagePostsContext.Provider
                         value={{
                             pagePosts,
