@@ -35,6 +35,10 @@ export const darkTheme = {
     },
     font: "white",
     scrollbar: "black",
+    publishBox: {
+        background: "#ffffff",
+        input: "#efefef",
+    },
     post: {
         primary: "#171717",
         secondary: "#1e1e1e",
@@ -62,6 +66,10 @@ export const lightTheme = {
     },
     font: "#3d3d3d",
     scrollbar: "gray",
+    publishBox: {
+        background: "#e2e2e2",
+        input: "#FAFAFA",
+    },
     post: {
         primary: "#fafafa",
         secondary: "#e5e5e5",
