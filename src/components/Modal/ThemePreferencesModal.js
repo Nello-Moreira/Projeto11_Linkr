@@ -12,6 +12,8 @@ import {
     setLocalStorage,
 } from "../../helpers/localStorage";
 
+import { AiOutlineClose } from "react-icons/ai";
+
 export default function ThemePreferencesModal({ isOpen, setIsOpen }) {
     const { setTheme } = useContext(UserContext);
     const theme = useContext(ThemeContext);
@@ -22,14 +24,6 @@ export default function ThemePreferencesModal({ isOpen, setIsOpen }) {
             mode: localStorage?.theme?.mode === "dark" ? darkTheme : lightTheme,
             color: localStorage?.theme?.color,
         });
-        // if (localStorage?.mode === "dark") {
-        //     setTheme({ ...theme, mode: darkTheme });
-        // }
-        // if (localStorage?.mode === "light")
-        //     setTheme({ ...theme, mode: lightTheme });
-
-        // if (localStorage?.color)
-        //     setTheme({ ...theme, color: localStorage.color });
     }, []);
 
     return (
@@ -71,6 +65,7 @@ export default function ThemePreferencesModal({ isOpen, setIsOpen }) {
 
                 <OptionsContainer>
                     <Color
+                        children={<AiOutlineClose />}
                         value="white"
                         onClick={() => {
                             setTheme({
@@ -218,6 +213,12 @@ const OptionsContainer = styled.div`
 `;
 
 const Color = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #191919;
+    font-size: 40px;
+
     width: 62px;
     height: 62px;
     background-color: ${(props) => props.value};
