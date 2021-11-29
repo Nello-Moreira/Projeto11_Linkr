@@ -126,7 +126,7 @@ const PublishButton = styled(CustomButton)`
 
 const BoxContainer = styled.div`
     display: flex;
-    background-color: ${(props) => props.theme.publishBox.background};
+    background-color: ${(props) => props.theme.mode.publishBox.background};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
     width: 100%;
@@ -150,7 +150,7 @@ const PostForm = styled.form`
     input,
     textarea {
         width: 100%;
-        background: ${(props) => props.theme.publishBox.input};
+        background: ${(props) => props.theme.mode.publishBox.input};
         border-radius: 5px;
         border: none;
         margin: 2px 0;
