@@ -6,8 +6,8 @@ import CustomButton from "../_shared/buttons/CustomButton";
 import CustomLink from "../_shared/CustomLink";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { signUp } from "../../API/requests";
-import statusCode from "../../API/statusCode";
+import { signUp } from "../../services/API/requests";
+import statusCode from "../../services/API/statusCode";
 import routes from "../../routes/routes";
 
 export default function SignUp() {

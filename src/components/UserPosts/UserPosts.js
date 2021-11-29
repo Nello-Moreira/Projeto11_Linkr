@@ -6,7 +6,7 @@ import { PageTitleContainer } from "../_shared/PageTitleContainer";
 import UserAvatar from "../_shared/UserAvatar";
 import FollowButton from "./FollowButton";
 import HashtagBox from "../HashtagBox/HashtagBox";
-import { getUserData, getUserPosts } from "../../API/requests";
+import { getUserData, getUserPosts } from "../../services/API/requests";
 import routes from "../../routes/routes";
 import UserContext from "../../contexts/UserContext";
 import { useContext, useEffect, useState } from "react";

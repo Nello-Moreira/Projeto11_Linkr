@@ -2,7 +2,11 @@ import styled from "styled-components";
 import CustomButton from "../_shared/buttons/CustomButton";
 import UserContext from "../../contexts/UserContext";
 import { useState, useContext, useEffect } from "react";
-import { getFollows, followUser, unfollowUser } from "../../API/requests";
+import {
+    getFollows,
+    followUser,
+    unfollowUser,
+} from "../../services/API/requests";
 
 export default function FollowButton({ userId }) {
     const { loggedUser } = useContext(UserContext);

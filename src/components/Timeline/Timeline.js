@@ -14,7 +14,7 @@ import PagePostsContext from "../../contexts/PagePostsContext";
 import UserContext from "../../contexts/UserContext";
 import { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getPosts, getFollows } from "../../API/requests";
+import { getPosts, getFollows } from "../../services/API/requests";
 import routes from "../../routes/routes";
 
 export default function Timeline() {

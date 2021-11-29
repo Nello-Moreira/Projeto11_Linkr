@@ -1,6 +1,6 @@
 import { useContext, useState, useRef } from "react";
 import styled from "styled-components";
-import { post } from "../../API/requests";
+import { post } from "../../services/API/requests";
 
 import UserAvatar from "../_shared/UserAvatar";
 import CustomButton from "../_shared/buttons/CustomButton";

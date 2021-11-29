@@ -3,7 +3,7 @@ import { PageContainer, ContentContainer } from "../_shared/PageContainer";
 import Header from "../Header/Header";
 import { PageTitleContainer } from "../_shared/PageTitleContainer";
 import HashtagBox from "../HashtagBox/HashtagBox";
-import { getTrendingPosts } from "../../API/requests";
+import { getTrendingPosts } from "../../services/API/requests";
 import routes from "../../routes/routes";
 import UserContext from "../../contexts/UserContext";
 import { useState, useEffect, useContext } from "react";
