@@ -1,10 +1,10 @@
-import HomeContainer from "../_shared/HomeContainer";
-import CircleLoader from "../loaders/CircleLoader";
-import Cover from "../_shared/Cover";
-import ContentContainer from "../_shared/ContentContainer";
-import { CustomForm, CustomInput } from "../_shared/Inputs";
-import CustomButton from "../_shared/buttons/CustomButton";
-import CustomLink from "../_shared/CustomLink";
+import HomeContainer from "../../components/_shared/HomeContainer";
+import CircleLoader from "../../components/loaders/CircleLoader";
+import Cover from "../../components/_shared/Cover";
+import ContentContainer from "../../components/_shared/ContentContainer";
+import { CustomForm, CustomInput } from "../../components/_shared/Inputs";
+import CustomButton from "../../components/_shared/buttons/CustomButton";
+import CustomLink from "../../components/_shared/CustomLink";
 import { useState, useContext, useEffect } from "react";
 import UserContext from "../../contexts/UserContext";
 import { useHistory } from "react-router-dom";

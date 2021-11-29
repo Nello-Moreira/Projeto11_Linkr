@@ -1,4 +1,4 @@
-import ConfirmModal from "../Modal/ConfirmModal";
+import ConfirmModal from "../../components/Modal/ConfirmModal";
 
 export default function CancelPostModal({ isOpen, setIsOpen, clearForm }) {
     return (

@@ -2,8 +2,8 @@ import { useContext, useState, useRef } from "react";
 import styled from "styled-components";
 import { post } from "../../services/API/requests";
 
-import UserAvatar from "../_shared/UserAvatar";
-import CustomButton from "../_shared/buttons/CustomButton";
+import UserAvatar from "../../components/_shared/UserAvatar";
+import CustomButton from "../../components/_shared/buttons/CustomButton";
 import LocationButton from "./LocationButton";
 import UserContext from "../../contexts/UserContext";
 import CancelPostModal from "./CancelPostModal";
